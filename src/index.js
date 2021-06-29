@@ -7,20 +7,22 @@ import { Provider } from "react-redux";
 import { applyMiddleware, createStore } from "redux";
 import reduxThunk from "redux-thunk";
 import promiseMiddleware from "redux-promise";
+import rootReducer from "./reducers/userReducer";
 
-const createStoreWidthMiddleware = applyMiddleware(
-  promiseMiddleware,
-  reduxThunk
-)(createStore);
+const store = createStore(
+  rootReducer,
+  applyMiddleware(reduxThunk, promiseMiddleware)
+);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider
+    {/* <Provider
       store={createStoreWidthMiddleware(
         window.__REDUX_DEVTOOLS_EXTENSION__ &&
           window.__REDUX_DEVTOOLS_EXTENSION__()
       )}
-    >
+    > */}
+    <Provider store={store}>
       <App />
     </Provider>
   </React.StrictMode>,
