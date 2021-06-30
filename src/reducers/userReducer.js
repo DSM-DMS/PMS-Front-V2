@@ -1,7 +1,8 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "../actions/type";
+import {combineReducers} from "redux";
 
-export default function (state = {}, action) {
+function userReducer(state = {}, action) {
   switch (action.type) {
     case REGISTER_USER:
       return { ...state, success: action.payload };
@@ -11,3 +12,8 @@ export default function (state = {}, action) {
       return state;
   }
 }
+
+const rootReducer = combineReducers({
+  user:userReducer
+});
+export default rootReducer;
