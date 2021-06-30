@@ -16,12 +16,6 @@ const store = createStore(
 
 ReactDOM.render(
   <React.StrictMode>
-    {/* <Provider
-      store={createStoreWidthMiddleware(
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-          window.__REDUX_DEVTOOLS_EXTENSION__()
-      )}
-    > */}
     <Provider store={store}>
       <App />
     </Provider>
@@ -29,7 +23,4 @@ ReactDOM.render(
   document.getElementById("root")
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
