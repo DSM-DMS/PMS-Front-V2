@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import * as S from "../style";
 import { Arrow, MyPage, Profile } from "../../../assets";
-import { StudentUser } from "../../../utils/api/user";
+import { StudentUser } from "../../../utils/api/myPage";
 
 const Mypage = (props) => {
   const isAccessToken = localStorage.getItem("access-token");

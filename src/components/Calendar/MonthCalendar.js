@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import Calendar from "react-calendar";
 
-function MonthCalender(props) {
+function MonthCalendar(props) {
   const [value, onChange] = useState(new Date());
 
   const callDay = (Day) => {
@@ -38,4 +38,4 @@ function MonthCalender(props) {
   );
 }
 
-export default MonthCalender;
+export default MonthCalendar;
