@@ -10,7 +10,7 @@ import {
   MainPage,
   Login,
   SignUp,
-  Calender,
+  Calendar,
   CreatorsInfo,
   ClubInfo,
   CompanyInfo,
@@ -30,7 +30,7 @@ function UserRouter() {
       <Route path="/NoticeWritten" component={NoticeWritten} exact />
       <Route path="/login" component={Login} exact />
       <Route path="/sign-up" component={SignUp} exact />
-      <Route path="/calender" component={Calender} exact />
+      <Route path="/calender" component={Calendar} exact />
       <Route path="/creators-info" component={CreatorsInfo} exact />
       <Route path="/club-info" component={ClubInfo} exact />
       <Route path="/company-info" component={CompanyInfo} exact />
