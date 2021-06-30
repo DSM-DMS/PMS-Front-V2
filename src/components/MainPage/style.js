@@ -107,6 +107,7 @@ const ButtonItem = styled.div`
   flex-direction: row;
   width: 100%;
   height: 30px;
+  min-height: 30px;
   border-bottom: 0.5px solid white;
 
   .button-cover {
