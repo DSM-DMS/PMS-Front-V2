@@ -1,6 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "../actions/type";
-import {combineReducers} from "redux";
+import { combineReducers } from "redux";
 
 function userReducer(state = {}, action) {
   switch (action.type) {
@@ -14,6 +14,7 @@ function userReducer(state = {}, action) {
 }
 
 const rootReducer = combineReducers({
-  user:userReducer
+  user: userReducer,
 });
+
 export default rootReducer;

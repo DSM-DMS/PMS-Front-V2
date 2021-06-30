@@ -21,5 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+<<<<<<< Updated upstream
+.eslintcache
+=======
 
-PMS-Front-V2
+PMS-Front-V2/
+>>>>>>> Stashed changes
