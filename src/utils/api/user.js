@@ -1,5 +1,5 @@
 import useSWR from "swr";
-import { authFetcher, fetcher, JwURL, MainURL } from "../axios/axios";
+import { authFetcher, fetcher, JwURL} from "../axios/axios";
 
 // 공지사항
 export function FetchNotice(num) {
