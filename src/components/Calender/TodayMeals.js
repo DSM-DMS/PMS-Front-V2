@@ -28,8 +28,6 @@ function TodayMeals(props) {
   const fetchMeal = FetchMeal(props.TodayDate);
   const fetchMealImg = FetchMealImg(props.TodayDate);
 
-  console.log(fetchMeal);
-
   const mealImgClickHandler = () => {
     if (listDisplay === "none" && imgDisplay === "flex") {
       setListDisplay("flex");

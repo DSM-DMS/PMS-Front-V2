@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import Calendar from "react-calendar";
 
@@ -20,7 +20,13 @@ function MonthCalender(props) {
     props.setDayChange(day);
     props.setDateChange(date);
   };
-
+  useEffect(() => {
+    console.log(new Date(2021, 6, 1).getDay() - 1);
+    console.log(
+      document.getElementsByClassName("react-calendar__month-view__days")[0]
+        .childNodes[1]
+    );
+  }, []);
   return (
     <>
       <S.MiddleWrapper>
