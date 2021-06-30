@@ -7,7 +7,7 @@ export { default as MainPage } from './MainPage/MainPage';
 export { default as Login } from './Login/Login';
 export { default as SignUp } from './Login/SignUp';
 export { default as SocialButton } from "./Login/SocialButton";
-export { default as Calender } from './Calender/Calender';
+export { default as Calendar } from './Calendar/Calendar';
 export { default as CreatorsInfo } from './Infomation/Creators/CreatorsInfo';
 export { default as ClubInfo } from './Infomation/Club/ClubInfo';
 export { default as CompanyInfo } from './Infomation/Company/CompanyInfo';
