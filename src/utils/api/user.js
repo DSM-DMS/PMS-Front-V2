@@ -45,8 +45,3 @@ export function FetchEvent() {
   const { data } = useSWR(`${JwURL}calendar`, authFetcher);
   return data;
 }
-
-export function StudentUser() {
-  const { data } = useSWR(`${MainURL}/user`, authFetcher);
-  return data;
-}
