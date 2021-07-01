@@ -63,6 +63,7 @@ const Calendar = () => {
         <S.CalenderWrapper>
           <MonthEvent eventDate={eventDate} />
           <MonthCalendar
+            eventDate={eventDate}
             setChangeDate={setEventChangeDate}
             setMealChangeDate={setMealChangeDate}
             setMonthChange={setMonthChange}
