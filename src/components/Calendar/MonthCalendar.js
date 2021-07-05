@@ -1,64 +1,116 @@
-import React, { useEffect, useRef, useState } from "react";
+import moment from "moment";
+import React, { useState } from "react";
+import { FetchMeal, FetchMealImg } from "../../utils/api/user";
 import * as S from "./style";
-import Calendar from "react-calendar";
-import { computeHeadingLevel } from "@testing-library/react";
 
 function MonthCalendar(props) {
-  const [value, onChange] = useState(new Date());
-  const ref = useRef(null);
+  const [baseDate, setBaseDate] = useState(moment());
+  const [tdColor, setTdColor] = useState(false);
 
-  const callDay = (Day) => {
-    let year = Day.getFullYear();
-    const month = String(Day.getMonth() + 1).padStart(2, "0");
-    const day = String(Day.getDate()).padStart(2, "0");
-    const date = Day.getDay();
+  const dateArray = ["일", "월", "화", "수", "목", "금", "토"];
+  const today = baseDate;
+  const firstWeek = today.clone().startOf("month").week();
+  const lastWeek =
+    today.clone().endOf("month").week() === 1
+      ? 53
+      : today.clone().endOf("month").week();
 
-    let TodayDate = year + "-" + month + "-" + day;
-    let MaelDate = year + "" + month + "" + day;
-
-    props.setChangeDate(TodayDate);
-    props.setMealChangeDate(MaelDate);
-    props.setMonthChange(month);
-    props.setDayChange(day);
-    props.setDateChange(date);
+  const mapArrayToDate = (dateArray) => {
+    return dateArray.map((date, index) => {
+      const className = () => {
+        let className = "calBodyHeaderCell";
+        if (index === 0) {
+          return className + " date-sun";
+        } else if (index === 6) {
+          return className + " date-sat";
+        } else {
+          return className + " date-weekday";
+        }
+      };
+      return <div className={className()}>{date}</div>;
+    });
   };
 
-  function format(num) {
-    return num < 10 ? 0 + num : num;
-  }
-  // useEffect(() => {
-  //   const calenderElements = document.getElementsByClassName(
-  //     "react-calendar__month-view__days"
-  //   )[0].childNodes;
-  //   calenderElements.forEach((i) => {
-  //     const date = i.innerHTML.split('"')[1];
-  //     const year = date.split("년 ")[0];
-  //     const month = date.split("년 ")[1].split("월")[0];
-  //     const day = date.split("월 ")[1].split("일")[0];
-  //     const fullDate = `${year}-${format(month)}-${format(day)}`;
-  //     const event = props.eventDate.filter((i) => {
-  //       if (i.date === fullDate) return i;
-  //     });
-  //     if (event.length > 0) i.innerHTML += event[0].scheudles[0];
-  //   });
-  //   console.log(props.eventDate);
-  // }, [props.eventDate, value]);
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
+  const calendarArr = () => {
+    let result = [];
+    let week = firstWeek;
+
+    for (week; week <= lastWeek; week++) {
+      result = result.concat(
+        <tr key={week}>
+          {Array(7)
+            .fill(0)
+            // eslint-disable-next-line no-loop-func
+            .map((data, index) => {
+              let days = today
+                .clone()
+                .startOf("year")
+                .week(week)
+                .startOf("week")
+                .add(index, "day");
+
+              if (moment().format("YYYYMMDD") === days.format("YYYYMMDD")) {
+                return (
+                  <td key={index} style={{ backgroundColor: "red" }}>
+                    <span>{days.format("D")}</span>
+                  </td>
+                );
+              } else if (days.format("MM") !== today.format("MM")) {
+                return (
+                  <td key={index} style={{ color: "gray" }}>
+                    <span>{days.format("D")}</span>
+                  </td>
+                );
+              } else {
+                return (
+                  <td
+                    key={index}
+                    onClick={() => {
+                      props.setMealChangeDate(days.format("YYYYMMDD"));
+                      props.setMonthChange(days.format("M"));
+                      props.setDayChange(days.format("D"));
+                      props.setDateChange(days.format("D"));
+                    }}
+                  >
+                    <span>{days.format("D")}</span>
+                    <div className="content">
+                      <span>안녕</span>
+                    </div>
+                  </td>
+                );
+              }
+            })}
+        </tr>
+      );
+    }
+
+    return result;
+  };
+
   return (
-    <>
-      <S.MiddleWrapper>
-        <S.CalenderMain>
-          <Calendar
-            value={value}
-            onChange={onChange}
-            onClickDay={callDay}
-            onActiveStartDateChange={(e) => console.log(e)}
-          />
-        </S.CalenderMain>
-      </S.MiddleWrapper>
-    </>
+    <S.MiddleWrapper>
+      <S.CalenderMain>
+        <div className="calBodyWrapper">
+          <div className="controlbutton">
+            <button
+              onClick={() => setBaseDate(baseDate.clone().subtract(1, "month"))}
+            >
+              {"<"}
+            </button>
+            <h3>{today.format("YYYY 년 MM 월")}</h3>
+            <button
+              onClick={() => setBaseDate(baseDate.clone().add(1, "month"))}
+            >
+              {">"}
+            </button>
+          </div>
+          <div className="calBodyHeader">{mapArrayToDate(dateArray)}</div>
+          <table>
+            <tbody>{calendarArr()}</tbody>
+          </table>
+        </div>
+      </S.CalenderMain>
+    </S.MiddleWrapper>
   );
 }
 
