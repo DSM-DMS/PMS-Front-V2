@@ -144,6 +144,96 @@ const CalenderMain = styled.tbody`
   margin: 15px;
   width: 95%;
   height: 670px;
+
+  .calBodyWrapper {
+    width: 100%;
+    height: 100%;
+
+    .controlbutton {
+      height: 50px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: row;
+
+      h3 {
+        font-weight: bold;
+        margin: 0 10px;
+      }
+
+      button {
+        border: none;
+        background-color: white;
+        width: 40px;
+        height: 30px;
+        border-radius: 5px;
+        :hover {
+          background: #8080802e;
+        }
+      }
+    }
+  }
+
+  .calBodyHeader {
+    width: 100%;
+    height: 30px;
+    background-color: #efbf43;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    justify-items: center;
+    align-items: center;
+  }
+
+  // 각 요일 영역 셀 공통
+  .calBodyHeaderCell {
+    font-size: 16px;
+  }
+
+  // 요일별 셀 속성
+  .date-sun {
+    color: red;
+  }
+  .date-sat {
+    color: blue;
+  }
+  .date-weekday {
+    color: black;
+  }
+
+  & table {
+    width: 100%;
+    height: 100%;
+
+    & tbody {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  tr {
+    display: flex;
+  }
+
+  & td {
+    cursor: pointer;
+    display: flex;
+    border: 0.5px solid #80808057;
+    width: 5.4vw;
+    height: 14vh;
+    flex-direction: column;
+
+    span {
+      margin: 5px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+    }
+
+    :hover {
+      background-color: #56ad7752;
+    }
+  }
 `;
 
 export {
