@@ -1,6 +1,5 @@
 import moment from "moment";
 import React, { useState } from "react";
-import { FetchMeal, FetchMealImg } from "../../utils/api/user";
 import * as S from "./style";
 
 function MonthCalendar(props) {
