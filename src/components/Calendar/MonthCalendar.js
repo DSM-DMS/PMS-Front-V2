@@ -73,6 +73,13 @@ function MonthCalendar(props) {
                 return (
                   <td
                     key={index}
+                    style={{
+                      backgroundColor: ((index === 0
+                        ? "#f2d7d7"
+                        : index === 6
+                        ? "#c7d5e8"
+                        : ""): ""),
+                    }}
                     onClick={() => {
                       props.setMealChangeDate(days.format("YYYYMMDD"));
                       props.setMonthChange(days.format("M"));

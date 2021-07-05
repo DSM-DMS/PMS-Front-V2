@@ -178,7 +178,7 @@ const CalenderMain = styled.tbody`
   .calBodyHeader {
     width: 100%;
     height: 30px;
-    background-color: #efbf43;
+    //background-color: #efbf43;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     justify-items: center;
