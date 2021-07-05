@@ -50,7 +50,16 @@ function MonthCalendar(props) {
 
               if (moment().format("YYYYMMDD") === days.format("YYYYMMDD")) {
                 return (
-                  <td key={index} style={{ backgroundColor: "red" }}>
+                  <td
+                    key={index}
+                    style={{ backgroundColor: "pink" }}
+                    onClick={() => {
+                      props.setMealChangeDate(days.format("YYYYMMDD"));
+                      props.setMonthChange(days.format("M"));
+                      props.setDayChange(days.format("D"));
+                      props.setDateChange(days.day());
+                    }}
+                  >
                     <span>{days.format("D")}</span>
                   </td>
                 );
@@ -68,7 +77,7 @@ function MonthCalendar(props) {
                       props.setMealChangeDate(days.format("YYYYMMDD"));
                       props.setMonthChange(days.format("M"));
                       props.setDayChange(days.format("D"));
-                      props.setDateChange(days.format("D"));
+                      props.setDateChange(days.day());
                     }}
                   >
                     <span>{days.format("D")}</span>
