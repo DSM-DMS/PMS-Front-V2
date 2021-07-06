@@ -234,6 +234,11 @@ const CalenderMain = styled.tbody`
       display: flex;
       flex-direction: column;
     }
+    span{
+      font-size: 15px;
+    color: #4e4c4c;
+}
+    }
   }
 
   tr {
