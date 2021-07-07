@@ -234,10 +234,9 @@ const CalenderMain = styled.tbody`
       display: flex;
       flex-direction: column;
     }
-    span{
+    span {
       font-size: 15px;
-    color: #4e4c4c;
-}
+      color: #4e4c4c;
     }
   }
 
