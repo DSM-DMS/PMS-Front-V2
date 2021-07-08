@@ -123,11 +123,11 @@ function TodayMeals(props) {
         })}
       </S.Nav>
       <S.ListWrapper>
-        {props.eventDate === "" ? (
-          console.log("행사가 없습니다.")
+        {props.todayEvent.length === 0 ? (
+          <div>행사가 없습니다.</div>
         ) : (
           <>
-            {props.eventDate.map((EventList, index) => {
+            {props.todayEvent.map((EventList, index) => {
               const EventDate = EventList.date.split("-");
               const date = EventDate[1] + "-" + EventDate[2];
 

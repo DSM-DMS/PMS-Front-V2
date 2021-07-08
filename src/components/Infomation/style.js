@@ -103,7 +103,7 @@ const ItemBoxWrapper = styled.div`
   height: 800px;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+
   align-content: baseline;
   overflow: auto;
 `;

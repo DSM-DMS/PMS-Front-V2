@@ -14,6 +14,7 @@ import {
   CreatorsInfo,
   ClubInfo,
   CompanyInfo,
+  PhotoAlbum,
 } from "../components/index";
 
 function UserRouter() {
@@ -43,6 +44,7 @@ function UserRouter() {
       />
       <Route path="/NoticeWritten" component={NoticeWritten} exact />
       <Route path="/Notice" component={Notice} exact />
+      <Route path="/photo-album" component={PhotoAlbum} exact />
     </Switch>
   );
 }
