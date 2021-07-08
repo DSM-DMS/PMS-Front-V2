@@ -69,6 +69,8 @@ const EventName = styled.div`
   .circle {
     width: 16px;
     height: 16px;
+    min-width: 16px;
+    min-height: 16px;
     background-color: ${({ EventColor }) => EventColor};
     border-radius: 50px;
   }
@@ -145,6 +147,29 @@ const CalenderMain = styled.tbody`
   width: 95%;
   height: 670px;
 
+  .content-wrapper {
+    width: 94%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .content {
+      align-items: center;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .circle {
+      width: 7px;
+      height: 7px;
+      min-width: 7px;
+      min-height: 7px;
+      border-radius: 50%;
+      background-color: #56ad9e;
+    }
+  }
+
   .calBodyWrapper {
     width: 100%;
     height: 100%;
@@ -178,7 +203,7 @@ const CalenderMain = styled.tbody`
   .calBodyHeader {
     width: 100%;
     height: 30px;
-    background-color: #efbf43;
+    //background-color: #efbf43;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     justify-items: center;
@@ -209,6 +234,11 @@ const CalenderMain = styled.tbody`
       display: flex;
       flex-direction: column;
     }
+    span {
+      font-size: 14px;
+      color: #4e4c4c;
+      font-weight: 600;
+    }
   }
 
   tr {
@@ -222,6 +252,7 @@ const CalenderMain = styled.tbody`
     width: 5.4vw;
     height: 14vh;
     flex-direction: column;
+    overflow: auto;
 
     span {
       margin: 5px;
