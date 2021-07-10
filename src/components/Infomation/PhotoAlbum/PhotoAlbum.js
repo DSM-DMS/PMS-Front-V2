@@ -9,7 +9,7 @@ const PhotoAlbum = () => {
   const uploadDate = "upload-date";
 
   useEffect(() => {
-    console.log(fetchPhoto);
+    console.log(fetchPhoto?.galleries);
   }, [fetchPhoto]);
 
   return (
@@ -18,11 +18,12 @@ const PhotoAlbum = () => {
         <BackgroundTitle title="" />
         <InfoHeader title="포토 앨범" placeholder="검색어를 입력해주세요" />
         <S.ItemBoxWrapper>
-          {fetchPhoto?.map((photo, index) => {
+          {fetchPhoto?.galleries.map((photo, index) => {
             return (
               <>
                 <PhotoItem
                   key={index}
+                  id={photo.id}
                   title={photo.title}
                   img={photo.thumbnail}
                   update={photo[`${uploadDate}`]}

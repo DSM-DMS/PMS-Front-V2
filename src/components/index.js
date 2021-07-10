@@ -22,3 +22,4 @@ export { default as InfoItemBox } from "./Infomation/InfoItemBox";
 export { default as ClubDetailModal } from "./Infomation/ClubDetailModal";
 export { default as BackgroundTitle } from "./BackgroundTitle";
 export { default as PhotoAlbum } from "./Infomation/PhotoAlbum/PhotoAlbum";
+export { default as PhotoDetail } from "./Infomation/PhotoAlbum/PhotoDetail";

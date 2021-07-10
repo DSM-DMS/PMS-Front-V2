@@ -4,11 +4,12 @@ import { useHistory } from "react-router";
 
 const PhotoItem = (props) => {
   const history = useHistory();
+  const id = props.id;
 
   return (
     <S.ItemBox
       onClick={() => {
-        history.push("/FamilyLetterWritten");
+        history.push(`/photo-album/${id}`);
       }}
     >
       <S.ItemContainer>
