@@ -129,9 +129,6 @@ const ItemContainer = styled.div`
   height: 180px;
   margin: 4%;
 
-  &hover {
-    width: 200px;
-  }
   img {
     width: 100%;
     height: 100px;
@@ -288,6 +285,12 @@ const InfoWrapper = styled.div`
   }
 `;
 
+// 페이지 네이션 스타일
+const PageNumber = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
 export {
   MainWrapper,
   InfoMainWrapper,
@@ -301,4 +304,5 @@ export {
   ModalItem,
   ModalHeader,
   InfoWrapper,
+  PageNumber,
 };
