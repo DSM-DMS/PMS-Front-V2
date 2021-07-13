@@ -13,7 +13,10 @@ const PhotoAlbum = ({ location }) => {
   const [maxPage, setMaxPage] = useState(1);
   const [page, setPage] = useState(5);
   const [basicsPage, setBasicPage] = useState(1);
-  const size = 4;
+  const [searchWord, setSearchWord] = useState("");
+  const [dataList, setDataList] = useState([]);
+
+  const size = 10;
   let page_arr = [];
 
   const uploadDate = "upload-date";
@@ -21,7 +24,6 @@ const PhotoAlbum = ({ location }) => {
   const totalLength = fetchPhoto?.totalLength;
 
   useEffect(() => {
-    //maxPage
     setMaxPage(Math.ceil(totalLength / size));
   }, [totalLength]);
 
@@ -85,31 +87,50 @@ const PhotoAlbum = ({ location }) => {
     }
   };
 
+  useEffect(() => {
+    setDataList(
+      fetchPhoto?.galleries.filter((object) =>
+        object.title.toLowerCase().includes(searchWord.toLowerCase())
+      )
+    );
+  }, [searchWord, fetchPhoto?.galleries]);
+
   return (
     <>
       <S.InfoMainWrapper>
         <BackgroundTitle title="" />
-        <InfoHeader title="포토 앨범" placeholder="검색어를 입력해주세요" />
+        <InfoHeader
+          title="포토 앨범"
+          placeholder="검색어를 입력해주세요"
+          setSearchWord={setSearchWord}
+          selectName="제목"
+        />
         <S.ItemBoxWrapper>
-          {fetchPhoto?.galleries.map((photo) => {
-            return (
-              <>
-                <PhotoItem
-                  key={photo.id}
-                  id={photo.id}
-                  title={photo.title}
-                  img={photo.thumbnail}
-                  update={photo[`${uploadDate}`]}
-                />
-              </>
-            );
-          })}
+          <S.ItemListWrapper>
+            {dataList?.map((photo) => {
+              return (
+                <>
+                  <PhotoItem
+                    key={photo.id}
+                    id={photo.id}
+                    title={photo.title}
+                    img={photo.thumbnail}
+                    update={photo[`${uploadDate}`]}
+                  />
+                </>
+              );
+            })}
+          </S.ItemListWrapper>
+          <S.PageNumber>
+            <div className="page-arrow" onClick={prev}>
+              {"<"}
+            </div>
+            {processed(query)}
+            <div className="page-arrow" onClick={next}>
+              {">"}
+            </div>
+          </S.PageNumber>
         </S.ItemBoxWrapper>
-        <S.PageNumber>
-          <div onClick={prev}>{"<"}</div>
-          {processed(query)}
-          <div onClick={next}>{">"}</div>
-        </S.PageNumber>
         <Footer />
       </S.InfoMainWrapper>
     </>
