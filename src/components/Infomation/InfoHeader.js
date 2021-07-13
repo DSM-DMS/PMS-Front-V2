@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 
 const InfoHeader = (props) => {
@@ -6,8 +6,14 @@ const InfoHeader = (props) => {
     <S.InfoHeaderWrapper>
       <h1>{props.title}</h1>
       <div className="info-search">
-        <span>이름</span>
-        <input type="text" placeholder={props.placeholder} />
+        <span>{props.selectName}</span>
+        <input
+          type="text"
+          placeholder={props.placeholder}
+          onChange={(e) => {
+            props.setSearchWord(e.target.value);
+          }}
+        />
       </div>
     </S.InfoHeaderWrapper>
   );
