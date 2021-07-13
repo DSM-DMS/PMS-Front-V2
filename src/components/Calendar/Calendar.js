@@ -17,8 +17,6 @@ const Calendar = () => {
   const day = String(date.getDate()).padStart(2, "0");
   const weekday = date.getDay();
 
-  let Month = date.getMonth() + 1;
-
   const [monthDate, setMonthDate] = useState(moment().format("M"));
   console.log(monthDate);
 
