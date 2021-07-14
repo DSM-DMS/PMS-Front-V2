@@ -3,11 +3,12 @@ import * as S from "./style";
 import BackgroundTitle from "../BackgroundTitle";
 import Footer from "../footer/Footer";
 import MonthEvent from "./MonthEvent";
-import MonthCalender from "./MonthCalender";
+import MonthCalendar from "./MonthCalendar";
 import TodayMeals from "./TodayMeals";
 import { requestJW } from "../../utils/axios/axios";
+import moment from "moment";
 
-const Calender = () => {
+const Calendar = () => {
   const [eventData, setEventData] = useState([]);
 
   const date = new Date();
@@ -16,7 +17,8 @@ const Calender = () => {
   const day = String(date.getDate()).padStart(2, "0");
   const weekday = date.getDay();
 
-  let Month = date.getMonth() + 1;
+  const [monthDate, setMonthDate] = useState(moment().format("M"));
+  console.log(monthDate);
 
   let TodayDate = year + "" + month + "" + day;
   let today = year + "-" + month + "-" + day;
@@ -38,14 +40,14 @@ const Calender = () => {
           },
           {}
         );
-        setEventData(data[`${Month}`]);
+        setEventData(data[`${monthDate}`]);
       } catch (e) {
         console.log(e);
       }
     };
 
     eventApi();
-  }, [Month]);
+  }, [monthDate]);
 
   const eventDate = Object.keys(eventData).reduce(
     (prev, date) => prev.concat({ date, scheudles: eventData[date] }),
@@ -62,19 +64,22 @@ const Calender = () => {
         <BackgroundTitle title="" />
         <S.CalenderWrapper>
           <MonthEvent eventDate={eventDate} />
-          <MonthCalender
+          <MonthCalendar
+            eventDate={eventDate}
             setChangeDate={setEventChangeDate}
             setMealChangeDate={setMealChangeDate}
             setMonthChange={setMonthChange}
             setDayChange={setDayChange}
             setDateChange={setDateChange}
+            setMonthDate={setMonthDate}
+            momthDate={monthDate}
           />
           <TodayMeals
             month={monthChange}
             day={dayChange}
             date={dateChange}
             today={today}
-            eventDate={todayEvent}
+            todayEvent={todayEvent}
             TodayDate={mealChangeDate}
           />
         </S.CalenderWrapper>
@@ -84,4 +89,4 @@ const Calender = () => {
   );
 };
 
-export default Calender;
+export default Calendar;

@@ -1,15 +1,15 @@
 import useSWR from "swr";
-import { authFetcher, fetcher, JwURL, MainURL } from "../axios/axios";
+import { authFetcher, fetcher, JwURL } from "../axios/axios";
 
 // 공지사항
 export function FetchNotice(num) {
-  const { data } = useSWR(`${JwURL}notice?page=${num}`, fetcher);
+  const { data } = useSWR(`${JwURL}notice?page=${num}&size=5`, fetcher);
   return data;
 }
 
 //가정통신문
 export function FetchNoticeNews() {
-  const { data } = useSWR(`${JwURL}notice/news?page=0`, fetcher);
+  const { data } = useSWR(`${JwURL}notice/news?page=0&size=5`, fetcher);
   return data;
 }
 
@@ -43,10 +43,5 @@ export function FetchMealImg(TodayDate) {
 // 행사
 export function FetchEvent() {
   const { data } = useSWR(`${JwURL}calendar`, authFetcher);
-  return data;
-}
-
-export function StudentUser() {
-  const { data } = useSWR(`${MainURL}/user`, authFetcher);
   return data;
 }
