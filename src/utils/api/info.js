@@ -1,8 +1,8 @@
 import useSWR from "swr";
 import { fetcher, JwURL } from "../axios/axios";
 
-export function FetchPhoto() {
-  const { data } = useSWR(`${JwURL}gallery?page=0&size=10`, fetcher);
+export function FetchPhoto(page, size) {
+  const { data } = useSWR(`${JwURL}gallery?page=${page}&size=${size}`, fetcher);
   return data;
 }
 
