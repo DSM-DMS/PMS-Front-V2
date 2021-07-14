@@ -384,6 +384,16 @@ const StudentNameScore = styled.div`
     .profile-img {
       margin: 6px 0 0 7px;
     }
+
+    .student-name-info-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      & img {
+        margin-right: 10px;
+      }
+    }
   }
 
   .student-score-wrppaer {

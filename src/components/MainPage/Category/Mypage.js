@@ -48,16 +48,18 @@ const Mypage = (props) => {
               <span className="student-title">{user?.name} 학부모님</span>
               <S.StudentNameScore>
                 <div className="student-name-wrapper">
-                  <img
-                    className="profile-img"
-                    src={Profile}
-                    alt="프로필 사진"
-                  />
-                  <div className="student-name">
-                    <span>
-                      {stdGrade}학년 {stdCls}반 {stdNum}번
-                    </span>
-                    <span>소프트웨어개발과 {stdName}</span>
+                  <div className="student-name-info-wrapper">
+                    <img
+                      className="profile-img"
+                      src={Profile}
+                      alt="프로필 사진"
+                    />
+                    <div className="student-name">
+                      <span>
+                        {stdGrade}학년 {stdCls}반 {stdNum}번
+                      </span>
+                      <span>소프트웨어개발과 {stdName}</span>
+                    </div>
                   </div>
                   <img className="arrow-img" src={Arrow} alt="화살표"></img>
                 </div>
