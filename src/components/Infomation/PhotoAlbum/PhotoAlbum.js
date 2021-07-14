@@ -107,19 +107,23 @@ const PhotoAlbum = ({ location }) => {
         />
         <S.ItemBoxWrapper>
           <S.ItemListWrapper>
-            {dataList?.map((photo) => {
-              return (
-                <>
-                  <PhotoItem
-                    key={photo.id}
-                    id={photo.id}
-                    title={photo.title}
-                    img={photo.thumbnail}
-                    update={photo[`${uploadDate}`]}
-                  />
-                </>
-              );
-            })}
+            {dataList?.length === 0 ? (
+              <div className="search-none">검색결과가 없습니다.</div>
+            ) : (
+              dataList?.map((photo) => {
+                return (
+                  <>
+                    <PhotoItem
+                      key={photo.id}
+                      id={photo.id}
+                      title={photo.title}
+                      img={photo.thumbnail}
+                      update={photo[`${uploadDate}`]}
+                    />
+                  </>
+                );
+              })
+            )}
           </S.ItemListWrapper>
           <S.PageNumber>
             <div className="page-arrow" onClick={prev}>

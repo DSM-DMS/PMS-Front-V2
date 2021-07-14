@@ -86,6 +86,8 @@ const InfoHeaderWrapper = styled.div`
     width: 35%;
     padding: 10px;
     border-right: 1px solid #c8c8c8;
+    font-size: 14px;
+    color: #c8c8c8;
   }
 
   .info-search input {
@@ -102,10 +104,21 @@ const ItemBoxWrapper = styled.div`
   width: 70%;
   height: 800px;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+`;
 
+const ItemListWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
   align-content: baseline;
   overflow: auto;
+
+  .search-none {
+    color: #9a9a9a;
+  }
 `;
 
 const ItemBox = styled.div`
@@ -115,12 +128,11 @@ const ItemBox = styled.div`
   height: 200px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 5px 5px #00000029;
-  border: 1px solid #c8c8c8;
+  border: 2px solid #c8c8c861;
   border-radius: 5px;
   transition: 0.5s all;
-
   :hover {
-    width: 24%;
+    border: 2px solid #5d51ce;
   }
 `;
 
@@ -129,11 +141,25 @@ const ItemContainer = styled.div`
   height: 180px;
   margin: 4%;
 
-  img {
+  :hover img {
+    transform: scale(1.1);
+  }
+
+  .img-wrapper {
     width: 100%;
     height: 100px;
-    object-fit: cover;
+    overflow: hidden;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      object-fit: cover;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+    }
   }
+
   h3 {
     margin: 9px 0;
     font-size: 16px;
@@ -289,6 +315,14 @@ const InfoWrapper = styled.div`
 const PageNumber = styled.div`
   display: flex;
   flex-direction: row;
+
+  & a {
+    padding: 10px;
+  }
+
+  .page-arrow {
+    padding: 10px;
+  }
 `;
 
 export {
@@ -298,6 +332,7 @@ export {
   InfoItem,
   InfoHeaderWrapper,
   ItemBoxWrapper,
+  ItemListWrapper,
   ItemBox,
   ItemContainer,
   ModalWrapper,
