@@ -37,6 +37,12 @@ function Login() {
       .then((res) => {
         console.log(res);
         localStorage.setItem("access-token", res.payload.data["access-token"]);
+
+        setTimeout(() => {
+          loginUser(inputs);
+          console.log("재로그인");
+        }, 7200000 - 60000);
+
         history.push("/");
       })
       .catch((err) => {
