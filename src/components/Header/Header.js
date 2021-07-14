@@ -36,7 +36,7 @@ const Header = () => {
         <img src={PMS} alt="PMS로고이미지"></img>
       </a>
       <S.Nav className="nav">
-        <Link to="/calender">행사일정</Link>
+        <Link to="/calendar">행사일정</Link>
         <Link to="/Notice">학교소식</Link>
         <Link
           style={{ padding: "30px 0" }}

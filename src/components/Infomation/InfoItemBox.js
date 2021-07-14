@@ -6,14 +6,15 @@ const InfoItemBox = (props) => {
   const ItemBoxClickHandler = () => {
     props.setModalBool();
     props.setClubTitle(props.clubName);
-
   };
 
   return (
     <>
       <S.ItemBox onClick={(e) => ItemBoxClickHandler(e)}>
         <S.ItemContainer>
-          <img src={props.clubImg} alt="로고"></img>
+          <div className="img-wrapper">
+            <img src={props.clubImg} alt="로고"></img>
+          </div>
           <h3>{props.clubName}</h3>
           <p>{props.explanation}</p>
           <span>{props.resolution}</span>

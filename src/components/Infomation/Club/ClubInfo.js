@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "../style";
 import {
   BackgroundTitle,
@@ -12,6 +12,9 @@ import { FetchClub, FetchClubDetail } from "../../../utils/api/user";
 function ClubInfo() {
   const [clubTitle, setClubTitle] = useState("");
   const [modalBool, setModalBool] = useState(false);
+  const [dataList, setDataList] = useState([]);
+  const [searchWord, setSearchWord] = useState("");
+
   const logo = "picture-uri";
   const clubName = "club-name";
 
@@ -29,6 +32,14 @@ function ClubInfo() {
     setModalBool(!modalBool);
   };
 
+  useEffect(() => {
+    setDataList(
+      fetchClub?.clubs.filter((object) =>
+        object[`${clubName}`].toLowerCase().includes(searchWord.toLowerCase())
+      )
+    );
+  }, [fetchClub?.clubs, searchWord]);
+
   return (
     <>
       {modalBool && (
@@ -44,22 +55,33 @@ function ClubInfo() {
 
       <S.InfoMainWrapper>
         <BackgroundTitle title="" />
-        <InfoHeader title="동아리 소개" placeholder="동아리를 입력해주세요" />
+        <InfoHeader
+          title="동아리 소개"
+          placeholder="동아리를 입력해주세요"
+          setSearchWord={setSearchWord}
+          selectName="동아리 이름"
+        />
         <S.ItemBoxWrapper>
-          {fetchClub?.clubs.map((club, index) => {
-            return (
-              <>
-                <InfoItemBox
-                  key={index}
-                  setModalBool={ModalControl}
-                  setClubTitle={setClubTitle}
-                  clubImg={club[`${logo}`]}
-                  clubName={club[`${clubName}`]}
-                  explanation={club.explanation}
-                />
-              </>
-            );
-          })}
+          <S.ItemListWrapper>
+            {dataList?.length === 0 ? (
+              <div className="search-none">검색결과가 없습니다.</div>
+            ) : (
+              dataList?.map((club, index) => {
+                return (
+                  <>
+                    <InfoItemBox
+                      key={index}
+                      setModalBool={ModalControl}
+                      setClubTitle={setClubTitle}
+                      clubImg={club[`${logo}`]}
+                      clubName={club[`${clubName}`]}
+                      explanation={club.explanation}
+                    />
+                  </>
+                );
+              })
+            )}
+          </S.ItemListWrapper>
         </S.ItemBoxWrapper>
         <Footer />
       </S.InfoMainWrapper>
