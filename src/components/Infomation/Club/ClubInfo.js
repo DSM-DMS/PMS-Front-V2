@@ -8,7 +8,6 @@ import {
   ClubDetailModal,
 } from "../../index";
 import { FetchClub, FetchClubDetail } from "../../../utils/api/user";
-import { fetcher } from "../../../utils/axios/axios";
 
 function ClubInfo() {
   const [clubTitle, setClubTitle] = useState("");
@@ -64,20 +63,24 @@ function ClubInfo() {
         />
         <S.ItemBoxWrapper>
           <S.ItemListWrapper>
-            {dataList.map((club, index) => {
-              return (
-                <>
-                  <InfoItemBox
-                    key={index}
-                    setModalBool={ModalControl}
-                    setClubTitle={setClubTitle}
-                    clubImg={club[`${logo}`]}
-                    clubName={club[`${clubName}`]}
-                    explanation={club.explanation}
-                  />
-                </>
-              );
-            })}
+            {dataList?.length === 0 ? (
+              <div className="search-none">검색결과가 없습니다.</div>
+            ) : (
+              dataList?.map((club, index) => {
+                return (
+                  <>
+                    <InfoItemBox
+                      key={index}
+                      setModalBool={ModalControl}
+                      setClubTitle={setClubTitle}
+                      clubImg={club[`${logo}`]}
+                      clubName={club[`${clubName}`]}
+                      explanation={club.explanation}
+                    />
+                  </>
+                );
+              })
+            )}
           </S.ItemListWrapper>
         </S.ItemBoxWrapper>
         <Footer />
