@@ -80,11 +80,8 @@ export const AttachFile = styled.div`
     font-size: 15px;
   }
 
-  & span:nth-child(2) {
+  & a {
     cursor: pointer;
-
-    :hover {
-      border-bottom: 1px solid #c8c8c8;
-    }
+    margin-right: 10px;
   }
 `;

@@ -19,6 +19,5 @@ export function loginUser(dataToSubmit) {
 
 export function logoutUser() {
   localStorage.removeItem("access-token");
-  localStorage.removeItem("refresh-token");
   return { type: LOGOUT_USER };
 }

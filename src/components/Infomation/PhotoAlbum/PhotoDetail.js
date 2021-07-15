@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as S from "./detailStyle";
 import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
@@ -29,7 +29,13 @@ const PhotoDetail = ({ match }) => {
         </S.DetailContent>
         <S.AttachFile>
           <span>첨부파일</span>
-          <span>{photoDetail?.gallery.thumbnail}</span>
+          {photoDetail?.gallery.attach.map((img, index) => {
+            return (
+              <a key={index} href={img} alt="첨부 파일" download>
+                {"첨부파일" + (index + 1)}
+              </a>
+            );
+          })}
         </S.AttachFile>
       </S.ItemWrapper>
       <Footer />

@@ -45,7 +45,7 @@ function UserRouter() {
       />
       <Route path="/NoticeWritten" component={NoticeWritten} exact />
       <Route path="/Notice" component={Notice} exact />
-      <Route path="/photo-album" component={PhotoAlbum} exact />
+      <Route path="/photo-album/page=:page" component={PhotoAlbum} exact />
       <Route path="/photo-album/:id" component={PhotoDetail} exact />
     </Switch>
   );

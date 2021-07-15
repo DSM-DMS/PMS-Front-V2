@@ -10,6 +10,7 @@ export { default as Profile } from "./Profile.svg";
 export { default as Bike } from "./Bike.svg";
 export { default as Home } from "./Home.svg";
 export { default as MealGreen } from "./MealGreen.svg";
+export { default as MealRed } from "./MealRed.svg";
 export { default as RightPassword } from "./RightPassword.svg";
 //export { default as AddChildren } from "./AddChildren.svg";
 export { default as Triangle } from "./Triangle.svg";
@@ -28,4 +29,3 @@ export { default as LoginError } from "./loginError.svg";
 export { default as Arrow } from "./Arrow.svg";
 export { default as WrongPassword } from "./WrongPassword.svg";
 export { default as AddChildren } from "./AddChildren.svg";
-
