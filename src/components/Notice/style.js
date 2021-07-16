@@ -21,17 +21,6 @@ export const Search = styled.div`
     margin: 0.5% 0%;
     display: flex;
     justify-content:flex-end;
-    input{
-        border: 1px solid #c8c8c8;
-        background-color: #f6f6f6;
-        font-size: 17px;
-        color: #9e9e9e;
-        width: 23%;
-        height: 100%;
-        outline: none;
-        box-sizing:border-box;
-        padding-left: 1%;
-    }
     select{
         color: #9e9e9e;
         font-size: 17px;
@@ -46,55 +35,66 @@ export const Search = styled.div`
         }
     }
 `;
-export const ItemWrapper = styled.div`
+export const SearchInput = styled.input`
+    border: 1px solid #c8c8c8;
+    background-color: #f6f6f6;
+    font-size: 17px;
+    color: #9e9e9e;
+    width: 23%;
+    height: 100%;
+    outline: none;
+    box-sizing:border-box;
+    padding-left: 1%;
+`;
+export const ArticleListWrapper = styled.div`
     width: 100%;
     height: 75%;
 `;
-export const ItemTitle = styled.div`
+export const ArticleListHeader = styled.div`
     border-bottom: 1px solid #c8c8c8;
     width: 100%;
     height: 10%;
     font-weight: 1000;
     font-size: 18px;
     display: flex;
-    .title{
-        text-align:left;
-        width: 70%;
-        height: 100%;
-        box-sizing: border-box;
-        padding-top: 0.8%;
-        display: flex;
-    }
-    .writer{
-        width: 10%;
-        height: 100%;
-        text-align:center;
-        box-sizing: border-box;
-        padding-top: 0.8%;
-    }
-    .day{
-        width: 20%;
-        height: 100%;
-        text-align:center;
-        box-sizing: border-box;
-        padding-top: 0.8%;
-    }
 `;
-export const Item = styled(ItemTitle)`
+export const ArticleListTitle = styled.div`
+    text-align:left;
+    width: 70%;
+    height: 100%;
+    box-sizing: border-box;
+    padding-top: 0.8%;
+    display: flex;
+`;
+export const ArticleListWriter = styled.div`
+    width: 10%;
+    height: 100%;
+    text-align:center;
+    box-sizing: border-box;
+    padding-top: 0.8%;
+`;
+export const ArticleListDay = styled.div`
+    width: 20%;
+    height: 100%;
+    text-align:center;
+    box-sizing: border-box;
+    padding-top: 0.8%;
+`;
+export const ArticleListItem = styled(ArticleListHeader)`
     font-weight:600;
     font-size: 16px;
-    .newItem{
-        color:#D37C7C;
-        width: 1%;
-        height: 40%;
-        font-size: 12px;
-        margin-left: 1%;
-        position: relative;
-        top: 1.5px;
-    }
+`;
+export const NewItem = styled.div`
+    color:#D37C7C;
+    width: 1%;
+    height: 40%;
+    font-size: 12px;
+    margin-left: 1%;
+    position: relative;
+    top: 1.5px;
 `;
 export const Page = styled.div`
-    width: 10%;
+    width: 15%;
     height: 7%;
     margin-top: 2%;
     font-size: 18px;
@@ -103,12 +103,14 @@ export const Page = styled.div`
     justify-content: space-between;
     align-items: center;
     margin-left: 43%;
-    .pageitem{
-        width: 20%;
-        height: 80%;
-        text-align:center;
-    }
 `;
+export const PageItem = styled.div`
+    width: 20%;
+    height: 80%;
+    text-align: center;
+`;
+
+//글 내용, 목록 확인 부분
 export const MainWrittenWrapper = styled(MainWrapper)`
     height: 2000px;
 `;
@@ -150,7 +152,7 @@ export const WrittenInfo = styled.div`
     height: 5%;
     display: flex;
     box-sizing:border-box;
-        padding-top: 0.5%;
+    padding-top: 0.5%;
     .infotype{
         margin-right: 63%;
     }
@@ -205,33 +207,35 @@ export const CommentContent = styled.div`
     }
     width: 100%;
     height:85%;
-    .commentItemWrapper{
+`;
+export const CommentItemWrapper = styled.div`
         width: 100%;
         height: 75%;
         overflow-y:scroll;
         margin-top: 1%;
-    }
-    .commentItem{
-        width: 99%;
-        height: auto;
-        display: flex;
-        margin-top: 1%;
-        align-items: center;
+`
+export const CommentItem = styled.div`
+    width: 99%;
+    height: auto;
+    display: flex;
+    margin-top: 1%;
+    align-items: center;
         .profileimage{
             width: 4.4%;
             height: 50px;
             margin-left: 1%;
         }
-        .comment{
-            width: auto;
-            height: auto;
-            background-color:#f6f6f6;
-            border-radius: 20px;
-            font-size: 14px;
-            font-weight:600;
-            padding: 1%;
-            .title{
-                font-size: 15px;
+`;
+export const CommentItemInner = styled.div`
+    width: auto;
+    height: auto;
+    background-color:#f6f6f6;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight:600;
+    padding: 1%;
+    .title{
+            font-size: 15px;
                 font-weight: 800;
                 position: relative;
                 top: -5px;
@@ -244,19 +248,17 @@ export const CommentContent = styled.div`
                 display: flex;
                 line-height: 110%;
             }
-        }
-    }
-`;
+`
 export const BottomItemWrapper = styled(MainItemWrapper)`
     height: 600px;
     margin-top: 3%;
 `;
-export const ItemW = styled(Item)`
+export const NoticeWrittenItem = styled(ArticleListItem)`
     border-top: 1px solid #c8c8c8;
     font-weight: 800;
     height: 11%;
 `;
-export const PageW = styled(Page)`
+export const WrittenPageMove = styled(Page)`
     position: relative;
     top: 12%;
 `;
