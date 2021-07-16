@@ -32,7 +32,7 @@ export const ItemContent = styled.div`
     color: #9e9e9e;
     font-size: 16px;
     box-sizing:border-box;
-    padding: 2% 3%;
+    padding: 2.3% 2%;
 `;
 export const NickNameInput = styled.input`
     margin: 1.5% 1%;

@@ -7,6 +7,7 @@ import ChangePassword from './ChangePassword/ChangePassword'
 import ChildrenInformation from './ChildrenInformation/ChildrenInformation'
 import ChildrenStatus from './ChildrenStatus/ChildrenStatus'
 
+
 function MyPage() {
     return(
         <S.MainWrapper>
