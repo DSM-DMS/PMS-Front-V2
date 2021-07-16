@@ -7,7 +7,7 @@ import {ReactComponent as Profile} from '../../../assets/Prifile.svg'
 function FamilyLetterWritten(){
     return(
         <S.MainWrittenWrapper>
-            <BackgroundTitle title="가정통신문"></BackgroundTitle>
+            <BackgroundTitle title="공지사항" />
             <S.MainWrittenItemWrapper>
                 <h3>대덕소프트웨어마이스터고등학교 지방공무원(시설관리직) 대체인력 채용</h3>
                 <S.WrittenInfo>
@@ -26,85 +26,30 @@ function FamilyLetterWritten(){
                     <div className="commentTitle"><h3>댓글</h3>&nbsp;<div className="commentAmount">2개</div></div>
                     <S.CommentContent>
                         <input placeholder="댓글을 입력하려면 로그인하세요." readOnly/>
-                        <div className="commentItemWrapper">
-                            <div className="commentItem">
+                        <S.CommentItemWrapper>
+                            <S.CommentItem>
                                 <div className="profileimage"><Profile /></div>
-                                <div className="comment">
+                                <S.CommentItemInner>
                                     <div className="title">이명호</div>
                                     <div className="content"><h4>@서인석 선생님</h4>&nbsp;거친 내려온 불어 뛰노는 무엇을 어디 때문이다.</div>
-                                </div>
-                            </div>
-                            <div className="commentItem">
-                                <div className="profileimage"><Profile /></div>
-                                <div className="comment">
-                                    <div className="title">이재원</div>
-                                    <div className="content"><h4>@안희명 교장선생님</h4>&nbsp;일월과 품으며, 청춘 동력은 싶이 밥을 무엇이 인간의 있다.</div>
-                                </div>
-                            </div>
-                        </div>
+                                </S.CommentItemInner>
+                            </S.CommentItem>
+                        </S.CommentItemWrapper>
                     </S.CommentContent>
                 </S.CommentWrapper>
             </S.MainWrittenItemWrapper>
             <S.BottomItemWrapper>
-                 <S.ItemWrapper>
-                     <S.ItemW>
-                         <diV className="title">등교수업(원격수업) 변경 안내 <div className="newItem">NEW</div></diV>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                     </S.ItemW>
-                     <S.ItemW>
-                        <div className="title">청소년 도박용어 바로알기 <div className="newItem">NEW</div></div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">2020학년도 모바일데이터 지원사업 종료 안내</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">2020학년도 현장실습학생 2학기 성적처리 안내</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">2020학년도 2학기 기말고사 시간표 안내</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">교육활동보호 협조 안내</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">개인형 이동장치(전동킥보드) 교통 안전사고</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">자녀의 감정이해하기 학부모교육자료 안내</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">1,2학년 사제동행 뮤지컬 관람 가정통신문</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                    <S.ItemW>
-                        <div className="title">2020년 12월~2021년 1월 급식비 납부 안내문</div>
-                        <div className="writer">이**</div>
-                        <div className="day">2019-12-31</div>
-                    </S.ItemW>
-                 </S.ItemWrapper>
-                 <S.PageW>
-                        <div className="pageitem">1</div>
-                        <div className="pageitem">2</div>
-                        <div className="pageitem">3</div>
-                        <div className="pageitem">4</div>
-                        <div className="pageitem">5</div>
-                    </S.PageW>
+                 <S.ArticleListWrapper>
+                     <S.NoticeWrittenItem>
+                     </S.NoticeWrittenItem>
+                 </S.ArticleListWrapper>
+                 <S.WrittenPageMove>
+                        <S.PageItem>1</S.PageItem>
+                        <S.PageItem>2</S.PageItem>
+                        <S.PageItem>3</S.PageItem>
+                        <S.PageItem>4</S.PageItem>
+                        <S.PageItem>5</S.PageItem>
+                    </S.WrittenPageMove>
             </S.BottomItemWrapper>
             <Footer />
         </S.MainWrittenWrapper>
