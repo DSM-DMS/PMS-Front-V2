@@ -52,7 +52,7 @@ const SchoolInfo = () => {
             <>
               {fetchNoticeNews?.map((notice) => (
                 <li key={notice.id}>
-                  <span>{textSlice(notice.title, 30)}</span>
+                  <span>{textSlice(notice.title, 25)}</span>
                   <span>{notice[`${uploadDate}`]}</span>
                 </li>
               ))}

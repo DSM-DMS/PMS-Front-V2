@@ -1,5 +1,5 @@
 /* eslint-disable import/no-anonymous-default-export */
-import { LOGIN_USER, LOGOUT_USER, REGISTER_USER } from "../actions/type";
+import { LOGIN_USER, REGISTER_USER } from "../actions/type";
 import { combineReducers } from "redux";
 
 function userReducer(state = {}, action) {

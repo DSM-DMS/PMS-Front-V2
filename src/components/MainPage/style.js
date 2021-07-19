@@ -107,6 +107,7 @@ const ButtonItem = styled.div`
   flex-direction: row;
   width: 100%;
   height: 30px;
+  min-height: 30px;
   border-bottom: 0.5px solid white;
 
   .button-cover {
@@ -382,6 +383,16 @@ const StudentNameScore = styled.div`
 
     .profile-img {
       margin: 6px 0 0 7px;
+    }
+
+    .student-name-info-wrapper {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+
+      & img {
+        margin-right: 10px;
+      }
     }
   }
 

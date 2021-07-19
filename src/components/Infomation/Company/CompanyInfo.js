@@ -106,17 +106,19 @@ function CompanyInfo() {
         <BackgroundTitle title="" />
         <InfoHeader title="취업처 소개" placeholder="취업처를 입력해주세요" />
         <S.ItemBoxWrapper>
-          {companyList.map((club) => {
-            return (
-              <InfoItemBox
-                setModal={setModal}
-                key={club.id}
-                title={club.companyName}
-                explanation={club.explanation}
-                resolution={club.resolution}
-              />
-            );
-          })}
+          <S.ItemListWrapper>
+            {companyList.map((club) => {
+              return (
+                <InfoItemBox
+                  setModal={setModal}
+                  key={club.id}
+                  title={club.companyName}
+                  explanation={club.explanation}
+                  resolution={club.resolution}
+                />
+              );
+            })}
+          </S.ItemListWrapper>
         </S.ItemBoxWrapper>
         <Footer />
       </S.InfoMainWrapper>
