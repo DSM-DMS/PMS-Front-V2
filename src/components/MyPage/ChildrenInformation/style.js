@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import {Profile, Triangle} from '../../../assets/index'
+import { MYPAGE_COLOR} from '../style'
 
 export const MyChildren = styled.div`
     background-color: white;
     width: 95%;
     height:10%;
-    border: 1px solid #c8c8c8;
+    border: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
     display: flex;
     align-items:center;
     box-sizing: border-box;
