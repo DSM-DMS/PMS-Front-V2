@@ -1,8 +1,14 @@
 import styled from "styled-components";
+
+export const MYPAGE_COLOR = {
+    MAIN_COLOR: "#f6f6f6",
+    MAIN_BORDER_COLOR: "#c8c8c8",
+    MAIN_FONT_COLOR: "#9e9e9e"
+}
 export const MainWrapper = styled.div`
     width: 100%;
     height: 1130px;
-    background-color: #f6f6f6;
+    background-color: ${MYPAGE_COLOR.MAIN_COLOR};
 `;
 export const MyPageWrapper = styled.div`
     position: relative;
@@ -18,7 +24,7 @@ export const MyPageWrapper = styled.div`
 `;
 export const MyPageItem = styled.div`
     width: 85%;
-    border-top: 1px solid #c8c8c8;
+    border-top: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
     height: 80%;
     display: flex;
 `;
@@ -31,8 +37,8 @@ export const ItemBox = styled.div`
 export const ChildrenInformation = styled.div`
     width:100%;
     height:98%;
-    border-top: 1px solid #c8c8c8;
-    background-color:#f6f6f6;
+    border-top: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
+    background-color: ${MYPAGE_COLOR.MAIN_COLOR};
     display: flex;
     justify-content: center;
     align-items:center;
