@@ -7,6 +7,7 @@ import {
   MealGreen,
   MealRed,
   Home,
+  Remain,
 } from "../../../assets";
 import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
 
@@ -84,7 +85,7 @@ const Mypage = (props) => {
                       alt="급식신청여부"
                     ></img>
                     <img
-                      src={userInfo?.[`${stayStatus}`] ? Home : MealRed}
+                      src={userInfo?.[`${stayStatus}`] ? Home : Remain}
                       alt="잔류신청여부"
                     ></img>
                   </div>
