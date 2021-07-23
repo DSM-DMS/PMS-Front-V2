@@ -13,6 +13,7 @@ import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
 const Mypage = (props) => {
   const [stdName, setStdName] = useState("");
   const [stdNumber, setStdNumber] = useState("");
+  const [studentChange, setStudentChagne] = useState(false);
   const stdGrade = Math.floor(stdNumber / 1000);
   const stdCls = Math.floor((stdNumber % 1000) / 100);
   const stdNum = Math.floor((stdNumber % 1000) % 100);
@@ -61,7 +62,15 @@ const Mypage = (props) => {
                       <span>소프트웨어개발과 {stdName}</span>
                     </div>
                   </div>
-                  <img className="arrow-img" src={Arrow} alt="화살표"></img>
+                  <img
+                    onClick={() => setStudentChagne(!studentChange)}
+                    className="arrow-img"
+                    src={Arrow}
+                    alt="화살표"
+                  ></img>
+                  <S.StudentChangeToggle
+                    style={{ display: studentChange ? "flex" : "none" }}
+                  ></S.StudentChangeToggle>
                 </div>
                 <div className="student-score-wrppaer">
                   <span>상 / 벌점</span>

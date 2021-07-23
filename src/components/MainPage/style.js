@@ -434,6 +434,8 @@ const StudentNameScore = styled.div`
   }
 `;
 
+export const StudentChangeToggle = styled.div``;
+
 export {
   MainWrapper,
   CodingImg,
