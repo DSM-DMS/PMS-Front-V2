@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import * as S from "../style";
 import {
   Arrow,
@@ -10,34 +10,40 @@ import {
   Remain,
 } from "../../../assets";
 import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
+import StudentItemBox from "./StudentItemBox";
+import {
+  bonusPoint,
+  mealApplied,
+  minusPoint,
+  stayStatus,
+  studentName,
+  studentNumber,
+} from "../../../utils/variable/student";
 
 const Mypage = (props) => {
-  const [stdName, setStdName] = useState("");
-  const [stdNumber, setStdNumber] = useState("");
-  const stdGrade = Math.floor(stdNumber / 1000);
-  const stdCls = Math.floor((stdNumber % 1000) / 100);
-  const stdNum = Math.floor((stdNumber % 1000) % 100);
+  const [stdSelect, setStdSelect] = useState(0);
 
   const isAccessToken = localStorage.getItem("access-token");
-  const studentName = "student-name";
-  const studentNumber = "student-number";
-  const bonusPoint = "bonus-point";
-  const minusPoint = "minus-point";
-  const mealApplied = "meal-applied";
-  const stayStatus = "stay-status";
 
+  // 학생, 학생 정보 조회 api
   const user = StudentUser();
+  const userInfo = StudentUserInfo(
+    user?.students[`${stdSelect}`]?.[`${studentNumber}`]
+  );
 
-  useEffect(() => {
-    setStdName(user?.students[0]?.[`${studentName}`]);
-    setStdNumber(user?.students[0]?.[`${studentNumber}`]);
-  }, [user?.students]);
+  const stdGrade = Math.floor(
+    user?.students[`${stdSelect}`]?.[`${studentNumber}`] / 1000
+  );
+  const stdCls = Math.floor(
+    (user?.students[`${stdSelect}`]?.[`${studentNumber}`] % 1000) / 100
+  );
+  const stdNum = Math.floor(
+    (user?.students[`${stdSelect}`]?.[`${studentNumber}`] % 1000) % 100
+  );
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
-
-  const userInfo = StudentUserInfo(stdNumber);
 
   return (
     <S.StudentInfo>
@@ -48,22 +54,32 @@ const Mypage = (props) => {
             <S.StudentContainer>
               <span className="student-title">{user?.name} 학부모님</span>
               <S.StudentNameScore>
-                <div className="student-name-wrapper">
-                  <div className="student-name-info-wrapper">
-                    <img
-                      className="profile-img"
-                      src={Profile}
-                      alt="프로필 사진"
-                    />
-                    <div className="student-name">
-                      <span>
-                        {stdGrade}학년 {stdCls}반 {stdNum}번
-                      </span>
-                      <span>소프트웨어개발과 {stdName}</span>
-                    </div>
-                  </div>
-                  <img className="arrow-img" src={Arrow} alt="화살표"></img>
-                </div>
+                <S.StudenSelect>
+                  <StudentItemBox
+                    stdGrade={stdGrade}
+                    stdCls={stdCls}
+                    stdNum={stdNum}
+                    user={user}
+                    stdSelect={stdSelect}
+                  />
+
+                  <S.StudentMore>
+                    {user?.students.map((student, i) => {
+                      return (
+                        <>
+                          {/* {student[`${studentNumber}`]}번  {user?.students[i]?.[`${studentName}`]}*/}
+                          <StudentItemBox
+                            key={i}
+                            onClick={() => setStdSelect(i)}
+                            stdGrade={stdGrade}
+                            stdCls={stdCls}
+                            stdNum={stdNum}
+                          />
+                        </>
+                      );
+                    })}
+                  </S.StudentMore>
+                </S.StudenSelect>
                 <div className="student-score-wrppaer">
                   <span>상 / 벌점</span>
                   <div className="student-score">
