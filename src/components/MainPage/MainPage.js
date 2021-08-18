@@ -3,7 +3,11 @@ import * as S from "./style";
 import Header from "../Header/Header";
 import Category from "./Category";
 import MainPageFooter from "../footer/MainPageFooter";
-import { Coding, MainBackground } from "../../assets/index";
+import {
+  MainBackground,
+  MainBackground2,
+  MainBackground3,
+} from "../../assets/index";
 import Typist from "react-typist";
 
 function MainPage() {
@@ -36,8 +40,8 @@ function MainPage() {
             style={{ transform: `translateX(${-val * 100}vw)` }}
           >
             <img src={MainBackground} alt="슬라이드 배경"></img>
-            <img src={MainBackground} alt="슬라이드 배경"></img>
-            <img src={MainBackground} alt="슬라이드 배경"></img>
+            <img src={MainBackground2} alt="슬라이드 배경"></img>
+            <img src={MainBackground3} alt="슬라이드 배경"></img>
           </div>
           <div className="SchoolTitle" id="title-animation">
             <p className="bottomLine"></p>

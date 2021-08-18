@@ -1,12 +1,5 @@
 import styled from "styled-components";
-import {
-  MainBackground,
-  DMS,
-  Company,
-  MyPage,
-  Info,
-  PMS,
-} from "../../assets/index";
+import { DMS, Company, MyPage, PMS } from "../../assets/index";
 
 const MainWrapper = styled.div`
   width: 100vw;
@@ -432,6 +425,17 @@ const StudentNameScore = styled.div`
       }
     }
   }
+`;
+
+export const StudentMore = styled(StudentNameScore)`
+  background-color: white;
+  color: black;
+  z-index: 99;
+`;
+
+export const StudenSelect = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export {
