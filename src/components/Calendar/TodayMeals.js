@@ -57,6 +57,12 @@ function TodayMeals(props) {
     setSelected(row.id);
   };
 
+  console.log(fetchMeal);
+
+  if (fetchMeal?.breakfast && fetchMeal?.lunch && fetchMeal?.dinner === "") {
+    console.log("오늘은 급식이 없습니다.");
+  }
+
   return (
     <S.SideWrapper>
       <S.Title>오늘의 급식</S.Title>
@@ -64,7 +70,7 @@ function TodayMeals(props) {
         {props.month}월 {props.day}일 {getTodayLabel(props.date)}
       </S.SelectData>
       <S.MealsList onClick={mealImgClickHandler}>
-        {fetchMeal?.breakfast[0] === "" ? (
+        {fetchMeal?.breakfast === "" ? (
           <>급식이 없습니다.</>
         ) : (
           <>
@@ -85,7 +91,9 @@ function TodayMeals(props) {
                     {i}
                   </span>
                 ))}
-            {fetchMealImg === null ? (
+            {fetchMealImg?.breakfast ||
+            fetchMealImg?.lunch ||
+            fetchMealImg?.dinner === "" ? (
               <div style={{ display: imgDisplay, color: "gray" }}>
                 오늘의 급식 사진이 없습니다.
               </div>
