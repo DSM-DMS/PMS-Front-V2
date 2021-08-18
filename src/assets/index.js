@@ -1,4 +1,6 @@
 export { default as MainBackground } from "./MainBackground.svg";
+export { default as MainBackground2 } from "./MainBackground2.jpg";
+export { default as MainBackground3 } from "./MainBackground3.png";
 export { default as Study } from "./Study.svg";
 export { default as DMS } from "./DMS.svg";
 export { default as Company } from "./Company.svg";
