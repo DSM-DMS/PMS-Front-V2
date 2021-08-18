@@ -1,7 +1,7 @@
 import React from "react";
 import * as S from "./style";
-import { useHistory } from "react-router-dom";
-import { SchoolInfo, Meals, ClubCategory} from "../index";
+import { Link, useHistory } from "react-router-dom";
+import { SchoolInfo, Meals, ClubCategory } from "../index";
 import CompanyInfo from "./Category/CompanyInfo";
 import { Info } from "../../assets/index";
 import Mypage from "./Category/Mypage";
@@ -32,7 +32,7 @@ const Category = () => {
           {/* 개발자 소개, PMS 소개  */}
           <S.InfoWrapper>
             <S.DeveloperInfo>
-              <a href="/creators-info">
+              <Link to="/creators-info">
                 <div className="pms-info">
                   <S.Title>개발자 소개</S.Title>
                   <S.Font14>
@@ -41,7 +41,7 @@ const Category = () => {
                   </S.Font14>
                 </div>
                 <img src={Info} alt="개발자 소개"></img>
-              </a>
+              </Link>
             </S.DeveloperInfo>
             <S.PMSInfo>
               <div className="pms-info">
