@@ -18,7 +18,6 @@ const SchoolInfo = () => {
   function textSlice(txt, len) {
     if (txt.length > len) {
       txt = txt.substr(0, len) + " ...";
-      console.log(txt);
     }
     return txt;
   }
