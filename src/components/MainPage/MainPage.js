@@ -26,7 +26,7 @@ function MainPage() {
       setVal(i);
 
       if (i === 2) i = 0;
-    }, 7000);
+    }, 10000);
   }, [currentSlider]);
 
   return (
@@ -40,7 +40,7 @@ function MainPage() {
             style={{ transform: `translateX(${-val * 100}vw)` }}
           >
             <img src={MainBackground} alt="슬라이드 배경"></img>
-            <img src={MainBackground2} alt="슬라이드 배경"></img>
+            <img src={MainBackground3} alt="슬라이드 배경"></img>
             <img src={MainBackground3} alt="슬라이드 배경"></img>
           </div>
           <div className="SchoolTitle" id="title-animation">
