@@ -40,7 +40,6 @@ function Login() {
 
         setTimeout(() => {
           loginUser(inputs);
-          console.log("재로그인");
         }, 7200000 - 60000);
 
         history.push("/");
