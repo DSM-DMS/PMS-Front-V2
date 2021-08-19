@@ -431,6 +431,8 @@ export const StudentMore = styled(StudentNameScore)`
   background-color: white;
   color: black;
   z-index: 99;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const StudenSelect = styled.div`
