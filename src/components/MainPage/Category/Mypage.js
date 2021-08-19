@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "../style";
 import {
   Arrow,
@@ -31,6 +31,12 @@ const Mypage = (props) => {
     user?.students[`${stdSelect}`]?.[`${studentNumber}`]
   );
 
+  const [student, setStudent] = useState({
+    stdGrade: "",
+    stdCls: "",
+    stdNum: "",
+  });
+
   const stdGrade = Math.floor(
     user?.students[`${stdSelect}`]?.[`${studentNumber}`] / 1000
   );
@@ -40,6 +46,16 @@ const Mypage = (props) => {
   const stdNum = Math.floor(
     (user?.students[`${stdSelect}`]?.[`${studentNumber}`] % 1000) % 100
   );
+
+  useEffect(() => {
+    setStudent({
+      stdGrade: stdGrade,
+      stdCls: stdCls,
+      stdNum: stdNum,
+    });
+  }, [stdGrade, stdCls, stdNum]);
+
+  console.log(student);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
@@ -59,7 +75,7 @@ const Mypage = (props) => {
                     stdGrade={stdGrade}
                     stdCls={stdCls}
                     stdNum={stdNum}
-                    user={user}
+                    user={user?.students}
                     stdSelect={stdSelect}
                   />
 
@@ -69,8 +85,13 @@ const Mypage = (props) => {
                         <>
                           {/* {student[`${studentNumber}`]}번  {user?.students[i]?.[`${studentName}`]}*/}
                           <StudentItemBox
-                            key={i}
-                            onClick={() => setStdSelect(i)}
+                            key={student[`${studentNumber}`]}
+                            onClick={() => {
+                              setStdSelect(i);
+                              console.log(i);
+                              console.log(student);
+                            }}
+                            stdSelect={stdSelect}
                             stdGrade={stdGrade}
                             stdCls={stdCls}
                             stdNum={stdNum}
