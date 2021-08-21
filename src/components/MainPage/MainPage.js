@@ -25,7 +25,7 @@ function MainPage() {
       i++;
       setVal(i);
 
-      if (i === 2) i = 0;
+      if (i === 2) i = -1;
     }, 10000);
   }, [currentSlider]);
 
