@@ -23,64 +23,57 @@ import useSWR from "swr";
 import { authFetcher, MainURL } from "../../../utils/axios/axios";
 
 const Mypage = (props) => {
-  const [stdSelect, setStdSelect] = useState(0);
-  const [user, setUser] = useState([]);
-  const [userInfo, setUserInfo] = useState();
-  const [stdGrade, setStdGrade] = useState();
-  const [stdCls, setStdCls] = useState();
-  const [stdNum, setStdNum] = useState();
+  const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
+  const [user, setUser] = useState({});
+  const [userInfo, setUserInfo] = useState(); // 자녀 정보
+  const [stdGrade, setStdGrade] = useState(""); // 자녀 학년
+  const [stdCls, setStdCls] = useState(); // 자녀 반
+  const [stdNum, setStdNum] = useState(); // 자녀 학번
+  const [stdNumber, setStdNumber] = useState(); // 자녀 번호
 
   const isAccessToken = localStorage.getItem("access-token");
 
-  const { data } = useSWR(`${MainURL}/user`, authFetcher);
+  //userData API
+  const userData = useSWR(`${MainURL}/user`, authFetcher);
 
   useEffect(() => {
-    console.log(data);
-  }, []);
+    setUser(userData.data);
+    setStdNum(userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`]);
+  }, [userData.data, stdSelect]);
 
-  /*  const func = async () => {
-    await setUser(data);
-    //const user = await StudentUser();
-    setUserInfo(
-      StudentUserInfo(user?.students[`${stdSelect}`]?.[`${studentNumber}`])
-    );
-
-    setStdGrade(
-      Math.floor(user?.students[`${stdSelect}`]?.[`${studentNumber}`] / 1000)
-    );
-    setStdCls(
-      Math.floor(
-        (user?.students[`${stdSelect}`]?.[`${studentNumber}`] % 1000) / 100
-      )
-    );
-    setStdNum(
-      Math.floor(
-        (user?.students[`${stdSelect}`]?.[`${studentNumber}`] % 1000) % 100
-      )
-    );
-  };
+  //학생 정보 api
+  const studentData = useSWR(`${MainURL}/user/student/${stdNum}`, authFetcher);
 
   useEffect(() => {
-    func();
-  }, []); */
-
-  const [student, setStudent] = useState({
-    stdGrade: "",
-    stdCls: "",
-    stdNum: "",
-  });
-
-  useEffect(() => {
-    setStudent({
-      stdGrade: stdGrade,
-      stdCls: stdCls,
-      stdNum: stdNum,
-    });
-  }, [stdGrade, stdCls, stdNum]);
+    setUserInfo(studentData.data);
+    if (userData.data !== undefined) {
+      setStdGrade(
+        Math.floor(
+          userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] / 1000
+        )
+      );
+      setStdCls(
+        Math.floor(
+          (userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] %
+            1000) /
+            100
+        )
+      );
+      setStdNumber(
+        Math.floor(
+          (userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] %
+            1000) %
+            100
+        )
+      );
+    }
+  }, [studentData.data, stdSelect, userData]);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
+
+  console.log("학년", stdGrade);
 
   return (
     <S.StudentInfo>
@@ -104,7 +97,7 @@ const Mypage = (props) => {
                     {user &&
                       user.stdudents &&
                       user.students.map((students, i) => {
-                        console.log(student);
+                        console.log(students);
                         return (
                           <>
                             <div
@@ -121,13 +114,18 @@ const Mypage = (props) => {
                                   alt="프로필 사진"
                                 />
                                 <div className="student-name">
-                                  <span>
-                                    {stdGrade}학년 {stdCls}반 {stdNum}번
-                                  </span>
-                                  <span>
-                                    소프트웨어개발과
-                                    {user?.students[i]?.[`${studentName}`]}
-                                  </span>
+                                  {!stdGrade ? (
+                                    <>정보가 없습니다.</>
+                                  ) : (
+                                    <>
+                                      <span>
+                                        {stdGrade}학년 {stdCls}반 {stdNum}번
+                                      </span>
+                                      <span>
+                                        {`소프트웨어개발과 ${user?.students[i]?.[`${studentName}`]}`}
+                                      </span>
+                                    </>
+                                  )}
                                 </div>
                               </div>
                               <img
