@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FetchMeal } from "../../../utils/api/user";
-import * as S from "../style";
+import * as S from "../style/mealStyle";
 
 const btnLists = [{ id: 1 }, { id: 2 }, { id: 3 }];
 

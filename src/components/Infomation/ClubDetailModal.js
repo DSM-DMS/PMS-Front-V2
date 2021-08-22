@@ -36,8 +36,6 @@ const ClubDetailModal = (props) => {
 
       if (i === 4) i = 0;
     }, 3000);
-    
-
   }, [currentSlider]);
 
   return (
