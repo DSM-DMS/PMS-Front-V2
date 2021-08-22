@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
 import * as S from "../style";
 import {
   Arrow,
@@ -9,7 +10,6 @@ import {
   Home,
   Remain,
 } from "../../../assets";
-import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
 import StudentItemBox from "./StudentItemBox";
 import {
   bonusPoint,
@@ -19,11 +19,16 @@ import {
   studentName,
   studentNumber,
 } from "../../../utils/variable/student";
-import useSWR from "swr";
 import { authFetcher, MainURL } from "../../../utils/axios/axios";
+import {
+  StudentClass,
+  StudentGrade,
+  StudentNumber,
+} from "../../../utils/hook/studentInfoHook";
 
 const Mypage = (props) => {
   const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
+  const [arrowSelect, setArrowSelect] = useState(false);
   const [user, setUser] = useState({});
   const [userInfo, setUserInfo] = useState(); // 자녀 정보
   const [stdGrade, setStdGrade] = useState(""); // 자녀 학년
@@ -47,33 +52,15 @@ const Mypage = (props) => {
   useEffect(() => {
     setUserInfo(studentData.data);
     if (userData.data !== undefined) {
-      setStdGrade(
-        Math.floor(
-          userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] / 1000
-        )
-      );
-      setStdCls(
-        Math.floor(
-          (userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] %
-            1000) /
-            100
-        )
-      );
-      setStdNumber(
-        Math.floor(
-          (userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`] %
-            1000) %
-            100
-        )
-      );
+      setStdGrade(StudentGrade(userData, stdSelect));
+      setStdCls(StudentClass(userData, stdSelect));
+      setStdNumber(StudentNumber(userData, stdSelect));
     }
   }, [studentData.data, stdSelect, userData]);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
-
-  console.log("학년", stdGrade);
 
   return (
     <S.StudentInfo>
@@ -88,15 +75,15 @@ const Mypage = (props) => {
                   <StudentItemBox
                     stdGrade={stdGrade}
                     stdCls={stdCls}
-                    stdNum={stdNum}
+                    stdNumber={stdNumber}
                     user={user?.students}
                     stdSelect={stdSelect}
+                    setArrowSelect={setArrowSelect}
+                    arrowSelect={arrowSelect}
                   />
-
-                  <S.StudentMore>
-                    {user &&
-                      user.stdudents &&
-                      user.students.map((students, i) => {
+                  {arrowSelect ? (
+                    <S.StudentMore>
+                      {user?.students?.map((students, i) => {
                         console.log(students);
                         return (
                           <>
@@ -119,25 +106,27 @@ const Mypage = (props) => {
                                   ) : (
                                     <>
                                       <span>
-                                        {stdGrade}학년 {stdCls}반 {stdNum}번
+                                        {StudentGrade(userData, i)}학년{" "}
+                                        {StudentClass(userData, i)}반{" "}
+                                        {StudentNumber(userData, i)}번
                                       </span>
                                       <span>
-                                        {`소프트웨어개발과 ${user?.students[i]?.[`${studentName}`]}`}
+                                        {`소프트웨어개발과 ${
+                                          user?.students[i]?.[`${studentName}`]
+                                        }`}
                                       </span>
                                     </>
                                   )}
                                 </div>
                               </div>
-                              <img
-                                className="arrow-img"
-                                src={Arrow}
-                                alt="화살표"
-                              ></img>
                             </div>
                           </>
                         );
                       })}
-                  </S.StudentMore>
+                    </S.StudentMore>
+                  ) : (
+                    <></>
+                  )}
                 </S.StudenSelect>
                 <div className="student-score-wrppaer">
                   <span>상 / 벌점</span>
