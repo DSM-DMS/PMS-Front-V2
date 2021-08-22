@@ -1,12 +1,5 @@
-import styled from "styled-components";
-import {
-  MainBackground,
-  DMS,
-  Company,
-  MyPage,
-  Info,
-  PMS,
-} from "../../assets/index";
+import styled, { keyframes, css } from "styled-components";
+import { DMS, Company, MyPage, PMS } from "../../assets/index";
 
 const MainWrapper = styled.div`
   width: 100vw;
@@ -120,6 +113,7 @@ const ButtonItem = styled.div`
   }
 
   label {
+    cursor: pointer;
     width: 50%;
     display: flex;
     justify-content: center;
@@ -374,13 +368,6 @@ const StudentNameScore = styled.div`
       display: flex;
       flex-direction: column;
     }
-
-    .arrow-img {
-      width: 20px;
-      margin-right: 5px;
-      cursor: pointer;
-    }
-
     .profile-img {
       margin: 6px 0 0 7px;
     }
@@ -432,6 +419,28 @@ const StudentNameScore = styled.div`
       }
     }
   }
+`;
+
+export const StudentMore = styled(StudentNameScore)`
+  background-color: white;
+  color: black;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  cursor: pointer;
+`;
+
+export const StudenSelect = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ArrowImg = styled.img`
+  width: 20px;
+  margin-right: 10px;
+  cursor: pointer;
+  transition: all 0.5s;
 `;
 
 export {

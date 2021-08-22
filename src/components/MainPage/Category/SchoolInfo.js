@@ -18,7 +18,6 @@ const SchoolInfo = () => {
   function textSlice(txt, len) {
     if (txt.length > len) {
       txt = txt.substr(0, len) + " ...";
-      console.log(txt);
     }
     return txt;
   }
@@ -50,7 +49,7 @@ const SchoolInfo = () => {
         <S.InfoList>
           {btnSelect === 1 ? (
             <>
-              {fetchNoticeNews?.map((notice) => (
+              {fetchNoticeNews?.notices.map((notice) => (
                 <li key={notice.id}>
                   <span>{textSlice(notice.title, 25)}</span>
                   <span>{notice[`${uploadDate}`]}</span>
@@ -59,7 +58,7 @@ const SchoolInfo = () => {
             </>
           ) : (
             <>
-              {fetchNotice?.map((notice) => (
+              {fetchNotice?.notices.map((notice) => (
                 <li key={notice.id}>
                   <span>{textSlice(notice.title, 30)}</span>
                   <span>{notice[`${uploadDate}`]}</span>
