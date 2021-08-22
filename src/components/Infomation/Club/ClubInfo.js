@@ -49,7 +49,7 @@ function ClubInfo() {
           ModalClose={ModalClose}
           clubName={fetchClubDetail?.title}
           explanation={fetchClubDetail?.explanation}
-          img={fetchClubDetail?.uri}
+          img={fetchClubDetail?.url}
         />
       )}
 
