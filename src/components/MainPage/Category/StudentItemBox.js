@@ -26,7 +26,7 @@ const StudentItemBox = (props) => {
               : { transform: "rotate(0deg)" }
           }
           src={Arrow}
-          alt="화살표"
+          alt="자녀 선택 화살표"
           onClick={() => props.setArrowSelect(!props.arrowSelect)}
         />
       </div>
