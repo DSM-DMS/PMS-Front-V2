@@ -21,13 +21,11 @@ const Category = () => {
           <ClubCategory />
           <CompanyInfo />
           {/* DMS 구경하기 */}
-          <S.DMSInfo href="https://www.dsm-dms.com">
-            <S.DMSInfo onClick={DMSClickHandler} />
-          </S.DMSInfo>
+          <S.DMSInfo href="https://www.dsm-dms.com" />
         </S.CategoryItem>
         {/* 마이페이지, 로그인 묶음 */}
         <S.CategoryItemBottom>
-          <Mypage history={history} />
+          <Mypage />
           <Meals />
           {/* 개발자 소개, PMS 소개  */}
           <S.InfoWrapper>
