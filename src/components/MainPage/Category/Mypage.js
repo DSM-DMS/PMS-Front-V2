@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
+import { authFetcher, MainURL } from "../../../utils/axios/axios";
 import * as S from "../style";
 import {
-  Arrow,
   MyPage,
   Profile,
   MealGreen,
@@ -19,7 +19,6 @@ import {
   studentName,
   studentNumber,
 } from "../../../utils/variable/student";
-import { authFetcher, MainURL } from "../../../utils/axios/axios";
 import {
   StudentClass,
   StudentGrade,
@@ -84,12 +83,11 @@ const Mypage = (props) => {
                   {arrowSelect ? (
                     <S.StudentMore>
                       {user?.students?.map((students, i) => {
-                        console.log(students);
                         return (
                           <>
                             <div
                               className="student-name-wrapper"
-                              key={i}
+                              key={user?.students[i]?.[`${studentNumber}`]}
                               onClick={() => {
                                 setStdSelect(i);
                               }}
