@@ -1,7 +1,7 @@
 import React from "react";
 import { studentName } from "../../../utils/variable/student";
 import { Profile, Arrow } from "../../../assets";
-import * as S from "../style";
+import * as S from "../style/myPageStyle";
 
 const StudentItemBox = (props) => {
   return (

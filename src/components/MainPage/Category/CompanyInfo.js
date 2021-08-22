@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router";
-import * as S from "../style";
+import * as S from "../style/schoolInfoStyle";
 import { Company } from "../../../assets";
 import { Link } from "react-router-dom";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
 import { authFetcher, MainURL } from "../../../utils/axios/axios";
-import * as S from "../style";
+import * as S from "../style/myPageStyle";
 import {
   MyPage,
   Profile,

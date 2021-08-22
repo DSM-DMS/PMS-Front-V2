@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import * as S from "../style";
+import * as S from "../style/schoolInfoStyle";
 import { FetchClub } from "../../../utils/api/user";
 import { Link } from "react-router-dom";
 
