@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FetchNotice, FetchNoticeNews } from "../../../utils/api/user";
-import * as S from "../style";
+import * as S from "../style/schoolInfoStyle";
 
 const colorLists = [
   { id: 1, name: "가정통신문" },

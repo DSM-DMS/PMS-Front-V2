@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import * as S from "./style";
+import * as S from "./style/style";
 import Header from "../Header/Header";
 import Category from "./Category";
 import MainPageFooter from "../footer/MainPageFooter";

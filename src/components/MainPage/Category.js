@@ -1,5 +1,5 @@
 import React from "react";
-import * as S from "./style";
+import * as S from "./style/schoolInfoStyle";
 import { Link, useHistory } from "react-router-dom";
 import { SchoolInfo, Meals, ClubCategory } from "../index";
 import CompanyInfo from "./Category/CompanyInfo";
@@ -8,10 +8,6 @@ import Mypage from "./Category/Mypage";
 
 const Category = () => {
   const history = useHistory();
-
-  const DMSClickHandler = () => {
-    history.href("https://www.dsm-dms.com/");
-  };
 
   return (
     <>
@@ -25,7 +21,7 @@ const Category = () => {
         </S.CategoryItem>
         {/* 마이페이지, 로그인 묶음 */}
         <S.CategoryItemBottom>
-          <Mypage />
+          <Mypage history={history} />
           <Meals />
           {/* 개발자 소개, PMS 소개  */}
           <S.InfoWrapper>
