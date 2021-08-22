@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { MYPAGE_COLOR } from '../../style'
 
 export const ChildrenCurrentStatus = styled.div`
         display: block;
@@ -6,11 +7,11 @@ export const ChildrenCurrentStatus = styled.div`
         margin-left: 2%;
         background-color: white;
         font-size: 12px;
-        border:1px solid #c8c8c8;
+        border:1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
         padding: 1%;
 `
 export const ChildrenCurrentStatusTitle = styled.div`
-    border-bottom: 1px solid #c8c8c8;
+    border-bottom: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
     font-size: 16px;
 `;
 export const StatusValue = styled.div`

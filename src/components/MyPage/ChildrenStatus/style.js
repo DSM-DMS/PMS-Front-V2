@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { MYPAGE_COLOR } from '../style'
 
 export const ChildrenStatus = styled.div`
     width: 95%;
@@ -10,7 +11,7 @@ export const StatusItemWrapper = styled.div`
     width: 55%;
     height:100%;
     box-sizing:border-box;
-    color: #9e9e9e;
+    color: ${MYPAGE_COLOR.MAIN_FONT_COLOR};
     display : flex;
     flex-direction:column;
     justify-content: space-between;
@@ -19,12 +20,12 @@ export const ChildrenStatusItem = styled.div`
     width: 100%;
     height: 23%;
     background-color: white;
-    border: 1px solid #c8c8c8;
+    border: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
     box-sizing: border-box;
     padding: 2%;
 `;
 export const CheckStatus = styled.div`
-    color: #9e9e9e;
+    color: ${MYPAGE_COLOR.MAIN_FONT_COLOR};
     width: 60%;
     height: 100%;
     font-size: 14px;
@@ -60,7 +61,7 @@ export const PenaltyPoint = styled(PrizePoint)`
     background-color:#d37c7c;
 `;
 export const ItemTitle = styled.div`
-    color: #9e9e9e;
+    color: ${MYPAGE_COLOR.MAIN_FONT_COLOR};
     font-size: 15px;
-    border-bottom:1px solid #c8c8c8;
+    border-bottom:1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
 `;

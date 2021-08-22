@@ -1,43 +1,65 @@
 import React, { useEffect, useState } from "react";
+import useSWR from "swr";
+import { authFetcher, MainURL } from "../../../utils/axios/axios";
 import * as S from "../style";
 import {
-  Arrow,
   MyPage,
   Profile,
   MealGreen,
   MealRed,
   Home,
+  Remain,
 } from "../../../assets";
-import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
+import StudentItemBox from "./StudentItemBox";
+import {
+  bonusPoint,
+  mealApplied,
+  minusPoint,
+  stayStatus,
+  studentName,
+  studentNumber,
+} from "../../../utils/variable/student";
+import {
+  StudentClass,
+  StudentGrade,
+  StudentNumber,
+} from "../../../utils/hook/studentInfoHook";
 
 const Mypage = (props) => {
-  const [stdName, setStdName] = useState("");
-  const [stdNumber, setStdNumber] = useState("");
-  const [studentChange, setStudentChagne] = useState(false);
-  const stdGrade = Math.floor(stdNumber / 1000);
-  const stdCls = Math.floor((stdNumber % 1000) / 100);
-  const stdNum = Math.floor((stdNumber % 1000) % 100);
+  const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
+  const [arrowSelect, setArrowSelect] = useState(false);
+  const [user, setUser] = useState({});
+  const [userInfo, setUserInfo] = useState(); // 자녀 정보
+  const [stdGrade, setStdGrade] = useState(""); // 자녀 학년
+  const [stdCls, setStdCls] = useState(); // 자녀 반
+  const [stdNum, setStdNum] = useState(); // 자녀 학번
+  const [stdNumber, setStdNumber] = useState(); // 자녀 번호
 
   const isAccessToken = localStorage.getItem("access-token");
-  const studentName = "student-name";
-  const studentNumber = "student-number";
-  const bonusPoint = "bonus-point";
-  const minusPoint = "minus-point";
-  const mealApplied = "meal-applied";
-  const stayStatus = "stay-status";
 
-  const user = StudentUser();
+  //userData API
+  const userData = useSWR(`${MainURL}/user`, authFetcher);
 
   useEffect(() => {
-    setStdName(user?.students[0]?.[`${studentName}`]);
-    setStdNumber(user?.students[0]?.[`${studentNumber}`]);
-  }, [user?.students]);
+    setUser(userData.data);
+    setStdNum(userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`]);
+  }, [userData.data, stdSelect]);
+
+  //학생 정보 api
+  const studentData = useSWR(`${MainURL}/user/student/${stdNum}`, authFetcher);
+
+  useEffect(() => {
+    setUserInfo(studentData.data);
+    if (userData.data !== undefined) {
+      setStdGrade(StudentGrade(userData, stdSelect));
+      setStdCls(StudentClass(userData, stdSelect));
+      setStdNumber(StudentNumber(userData, stdSelect));
+    }
+  }, [studentData.data, stdSelect, userData]);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
-
-  const userInfo = StudentUserInfo(stdNumber);
 
   return (
     <S.StudentInfo>
@@ -48,30 +70,62 @@ const Mypage = (props) => {
             <S.StudentContainer>
               <span className="student-title">{user?.name} 학부모님</span>
               <S.StudentNameScore>
-                <div className="student-name-wrapper">
-                  <div className="student-name-info-wrapper">
-                    <img
-                      className="profile-img"
-                      src={Profile}
-                      alt="프로필 사진"
-                    />
-                    <div className="student-name">
-                      <span>
-                        {stdGrade}학년 {stdCls}반 {stdNum}번
-                      </span>
-                      <span>소프트웨어개발과 {stdName}</span>
-                    </div>
-                  </div>
-                  <img
-                    onClick={() => setStudentChagne(!studentChange)}
-                    className="arrow-img"
-                    src={Arrow}
-                    alt="화살표"
-                  ></img>
-                  <S.StudentChangeToggle
-                    style={{ display: studentChange ? "flex" : "none" }}
-                  ></S.StudentChangeToggle>
-                </div>
+                <S.StudenSelect>
+                  <StudentItemBox
+                    stdGrade={stdGrade}
+                    stdCls={stdCls}
+                    stdNumber={stdNumber}
+                    user={user?.students}
+                    stdSelect={stdSelect}
+                    setArrowSelect={setArrowSelect}
+                    arrowSelect={arrowSelect}
+                  />
+                  {arrowSelect ? (
+                    <S.StudentMore>
+                      {user?.students?.map((students, i) => {
+                        return (
+                          <>
+                            <div
+                              className="student-name-wrapper"
+                              key={user?.students[i]?.[`${studentNumber}`]}
+                              onClick={() => {
+                                setStdSelect(i);
+                              }}
+                            >
+                              <div className="student-name-info-wrapper">
+                                <img
+                                  className="profile-img"
+                                  src={Profile}
+                                  alt="프로필 사진"
+                                />
+                                <div className="student-name">
+                                  {!stdGrade ? (
+                                    <>정보가 없습니다.</>
+                                  ) : (
+                                    <>
+                                      <span>
+                                        {StudentGrade(userData, i)}학년{" "}
+                                        {StudentClass(userData, i)}반{" "}
+                                        {StudentNumber(userData, i)}번
+                                      </span>
+                                      <span>
+                                        {`소프트웨어개발과 ${
+                                          user?.students[i]?.[`${studentName}`]
+                                        }`}
+                                      </span>
+                                    </>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        );
+                      })}
+                    </S.StudentMore>
+                  ) : (
+                    <></>
+                  )}
+                </S.StudenSelect>
                 <div className="student-score-wrppaer">
                   <span>상 / 벌점</span>
                   <div className="student-score">
@@ -93,7 +147,7 @@ const Mypage = (props) => {
                       alt="급식신청여부"
                     ></img>
                     <img
-                      src={userInfo?.[`${stayStatus}`] ? Home : MealRed}
+                      src={userInfo?.[`${stayStatus}`] ? Home : Remain}
                       alt="잔류신청여부"
                     ></img>
                   </div>

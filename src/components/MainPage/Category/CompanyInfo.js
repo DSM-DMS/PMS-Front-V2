@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import * as S from "../style";
 import { Company } from "../../../assets";
+import { Link } from "react-router-dom";
 
 const CompanyInfo = () => {
   const history = useHistory();
@@ -13,7 +14,7 @@ const CompanyInfo = () => {
   return (
     <>
       <S.CompanyInfo onClick={CompanyClickHandler}>
-        <a href="/company-info">
+        <Link to="/company-info">
           <div className="container club">
             <S.Title>취업처 소개</S.Title>
             <div className="club-info">
@@ -22,7 +23,7 @@ const CompanyInfo = () => {
             </div>
           </div>
           <img src={Company} alt="취업처 소개 사진"></img>
-        </a>
+        </Link>
       </S.CompanyInfo>
     </>
   );
