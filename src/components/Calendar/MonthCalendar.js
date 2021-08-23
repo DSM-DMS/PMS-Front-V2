@@ -134,7 +134,7 @@ function MonthCalendar(props) {
             >
               {"<"}
             </button>
-            <h3>{today.format("YYYY 년 MM 월")}</h3>
+            <h3>{today.format("YYYY년 MM월")}</h3>
             <button
               onClick={() => {
                 setBaseDate(baseDate.clone().add(1, "month"));
