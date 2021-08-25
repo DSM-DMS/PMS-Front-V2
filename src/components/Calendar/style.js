@@ -140,6 +140,7 @@ const MealButton = styled.button`
   outline: none;
   border: none;
   font-size: 16px;
+  cursor: pointer;
 `;
 
 const CalenderMain = styled.tbody`

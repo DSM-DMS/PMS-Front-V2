@@ -1,17 +1,13 @@
 import React from "react";
-import * as S from "./style";
-import { useHistory } from "react-router-dom";
-import { SchoolInfo, Meals, ClubCategory} from "../index";
+import * as S from "./style/schoolInfoStyle";
+import { Link, useHistory } from "react-router-dom";
+import { SchoolInfo, Meals, ClubCategory } from "../index";
 import CompanyInfo from "./Category/CompanyInfo";
 import { Info } from "../../assets/index";
 import Mypage from "./Category/Mypage";
 
 const Category = () => {
   const history = useHistory();
-
-  const DMSClickHandler = () => {
-    history.href("https://www.dsm-dms.com/");
-  };
 
   return (
     <>
@@ -21,9 +17,7 @@ const Category = () => {
           <ClubCategory />
           <CompanyInfo />
           {/* DMS 구경하기 */}
-          <S.DMSInfo href="https://www.dsm-dms.com">
-            <S.DMSInfo onClick={DMSClickHandler} />
-          </S.DMSInfo>
+          <S.DMSInfo href="https://www.dsm-dms.com" />
         </S.CategoryItem>
         {/* 마이페이지, 로그인 묶음 */}
         <S.CategoryItemBottom>
@@ -32,7 +26,7 @@ const Category = () => {
           {/* 개발자 소개, PMS 소개  */}
           <S.InfoWrapper>
             <S.DeveloperInfo>
-              <a href="/creators-info">
+              <Link to="/creators-info">
                 <div className="pms-info">
                   <S.Title>개발자 소개</S.Title>
                   <S.Font14>
@@ -41,7 +35,7 @@ const Category = () => {
                   </S.Font14>
                 </div>
                 <img src={Info} alt="개발자 소개"></img>
-              </a>
+              </Link>
             </S.DeveloperInfo>
             <S.PMSInfo>
               <div className="pms-info">
