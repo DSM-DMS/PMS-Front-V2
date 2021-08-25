@@ -27,14 +27,15 @@ const Header = () => {
   //로그아웃
   const logout = () => {
     dispatch(logoutUser());
+    alert("로그아웃 되었습니다.");
     history.push("/");
   };
 
   return (
     <S.Header>
-      <a href="/" className="logo">
+      <Link to="/" className="logo">
         <img src={PMS} alt="PMS로고이미지"></img>
-      </a>
+      </Link>
       <S.Nav className="nav">
         <Link to="/calendar">행사일정</Link>
         <Link to="/Notice">학교소식</Link>

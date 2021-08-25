@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import * as S from "../style";
+import * as S from "../style/schoolInfoStyle";
 import { FetchClub } from "../../../utils/api/user";
+import { Link } from "react-router-dom";
 
 const ClubCategory = () => {
   const logo = "picture-uri";
@@ -21,7 +22,7 @@ const ClubCategory = () => {
 
   return (
     <S.ClubInfo style={{ overflow: "hidden" }}>
-      <a href="/club-info">
+      <Link to="/club-info">
         <div className="container club">
           <S.Title>동아리 소개</S.Title>
           <div className="club-info">
@@ -34,7 +35,7 @@ const ClubCategory = () => {
             ))}
           </S.ClubAnimation>
         </div>
-      </a>
+      </Link>
     </S.ClubInfo>
   );
 };

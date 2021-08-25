@@ -92,9 +92,15 @@ function MonthCalendar(props) {
                           (data) => data.date === days.format("YYYY-MM-DD")
                         )[0]
                         ?.scheudles.map((i) => {
+                          console.log(i);
+                          const EventColor =
+                            i === "의무귀가" ? "#D37C7C" : "#56AD77";
                           return (
                             <div className="content">
-                              <div className="circle"></div>
+                              <div
+                                style={{ backgroundColor: EventColor }}
+                                className="circle"
+                              ></div>
                               <span>{i}</span>
                             </div>
                           );
