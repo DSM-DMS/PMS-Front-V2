@@ -46,3 +46,16 @@ export function requestJW(method, url, header, data) {
       throw e;
     });
 }
+
+export const nicknameFetch = (url, name) => {
+  Axios.put(url, {
+    name: name
+  })
+  .then((res)=>{
+    console.log(res);
+    return res;
+  })
+  .catch((e) => {
+      console.log(e);
+    });
+}
