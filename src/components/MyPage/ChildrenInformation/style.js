@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import {Profile, Triangle} from '../../../assets/index'
+import { MYPAGE_COLOR} from '../style'
 
 export const MyChildren = styled.div`
     background-color: white;
     width: 95%;
     height:10%;
-    border: 1px solid #c8c8c8;
+    border: 1px solid ${MYPAGE_COLOR.MAIN_BORDER_COLOR};
     display: flex;
     align-items:center;
     box-sizing: border-box;
@@ -21,14 +22,13 @@ export const ChildrenProfileImage = styled.div`
 `;
 export const ChildrenInformationValue = styled.div`
     margin-left: 2%;
-    width: 45%;
+    width: 85%;
     height: 80%;
     font-size: 14px;
     font-weight: 600;
     display: flex;
     flex-direction: column;
     justify-content:center;
-    margin-right: 40%;
 `;
 export const TriangleImg = styled.div`
     background-image: url(${Triangle});
