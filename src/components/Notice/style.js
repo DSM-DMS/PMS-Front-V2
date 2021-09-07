@@ -48,7 +48,14 @@ export const SearchInput = styled.input`
 `;
 export const ArticleListWrapper = styled.div`
     width: 100%;
-    height: 75%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+export const Item = styled.div`
+    width: 100%;
+    height: 450px;
 `;
 export const ArticleListHeader = styled.div`
     border-bottom: 1px solid #c8c8c8;
@@ -57,28 +64,28 @@ export const ArticleListHeader = styled.div`
     font-weight: 1000;
     font-size: 18px;
     display: flex;
-`;
-export const ArticleListTitle = styled.div`
-    text-align:left;
-    width: 70%;
-    height: 100%;
-    box-sizing: border-box;
-    padding-top: 0.8%;
-    display: flex;
-`;
-export const ArticleListWriter = styled.div`
-    width: 10%;
-    height: 100%;
-    text-align:center;
-    box-sizing: border-box;
-    padding-top: 0.8%;
-`;
-export const ArticleListDay = styled.div`
-    width: 20%;
-    height: 100%;
-    text-align:center;
-    box-sizing: border-box;
-    padding-top: 0.8%;
+    .title{
+        text-align:left;
+        width: 70%;
+        height: 100%;
+        box-sizing: border-box;
+        padding-top: 0.8%;
+        display: flex;
+    }
+    .writer{
+        width: 10%;
+        height: 100%;
+        text-align:center;
+        box-sizing: border-box;
+        padding-top: 0.8%;
+    }
+    .day{
+        width: 20%;
+        height: 100%;
+        text-align:center;
+        box-sizing: border-box;
+        padding-top: 0.8%;        
+    }
 `;
 export const ArticleListItem = styled(ArticleListHeader)`
     font-weight:600;
@@ -100,14 +107,18 @@ export const Page = styled.div`
     font-size: 18px;
     color:#9e9e9e;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    margin-left: 43%;
 `;
 export const PageItem = styled.div`
     width: 20%;
     height: 80%;
     text-align: center;
+    .currentPage{
+        font-weight: 600;
+        color: black;
+        text-decoration: underline;
+    }
 `;
 
 //글 내용, 목록 확인 부분
@@ -220,38 +231,42 @@ export const CommentItem = styled.div`
     display: flex;
     margin-top: 1%;
     align-items: center;
-        .profileimage{
-            width: 4.4%;
-            height: 50px;
-            margin-left: 1%;
-        }
-`;
-export const CommentItemInner = styled.div`
-    width: auto;
-    height: auto;
-    background-color:#f6f6f6;
-    border-radius: 20px;
-    font-size: 14px;
-    font-weight:600;
-    padding: 1%;
-    .title{
+    .profileimage{
+        width: 4.4%;
+        height: 50px;
+        margin-left: 1%;
+    }
+    .commentItemInner{
+        width: auto;
+        height: auto;
+        background-color:#f6f6f6;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight:600;
+        padding: 1%;
+        .title{
             font-size: 15px;
-                font-weight: 800;
-                position: relative;
-                top: -5px;
+            font-weight: 800;
+            position: relative;
+            top: -5px;
+        }
+        .content{
+            h4{
+                font-size: 16px; 
+                font-weight: 700;
             }
-            .content{
-                h4{
-                    font-size: 16px; 
-                    font-weight: 700;
-                }
-                display: flex;
-                line-height: 110%;
-            }
-`
+            display: flex;
+            line-height: 110%;
+        }
+    }
+`;
 export const BottomItemWrapper = styled(MainItemWrapper)`
     height: 600px;
     margin-top: 3%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 `;
 export const NoticeWrittenItem = styled(ArticleListItem)`
     border-top: 1px solid #c8c8c8;

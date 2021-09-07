@@ -2,17 +2,41 @@ import React, { useState } from "react";
 import * as S from "../style";
 import BackgroundTitle from '../../BackgroundTitle'
 import Footer from '../../footer/Footer'
-import { FetchNotice } from '../../../utils/api/user'
+import { FetcherNotice } from '../../../utils/api/user'
+import { Link } from 'react-router-dom'
 
 function Notice(){
-    const [firstPageNum, setFirstPageNum] = useState(1);
-    const fetchNotice = FetchNotice(0);
-    const previousPage = () =>{
-        if(firstPageNum === 1) return;
-        else setFirstPageNum(firstPageNum-1);
+    //현재 페이지
+    const [presentPage, setPresentPage] = useState(1);
+    let fetchNotice = FetcherNotice(presentPage-1);
+
+    //전체 페이지 수
+    const totalPage = fetchNotice?.total_page;
+    const arr = Array.from({length: totalPage}, (v, i) => i+1);
+
+    //new Content
+    const newDate = (date) => {
+        const nowDate = new Date();
+        if(nowDate.getMonth !== date.getMonth){
+            return date.getDay+30 - nowDate.getDay <= 7;
+        }
+        return nowDate.getDay - date.getDay <= 7;
     }
-    const nextPage = () =>{
-        setFirstPageNum(firstPageNum+1);
+
+    //page 이동
+    const backPage = () => {
+        if(presentPage === 1){
+            alert('error')
+            return;
+        }
+        setPresentPage(presentPage-1);
+    }
+    const nextPage = () => {
+        if(presentPage === totalPage){
+            alert('error')
+            return;
+        }
+        setPresentPage(presentPage+1);
     }
     return(
         <S.MainWrapper>
@@ -28,24 +52,30 @@ function Notice(){
                 </S.Search>
                 <S.ArticleListWrapper>
                     <S.ArticleListHeader>
-                        <S.ArticleListTitle>제목</S.ArticleListTitle>
-                        <S.ArticleListWriter>작성자</S.ArticleListWriter>
-                        <S.ArticleListDay>날짜</S.ArticleListDay>
+                        <div className="title">제목</div>
+                        <div className="writer">작성자</div>
+                        <div className="day">날짜</div>
                     </S.ArticleListHeader>
-                    <S.ArticleListItem>
-                        <S.ArticleListTitle>대덕소프트웨어마이스터고 지방공무원(시설관리직) 대체인력 채용 공고 <S.NewItem>NEW</S.NewItem></S.ArticleListTitle>
-                        <S.ArticleListWriter>이**</S.ArticleListWriter>
-                        <S.ArticleListDay>2019-12-31</S.ArticleListDay>
-                    </S.ArticleListItem>
-                    
-                    <S.Page>
-                        <S.PageItem onClick={previousPage}>{"<"}</S.PageItem>
-                        <S.PageItem>{firstPageNum}</S.PageItem>
-                        <S.PageItem>{firstPageNum+1}</S.PageItem>
-                        <S.PageItem>{firstPageNum+2}</S.PageItem>
-                        <S.PageItem>{firstPageNum+3}</S.PageItem>
-                        <S.PageItem>{firstPageNum+4}</S.PageItem>
-                        <S.PageItem onClick={nextPage}>{">"}</S.PageItem>
+                    <S.Item>
+                        {fetchNotice?.notices.map((notice, index)=>(
+                            <Link to={{pathname: `/noticeWritten`, state:{id: notice.id}}}style={{textDecoration:'none', color:'black'}} key={index}>
+                                <S.ArticleListItem>
+                                    <div className="title">{notice.title}<S.NewItem style={newDate(notice?.[`upload-date`]) ? {display: "block"} : {display: "none"}}>NEW</S.NewItem></div>
+                                    <div className="writer">{notice.writer}</div>
+                                    <div className="day">{notice?.[`upload-date`]}</div>
+                                </S.ArticleListItem>
+                            </Link>
+                        ))}
+                    </S.Item>
+                    <S.Page props={totalPage}>
+                        <S.PageItem onClick = {()=>backPage()}>{"<"}</S.PageItem>
+                            <>
+                                {arr.map((id)=>(
+                                    <S.PageItem onClick={() =>setPresentPage(id)} style={presentPage === id ? {fontWeight: 600, color:"black", textDecoration: "underline"} : {}}>{id}</S.PageItem>
+                                ))}
+                            </>
+                        <S.PageItem onClick={()=>nextPage()}>{">"}</S.PageItem>                   
+                        
                     </S.Page>
                 </S.ArticleListWrapper>
             </S.MainItemWrapper>

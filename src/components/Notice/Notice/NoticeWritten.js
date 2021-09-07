@@ -1,15 +1,56 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import * as S from "../style";
 import BackgroundTitle from '../../BackgroundTitle'
 import Footer from '../../footer/Footer'
 import {ReactComponent as Profile} from '../../../assets/Prifile.svg'
+import { FetcherNotice } from "../../../utils/api/user";
+import { Link } from 'react-router-dom'
 
-function NoticeWritten(){
+function NoticeWritten(props){
+    useEffect(()=>{
+        const { location, history } = props;
+        if(location.state === undefined){
+            history.push("/");
+        }
+    }, [])
+    //notice_id
+    
+    //현재 페이지
+    const [presentPage, setPresentPage] = useState(1);
+    let fetchNotice = FetcherNotice(presentPage-1);
+    //전체 페이지 수
+    const totalPage = fetchNotice?.total_page;
+    const arr = Array.from({length: totalPage}, (v, i) => i+1);
+
+    //new Content
+    const newDate = (date) => {
+        const nowDate = new Date();
+        if(nowDate.getMonth !== date.getMonth){
+            return date.getDay+30 - nowDate.getDay <= 7;
+        }
+        return nowDate.getDay - date.getDay <= 7;
+    }
+
+    //page 이동
+    const backPage = () => {
+        if(presentPage === 1){
+            alert('error')
+            return;
+        }
+        setPresentPage(presentPage-1);
+    }
+    const nextPage = () => {
+        if(presentPage === totalPage){
+            alert('error')
+            return;
+        }
+        setPresentPage(presentPage+1);
+    }
     return(
         <S.MainWrittenWrapper>
             <BackgroundTitle title="공지사항" />
             <S.MainWrittenItemWrapper>
-                <h3>대덕소프트웨어마이스터고등학교 지방공무원(시설관리직) 대체인력 채용</h3>
+                <h3>jofjerqj</h3>
                 <S.WrittenInfo>
                     <div className="infotype">공지사항</div>
                     <div className="infotitle">작성자</div>&nbsp;&nbsp; 이**
@@ -29,27 +70,42 @@ function NoticeWritten(){
                         <S.CommentItemWrapper>
                             <S.CommentItem>
                                 <div className="profileimage"><Profile /></div>
-                                <S.CommentItemInner>
+                                <div className="commentItemInner">
                                     <div className="title">이명호</div>
                                     <div className="content"><h4>@서인석 선생님</h4>&nbsp;거친 내려온 불어 뛰노는 무엇을 어디 때문이다.</div>
-                                </S.CommentItemInner>
+                                </div>
                             </S.CommentItem>
                         </S.CommentItemWrapper>
                     </S.CommentContent>
                 </S.CommentWrapper>
             </S.MainWrittenItemWrapper>
             <S.BottomItemWrapper>
-                 <S.ArticleListWrapper>
-                     <S.NoticeWrittenItem>
-                     </S.NoticeWrittenItem>
-                 </S.ArticleListWrapper>
-                 <S.WrittenPageMove>
-                        <S.PageItem>1</S.PageItem>
-                        <S.PageItem>2</S.PageItem>
-                        <S.PageItem>3</S.PageItem>
-                        <S.PageItem>4</S.PageItem>
-                        <S.PageItem>5</S.PageItem>
-                    </S.WrittenPageMove>
+                    <S.ArticleListHeader>
+                        <div className="title">제목</div>
+                        <div className="writer">작성자</div>
+                        <div className="day">날짜</div>
+                    </S.ArticleListHeader>
+                    <S.Item>
+                        {fetchNotice?.notices.map((notice, index)=>(
+                            <Link to={{pathname: `/noticeWritten`, state:{id: notice.id}}}style={{textDecoration:'none', color:'black'}} key={index}>
+                                <S.ArticleListItem id={notice.id} key={index}>
+                                    <div className="title">{notice.title}<S.NewItem style={newDate(notice?.[`upload-date`]) ? {display: "block"} : {display: "none"}}>NEW</S.NewItem></div>
+                                    <div className="writer">{notice.writer}</div>
+                                    <div className="day">{notice?.[`upload-date`]}</div>
+                                </S.ArticleListItem>
+                            </Link>
+                        ))}
+                    </S.Item>
+                    <S.Page>
+                        <S.PageItem onClick = {()=>backPage()}>{"<"}</S.PageItem>
+                            <>
+                                {arr.map((id)=>(
+                                    <S.PageItem onClick={() =>setPresentPage(id)} style={presentPage === id ? {fontWeight: 600, color:"black", textDecoration: "underline"} : {}}>{id}</S.PageItem>
+                                ))}
+                            </>
+                        <S.PageItem onClick={()=>nextPage()}>{">"}</S.PageItem>                   
+                        
+                    </S.Page>
             </S.BottomItemWrapper>
             <Footer />
         </S.MainWrittenWrapper>
