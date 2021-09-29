@@ -6,10 +6,21 @@ export function FetchNotice(num) {
   const { data } = useSWR(`${JwURL}notice?page=${num}&size=5`, fetcher);
   return data;
 }
-
+export function FetcherNotice(num) {
+  const { data } = useSWR(`${JwURL}notice?page=${num}&size=10`, fetcher);
+  return data;
+}
+export function NoticeContent(notice_id) {
+  const { data } = useSWR(`${JwURL}notice/${notice_id}`, authFetcher);
+  return data;
+}
 //가정통신문
 export function FetchNoticeNews() {
   const { data } = useSWR(`${JwURL}notice/news?page=0&size=5`, fetcher);
+  return data;
+}
+export function FetchFamilyLetter(num) {
+  const { data } = useSWR(`${JwURL}notice/news?page=${num}&size=10`, fetcher);
   return data;
 }
 
