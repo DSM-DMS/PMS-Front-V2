@@ -18,7 +18,7 @@ const ClubCategory = () => {
   }, []);
 
   //api
-  const fetchClub = FetchClub();
+  //const fetchClub = FetchClub();
 
   return (
     <S.ClubInfo style={{ overflow: "hidden" }}>
@@ -29,11 +29,11 @@ const ClubCategory = () => {
             <S.Font14>대덕소프트웨어마이스터고등학교</S.Font14>
             <S.Font14>다양한 동아리를 소개합니다</S.Font14>
           </div>
-          <S.ClubAnimation style={{ transform: `translateX(${-val * 83}px)` }}>
+          {/*  <S.ClubAnimation style={{ transform: `translateX(${-val * 83}px)` }}>
             {fetchClub?.clubs.map((img, index) => (
               <img src={img[`${logo}`]} key={index} alt="동아리 로고"></img>
             ))}
-          </S.ClubAnimation>
+          </S.ClubAnimation> */}
         </div>
       </Link>
     </S.ClubInfo>

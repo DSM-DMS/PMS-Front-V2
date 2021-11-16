@@ -3,6 +3,10 @@ import { Route, BrowserRouter } from "react-router-dom";
 import UserRouter from "./router/UserRouter";
 
 function App() {
+  setInterval(() => {
+    localStorage.removeItem("access-token");
+  }, 7000000);
+
   return (
     <>
       <BrowserRouter>
