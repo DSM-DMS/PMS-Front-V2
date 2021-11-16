@@ -31,4 +31,5 @@ export { default as LoginError } from "./loginError.svg";
 export { default as Arrow } from "./Arrow.svg";
 export { default as WrongPassword } from "./WrongPassword.svg";
 export { default as AddChildren } from "./AddChildren.svg";
-export { default as Remain } from "./Remain.svg"; //잔류
+
+export { default as Remain } from "./Remain.svg";

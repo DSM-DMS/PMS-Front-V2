@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import { logoutUser } from "../../actions/userAction";
 import { PMS } from "../../assets";
+import { token } from "../../utils/axios/axios";
 import * as S from "./style";
 
 const Header = () => {
@@ -10,8 +11,6 @@ const Header = () => {
   const [hover, setHover] = useState("black");
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const isAccessToken = localStorage.getItem("access-token");
 
   const mouseEvent = () => {
     setDisplay("flex");
@@ -48,7 +47,7 @@ const Header = () => {
           소개
         </Link>
         <Link to="/MyPage">마이페이지</Link>
-        {isAccessToken ? (
+        {token ? (
           <Link to="/" onClick={logout}>
             로그아웃
           </Link>

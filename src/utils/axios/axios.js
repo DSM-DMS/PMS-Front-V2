@@ -1,9 +1,9 @@
 import Axios from "axios";
 
 export const MainURL = "https://api.smooth-bear.live";
-export const JwURL = "http://api.potatochips.live/";
+export const JwURL = "https://api.potatochips.live/";
 
-const token = `${localStorage.getItem("access-token")}`;
+export const token = `${localStorage.getItem("access-token")}`;
 
 export const fetcher = (url) =>
   Axios.get(url)
@@ -44,5 +44,18 @@ export function requestJW(method, url, header, data) {
     })
     .catch((e) => {
       throw e;
+    });
+}
+
+export const nicknameFetch = (url, name) => {
+  Axios.put(url, {
+    name: name
+  })
+  .then((res)=>{
+    console.log(res);
+    return res;
+  })
+  .catch((e) => {
+      console.log(e);
     });
 }
