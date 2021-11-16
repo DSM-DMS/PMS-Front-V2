@@ -49,13 +49,13 @@ export function requestJW(method, url, header, data) {
 
 export const nicknameFetch = (url, name) => {
   Axios.put(url, {
-    name: name
+    name: name,
   })
-  .then((res)=>{
-    console.log(res);
-    return res;
-  })
-  .catch((e) => {
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((e) => {
       console.log(e);
     });
-}
+};
