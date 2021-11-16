@@ -30,7 +30,7 @@ export function StudentUserOuting(studentNumber) {
   return data;
 }
 
-/* export function UserNickname(name){
+/* export function UserNickname(name) {
   const { data } = useSWR(`${MainURL}/user/name`, nicknameFetch(name));
   return data;
 } */
