@@ -1,27 +1,55 @@
 import React, { useState, useEffect } from "react";
 import * as S from "./style";
-import {
-  StudentUserPoint,
-  StudentUserInfo,
-  StudentUserOuting,
-} from "../../../../utils/api/myPage";
 import { Home, MealGreen, MealRed, Remain } from "../../../../assets";
+import axios from "axios";
+import { MainURL } from "../../../../utils/axios/axios";
 
 function StatusItem(props) {
   const [stdNum, setStdNum] = useState();
+  const token = `${localStorage.getItem("access-token")}`;
+  const [studentUserPoint, setStudentUserPoint] = useState("");
+  const [studentUserOuting, setStudentUserOuting] = useState("");
+  const [userInformation, setUserInformation] = useState("");
   useEffect(() => {
     setStdNum(props.number);
-    console.log(props.number);
-  }, [props.number]);
-
-  const studentUserPoint = StudentUserPoint(stdNum);
-  const userInformation = StudentUserInfo(stdNum);
-  const studentUserOuting = StudentUserOuting(stdNum);
+    if (stdNum !== undefined && stdNum !== "") {
+      axios
+        .get(`${MainURL}/user/student/point/${stdNum}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setStudentUserPoint(res);
+        })
+        .catch((e) => {
+          throw e;
+        });
+      axios
+        .get(`${MainURL}/user/student/outing/${stdNum}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setStudentUserOuting(res);
+        })
+        .catch((e) => {
+          throw e;
+        });
+      axios
+        .get(`${MainURL}/user/student/${stdNum}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setUserInformation(res);
+        })
+        .catch((e) => {
+          throw e;
+        });
+    }
+  }, [props.number, stdNum, token]);
   const [remainPhrase, setRemainPhrase] = useState("");
   const [remainComment, setRemainComment] = useState("");
 
   useEffect(() => {
-    const stdStay = userInformation?.["stay-status"];
+    const stdStay = userInformation?.data?.["stay-status"];
     switch (stdStay) {
       case 4:
         setRemainPhrase("잔류");
@@ -43,7 +71,7 @@ function StatusItem(props) {
     case 1:
       return (
         <>
-          {studentUserPoint?.points?.map((point, index) => (
+          {studentUserPoint?.data?.points?.map((point, index) => (
             <S.PointWrapper
               display={penaltyEducation(point.reason) ? "flex" : "none"}
               borderColor={point.type ? "#4775b2" : "#de7373"}
@@ -63,22 +91,26 @@ function StatusItem(props) {
         </>
       );
     case 3:
-      if (studentUserOuting?.outings.length === 0) {
+      if (studentUserOuting?.data?.outings.length === 0) {
         return <S.NoneBreakdown>외출 내역이 없습니다</S.NoneBreakdown>;
       }
       return (
-        <S.PointWrapper borderColor="#92B5F9" color="#92B5F9">
-          <div className="pointTitle">
-            <S.PointReason>{studentUserOuting?.outings[0]?.date}</S.PointReason>
-            {studentUserOuting?.outings[0]?.place}
-          </div>
-        </S.PointWrapper>
+        <>
+          {studentUserOuting?.data?.outings?.map((outing, i) => (
+            <S.PointWrapper borderColor="#92B5F9" color="#92B5F9" key={i}>
+              <div className="pointTitle">
+                <S.PointReason>{outing.date}</S.PointReason>
+                {outing.place}
+              </div>
+            </S.PointWrapper>
+          ))}
+        </>
       );
     case 4:
       return (
         <S.RemainWrapper borderColor="#56AD9E">
           <img
-            src={userInformation?.["stay-status"] ? Remain : Home}
+            src={userInformation?.data?.["stay-status"] ? Remain : Home}
             alt="잔류여부"
           ></img>
           <h2>{remainPhrase}</h2>
@@ -89,15 +121,15 @@ function StatusItem(props) {
       return (
         <S.RemainWrapper
           borderColor={
-            userInformation?.["meal-applied"] ? "#56AD9E" : "#D37C7C"
+            userInformation?.data?.["meal-applied"] ? "#56AD9E" : "#D37C7C"
           }
         >
           <img
-            src={userInformation?.["meal-applied"] ? MealGreen : MealRed}
+            src={userInformation?.data?.["meal-applied"] ? MealGreen : MealRed}
             alt="급식신청여부"
           ></img>
           <h2>
-            {userInformation?.["meal-applied"]
+            {userInformation?.data?.["meal-applied"]
               ? "주말 급식 신청"
               : "주말 급식 미신청"}
           </h2>
@@ -106,7 +138,7 @@ function StatusItem(props) {
     default:
       return (
         <>
-          {studentUserPoint?.points?.map((point, index) => (
+          {studentUserPoint?.data?.points?.map((point, index) => (
             <S.PointWrapper
               display={penaltyEducation(point.reason) ? "none" : "flex"}
               borderColor={point.type ? "#4775b2" : "#de7373"}

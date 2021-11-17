@@ -15,10 +15,7 @@ export function StudentUserInfo(studentNumber) {
 }
 
 export function StudentUserPoint(studentNumber) {
-  const { data } = useSWR(
-    `${MainURL}/user/student/point/${studentNumber}`,
-    authFetcher
-  );
+  const { data } = useSWR(`${MainURL}${studentNumber}`, authFetcher);
   return data;
 }
 
