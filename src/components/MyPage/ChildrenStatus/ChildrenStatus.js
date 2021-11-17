@@ -2,9 +2,12 @@ import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import { Bike, Home, MealGreen, MealRed, Remain } from "../../../assets/index";
 import ChildrenCurrentStatus from "./ChildrenCurrentStatus/ChildrenCurrentStatus";
-import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
+import { StudentUser } from "../../../utils/api/myPage";
 import { request } from "../../../utils/axios/axios";
 import { AddChildren } from "../../../assets";
+import { MainURL } from "../../../utils/axios/axios";
+import { token } from "../../../utils/axios/axios";
+import axios from "axios";
 function ChildrenStatus() {
   const student = StudentUser();
   const [studentName, setStudentName] = useState("");
@@ -12,11 +15,23 @@ function ChildrenStatus() {
   const [open, setOpen] = useState(0);
   const [studentAim, setStudentAim] = useState(0);
 
-  const userInformation = StudentUserInfo(studentNumber);
+  const [userInformation, setUserInformation] = useState("");
   useEffect(() => {
     setStudentName(student?.students[studentAim]["student-name"]);
     setStudentNumber(student?.students[studentAim]["student-number"]);
-  });
+    if (studentNumber !== undefined && studentNumber !== "") {
+      axios
+        .get(`${MainURL}/user/student/${studentNumber}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setUserInformation(res);
+        })
+        .catch((e) => {
+          throw e;
+        });
+    }
+  }, [student?.students, studentAim, studentNumber]);
 
   const getCode = () => {
     const stdNumber = prompt("자녀확인 코드를 입력해주세요");
@@ -114,8 +129,8 @@ function ChildrenStatus() {
                 </ul>
               </div>
               <div className="img-wrapper">
-                <S.Point blue>{userInformation?.["bonus-point"]}</S.Point>
-                <S.Point>{userInformation?.["minus-point"]}</S.Point>
+                <S.Point blue>{userInformation?.data?.["bonus-point"]}</S.Point>
+                <S.Point>{userInformation?.data?.["minus-point"]}</S.Point>
               </div>
             </S.ItemInnerWrapper>
           </S.ChildrenStatusItem>
@@ -143,11 +158,13 @@ function ChildrenStatus() {
               </div>
               <div className="img-wrapper">
                 <img
-                  src={userInformation?.["stay-status"] ? Remain : Home}
+                  src={userInformation?.data?.["stay-status"] ? Remain : Home}
                   alt="잔류여부"
                 ></img>
                 <img
-                  src={userInformation?.["meal-apply"] ? MealGreen : MealRed}
+                  src={
+                    userInformation?.data?.["meal-apply"] ? MealGreen : MealRed
+                  }
                   alt="급식신청여부"
                 ></img>
               </div>
