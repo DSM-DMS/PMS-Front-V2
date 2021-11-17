@@ -23,7 +23,6 @@ import {
   StudentNumber,
 } from "../../../utils/hook/studentInfoHook";
 import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
-import { token } from "../../../utils/axios/axios";
 
 const Mypage = (props) => {
   const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
@@ -37,7 +36,6 @@ const Mypage = (props) => {
 
   //userData API
   const userData = StudentUser();
-  console.log(userData);
 
   useEffect(() => {
     setUser(userData);
@@ -59,6 +57,8 @@ const Mypage = (props) => {
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
+
+  const token = localStorage.getItem("access-token");
 
   return (
     <S.StudentInfo>

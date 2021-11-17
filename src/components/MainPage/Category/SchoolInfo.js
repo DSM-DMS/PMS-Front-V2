@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router";
 import { FetchNotice, FetchNoticeNews } from "../../../utils/api/user";
 import * as S from "../style/schoolInfoStyle";
 
@@ -8,6 +9,7 @@ const colorLists = [
 ];
 
 const SchoolInfo = () => {
+  const history = useHistory();
   const [btnSelect, setBtnSelect] = useState(1);
   const uploadDate = "upload-date";
 
@@ -50,7 +52,12 @@ const SchoolInfo = () => {
           {btnSelect === 1 ? (
             <>
               {fetchNoticeNews?.notices.map((notice) => (
-                <li key={notice.id}>
+                <li
+                  key={notice.id}
+                  onClick={() =>
+                    history.push(`familyLetterWritten/${notice.id}`)
+                  }
+                >
                   <span>{textSlice(notice.title, 25)}</span>
                   <span>{notice[`${uploadDate}`]}</span>
                 </li>
@@ -59,7 +66,10 @@ const SchoolInfo = () => {
           ) : (
             <>
               {fetchNotice?.notices.map((notice) => (
-                <li key={notice.id}>
+                <li
+                  key={notice.id}
+                  onClick={() => history.push(`noticeWritten/${notice.id}`)}
+                >
                   <span>{textSlice(notice.title, 30)}</span>
                   <span>{notice[`${uploadDate}`]}</span>
                 </li>
