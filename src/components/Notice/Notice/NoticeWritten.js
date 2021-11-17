@@ -3,17 +3,27 @@ import * as S from "../style";
 import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
-import { FetcherNotice, NoticeContent } from "../../../utils/api/user";
+import {
+  FetcherNotice,
+  NoticeContent,
+  FetchComment,
+} from "../../../utils/api/user";
 import { requestJW } from "../../../utils/axios/axios";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 function NoticeWritten(props) {
+  const history = useHistory();
   useEffect(() => {
-    const { location, history } = props;
-    if (location.state.id === undefined) {
-      history.push("/");
+    const { location } = props;
+    const token = localStorage.getItem("access-token") || "";
+    if (typeof location?.state?.id != "number") {
+      alert("잘못된 접근 방식입니다.");
+      history.push("/Notice");
+    } else if (token === "") {
+      alert("로그인 후 이용해주세요");
+      history.push("/login");
     }
-  }, []);
+  });
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
@@ -21,7 +31,7 @@ function NoticeWritten(props) {
   };
   //notice_id
   const { location } = props;
-  const contentId = location.state.id;
+  const contentId = location?.state?.id;
   const noticeContent = NoticeContent(contentId);
   const [contentBody, setContentBody] = useState();
   useEffect(() => {
@@ -35,26 +45,12 @@ function NoticeWritten(props) {
   const arr = Array.from({ length: totalPage }, (v, i) => i + 1);
   //new Content
   const newDate = (date) => {
-    const nowDate = new Date();
-    if (nowDate.getMonth !== date.getMonth) {
-      return date.getDay + 30 - nowDate.getDay <= 7;
+    const today = new Date();
+    const dateArray = date.split("-");
+    if (parseInt(today.getMonth() + 1) !== parseInt(dateArray[1])) {
+      return parseInt(dateArray[2]) + 30 - parseInt(today.getDate()) <= 7;
     }
-    return nowDate.getDay - date.getDay <= 7;
-  };
-  //page 이동
-  const backPage = () => {
-    if (presentPage === 1) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage - 1);
-  };
-  const nextPage = () => {
-    if (presentPage === totalPage) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage + 1);
+    return parseInt(dateArray[2]) - parseInt(today.getDate()) <= 7;
   };
   useEffect(() => {
     resizing("textarea");
@@ -80,6 +76,10 @@ function NoticeWritten(props) {
       setComment("");
     }
   };
+  const reComment = (id) => {
+    const fetchComment = FetchComment(id);
+    console.log(fetchComment);
+  };
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="공지사항" />
@@ -99,7 +99,15 @@ function NoticeWritten(props) {
         </S.WrittenItem>
         <div className="addFile">
           <div className="filetitle">첨부파일</div>
-          <div className="fileitem"></div>
+          <div className="fileitem">
+            {noticeContent?.attach.map((attach, i) => (
+              <>
+                <a href={attach.download} key={i}>
+                  {attach.name}
+                </a>
+              </>
+            ))}
+          </div>
         </div>
         <S.CommentWrapper>
           <div className="commentTitle">
@@ -120,15 +128,20 @@ function NoticeWritten(props) {
             />
             <S.CommentItemWrapper>
               {noticeContent?.comment.map((comment) => (
-                <S.CommentItem id={comment.id}>
-                  <div className="profileimage">
-                    <Profile />
-                  </div>
-                  <div className="commentItemInner">
-                    <div className="title">{comment.user.name}</div>
-                    <div className="content">{comment.body}</div>
-                  </div>
-                </S.CommentItem>
+                <>
+                  <S.CommentItem
+                    id={comment.id}
+                    onClick={reComment(comment.id)}
+                  >
+                    <div className="profileimage">
+                      <Profile />
+                    </div>
+                    <div className="commentItemInner">
+                      <div className="title">{comment.user.name}</div>
+                      <div className="content">{comment.body}</div>
+                    </div>
+                  </S.CommentItem>
+                </>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
@@ -167,7 +180,14 @@ function NoticeWritten(props) {
           ))}
         </S.Item>
         <S.Page>
-          <S.PageItem onClick={() => backPage()}>{"<"}</S.PageItem>
+          <S.BackPage
+            onClick={() => {
+              setPresentPage(presentPage - 1);
+            }}
+            props={presentPage}
+          >
+            {"<"}
+          </S.BackPage>
           <>
             {arr.map((id) => (
               <S.PageItem
@@ -181,12 +201,20 @@ function NoticeWritten(props) {
                       }
                     : {}
                 }
+                key={id}
               >
                 {id}
               </S.PageItem>
             ))}
           </>
-          <S.PageItem onClick={() => nextPage()}>{">"}</S.PageItem>
+          <S.NextPage
+            onClick={() => {
+              setPresentPage(presentPage + 1);
+            }}
+            props={presentPage === totalPage}
+          >
+            {">"}
+          </S.NextPage>
         </S.Page>
       </S.BottomItemWrapper>
       <Footer />

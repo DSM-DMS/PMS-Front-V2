@@ -6,7 +6,7 @@ export const MainWrapper = styled.div`
 `;
 export const MainItemWrapper = styled.div`
   position: relative;
-  top: -5%;
+  top: -90px;
   margin: 0 auto;
   width: 78%;
   height: 680px;
@@ -21,26 +21,16 @@ export const Search = styled.div`
   margin: 0.5% 0%;
   display: flex;
   justify-content: flex-end;
-  select {
-    color: #9e9e9e;
-    font-size: 17px;
-    background-color: white;
-    width: 10%;
-    height: 100%;
-    outline: none;
-    border: 1px solid #c8c8c8;
-    option {
-      color: #c8c8c8;
-      font-size: 16px;
-    }
-  }
+  color: #9e9e9e;
+  font-size: 17px;
+  background-color: white;
 `;
 export const SearchInput = styled.input`
   border: 1px solid #c8c8c8;
   background-color: #f6f6f6;
   font-size: 17px;
   color: #9e9e9e;
-  width: 23%;
+  width: 25%;
   height: 100%;
   outline: none;
   box-sizing: border-box;
@@ -120,10 +110,16 @@ export const PageItem = styled.div`
     text-decoration: underline;
   }
 `;
+export const BackPage = styled(PageItem)`
+  display: ${(props) => (props.props === 1 ? "none" : "block")};
+`;
+export const NextPage = styled(PageItem)`
+  display: ${(props) => (props.props ? "none" : "block")};
+`;
 
 //글 내용, 목록 확인 부분
 export const MainWrittenWrapper = styled(MainWrapper)`
-  /*   height: 2000px; */
+  height: auto;
 `;
 export const MainWrittenItemWrapper = styled(MainItemWrapper)`
   height: auto;
@@ -135,13 +131,14 @@ export const MainWrittenItemWrapper = styled(MainItemWrapper)`
   .addFile {
     border: 1px solid #c8c8c8;
     width: 100%;
-    height: 35px;
+    height: auto;
     display: flex;
     align-items: center;
     border-left: none;
     border-right: none;
     color: #9e9e9e;
     font-size: 20px;
+    padding: 10px 0;
     .filetitle {
       font-weight: 600;
       width: 6%;
@@ -151,6 +148,11 @@ export const MainWrittenItemWrapper = styled(MainItemWrapper)`
     }
     .fileitem {
       width: 90%;
+      & a {
+        display: block;
+        color: #9e9e9e;
+        text-decoration: none;
+      }
     }
   }
 `;
@@ -159,20 +161,19 @@ export const WrittenInfo = styled.div`
   font-size: 20px;
   width: 100%;
   border-bottom: 1px solid #c8c8c8;
-  height: 5%;
+  height: 40px;
   display: flex;
   box-sizing: border-box;
-  padding: 5px 0;
+  padding: 5px 0 10px 0;
   justify-content: space-between;
   .infotitleWrapper {
     display: flex;
-    width: 30%;
   }
   .infotitle {
     font-weight: 600;
     width: 70px;
     border-right: 1px solid #c8c8c8;
-    margin-left: 12%;
+    margin: 0 15px;
   }
 `;
 export const WrittenItem = styled.div`
@@ -187,6 +188,7 @@ export const WrittenItem = styled.div`
     border: none;
     font-size: 20px;
     margin: 5px 0;
+    padding-bottom: 50px;
   }
   textarea:focus {
     outline: none;
@@ -218,15 +220,18 @@ export const CommentWrapper = styled.div`
 export const CommentContent = styled.div`
   input {
     width: 100%;
-    border-radius: 3%;
-    height: 50px;
+    border-radius: 20px;
+    height: 60px;
     outline: none;
     background-color: #f6f6f6;
     border: none;
-    font-size: 17px;
-    color: #9e9e9e;
+    font-size: 20px;
+    color: black;
     box-sizing: border-box;
     padding-left: 2%;
+  }
+  input::placeholder {
+    color: #9e9e9e;
   }
   width: 100%;
   height: 85%;
