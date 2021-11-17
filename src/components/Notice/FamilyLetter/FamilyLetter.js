@@ -58,8 +58,7 @@ function Notice() {
               .map((notice, index) => (
                 <Link
                   to={{
-                    pathname: `/familyLetterWritten`,
-                    state: { id: notice.id },
+                    pathname: `/familyLetterWritten/${notice.id}`,
                   }}
                   style={{ textDecoration: "none", color: "black" }}
                   key={index}

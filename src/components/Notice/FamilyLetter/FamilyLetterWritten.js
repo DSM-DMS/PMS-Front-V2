@@ -11,19 +11,21 @@ import {
 import { requestJW } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
 
-function FamilyLetterWritten(props) {
+function FamilyLetterWritten({ match, props }) {
   const history = useHistory();
   useEffect(() => {
-    const { location } = props;
     const token = localStorage.getItem("access-token") || "";
-    if (typeof location?.state?.id != "number") {
-      alert("잘못된 접근 방식입니다.");
-      history.push("/Notice");
-    } else if (token === "") {
+    if (token === "") {
       alert("로그인 후 이용해주세요");
       history.push("/login");
     }
+
+    /* if (typeof match.params.id != "number") {
+      alert("잘못된 접근 방식입니다.");
+      history.push("/Notice");
+    } */
   });
+
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
@@ -31,8 +33,7 @@ function FamilyLetterWritten(props) {
   };
 
   //notice_id
-  const { location } = props;
-  const contentId = location.state.id;
+  const contentId = match.params.id;
   const noticeContent = NoticeContent(contentId);
   const [contentBody, setContentBody] = useState();
   useEffect(() => {
@@ -60,6 +61,7 @@ function FamilyLetterWritten(props) {
   const onChange = (e) => {
     setComment(e.target.value);
   };
+
   const typedEnter = (e) => {
     if (e.key === "Enter") {
       const typedComment = (notice_id) => {
@@ -109,10 +111,7 @@ function FamilyLetterWritten(props) {
           <div className="commentTitle">
             <h3>댓글</h3>
             <div className="commentAmount">
-              {noticeContent?.comment.length
-                ? noticeContent?.comment.length
-                : "0"}
-              개
+              {noticeContent?.comment.length}개
             </div>
           </div>
           <S.CommentContent>

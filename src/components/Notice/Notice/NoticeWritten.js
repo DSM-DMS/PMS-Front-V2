@@ -11,32 +11,22 @@ import {
 import { requestJW } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
 
-function NoticeWritten(props) {
+function NoticeWritten({ match, props }) {
   const history = useHistory();
-  useEffect(() => {
-    const { location } = props;
-    const token = localStorage.getItem("access-token") || "";
-    if (typeof location?.state?.id != "number") {
-      alert("잘못된 접근 방식입니다.");
-      history.push("/Notice");
-    } else if (token === "") {
-      alert("로그인 후 이용해주세요");
-      history.push("/login");
-    }
-  });
+
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
     textarea.style.height = textarea.scrollHeight.toString() + "px";
   };
   //notice_id
-  const { location } = props;
-  const contentId = location?.state?.id;
-  const noticeContent = NoticeContent(contentId);
+  const noticeContent = NoticeContent(match.params.id);
   const [contentBody, setContentBody] = useState();
+
   useEffect(() => {
     setContentBody(noticeContent?.body);
   }, [noticeContent]);
+
   //현재 페이지
   const [presentPage, setPresentPage] = useState(1);
   let fetchNotice = FetcherNotice(presentPage - 1);
@@ -52,14 +42,17 @@ function NoticeWritten(props) {
     }
     return parseInt(dateArray[2]) - parseInt(today.getDate()) <= 7;
   };
+
   useEffect(() => {
     resizing("textarea");
   });
+
   //댓글 입력
   const [comment, setComment] = useState("");
   const onChange = (e) => {
     setComment(e.target.value);
   };
+
   const typedEnter = (e) => {
     if (e.key === "Enter") {
       const typedComment = (notice_id) => {
@@ -72,26 +65,33 @@ function NoticeWritten(props) {
           { body: comment, comment_id: null }
         );
       };
-      typedComment(contentId);
+      typedComment(match.params.id);
       setComment("");
     }
   };
+
   const reComment = (id) => {
-    const fetchComment = FetchComment(id);
-    console.log(fetchComment);
+    try {
+      const fetchComment = FetchComment(id);
+      console.log(fetchComment);
+      return fetchComment;
+    } catch (e) {
+      console.log(e);
+    }
   };
+
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="공지사항" />
       <S.MainWrittenItemWrapper>
         <h3>{noticeContent?.title}</h3>
         <S.WrittenInfo>
-          <div className="infotype">공지사항</div>
+          <div className="infotitle">공지사항</div>
           <div className="infotitleWrapper">
             <div className="infotitle">작성자</div>
-            {noticeContent?.writer}
+            <span>{noticeContent?.writer}</span>
             <div className="infotitle">작성일</div>
-            {noticeContent?.[`upload-date`]}
+            <span>{noticeContent?.[`upload-date`]}</span>
           </div>
         </S.WrittenInfo>
         <S.WrittenItem>
@@ -112,12 +112,9 @@ function NoticeWritten(props) {
         <S.CommentWrapper>
           <div className="commentTitle">
             <h3>댓글</h3>
-            <div className="commentAmount">
-              {noticeContent?.comment.length
-                ? noticeContent?.comment.length
-                : "0"}
-              개
-            </div>
+            <span className="commentAmount">
+              {noticeContent?.comment.length}개
+            </span>
           </div>
           <S.CommentContent>
             <input

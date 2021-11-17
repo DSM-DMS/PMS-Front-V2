@@ -24,7 +24,7 @@ export function FetchFamilyLetter(num) {
   return data;
 }
 export function FetchComment(comment_id) {
-  const { data } = useSWR(`${JwURL}notice/{comment_id}/comment`, fetcher);
+  const { data } = useSWR(`${JwURL}notice/${comment_id}/comment`, fetcher);
   return data;
 }
 //동이리 목록

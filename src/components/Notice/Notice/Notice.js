@@ -29,6 +29,7 @@ function Notice() {
   const onChange = (e) => {
     setInputText(e.target.value);
   };
+
   return (
     <S.MainWrapper>
       <BackgroundTitle title="공지사항" />
@@ -57,7 +58,9 @@ function Notice() {
               })
               .map((notice, index) => (
                 <Link
-                  to={{ pathname: `/noticeWritten`, state: { id: notice.id } }}
+                  to={{
+                    pathname: `/noticeWritten/${notice.id}`,
+                  }}
                   style={{ textDecoration: "none", color: "black" }}
                   key={index}
                 >
