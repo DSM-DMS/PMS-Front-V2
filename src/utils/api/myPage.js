@@ -14,17 +14,23 @@ export function StudentUserInfo(studentNumber) {
   return data;
 }
 
-export function StudentUserPoint(studentNumber){
-  const { data } = useSWR(`${MainURL}/user/student/point/${studentNumber}`, authFetcher)
+export function StudentUserPoint(studentNumber) {
+  const { data } = useSWR(
+    `${MainURL}/user/student/point/${studentNumber}`,
+    authFetcher
+  );
   return data;
 }
 
-export function StudentUserOuting(studentNumber){
-  const { data } = useSWR(`${MainURL}/user/student/outing/${studentNumber}`, authFetcher)
+export function StudentUserOuting(studentNumber) {
+  const { data } = useSWR(
+    `${MainURL}/user/student/outing/${studentNumber}`,
+    authFetcher
+  );
   return data;
 }
 
-export function UserNickname(name){
+export function UserNickname(name) {
   const { data } = useSWR(`${MainURL}/user/name`, nicknameFetch(name));
   return data;
 }
