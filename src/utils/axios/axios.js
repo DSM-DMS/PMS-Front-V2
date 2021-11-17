@@ -3,7 +3,7 @@ import Axios from "axios";
 export const MainURL = "https://api.smooth-bear.live";
 export const JwURL = "https://api.potatochips.live/";
 
-const token = `${localStorage.getItem("access-token")}`;
+export const token = `${localStorage.getItem("access-token")}`;
 
 export const fetcher = (url) =>
   Axios.get(url)
