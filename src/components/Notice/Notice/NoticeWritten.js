@@ -3,11 +3,7 @@ import * as S from "../style";
 import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
-import {
-  FetcherNotice,
-  NoticeContent,
-  FetchComment,
-} from "../../../utils/api/user";
+import { FetcherNotice, NoticeContent } from "../../../utils/api/user";
 import { requestJW } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
 
@@ -76,10 +72,6 @@ function NoticeWritten(props) {
       setComment("");
     }
   };
-  const reComment = (id) => {
-    const fetchComment = FetchComment(id);
-    console.log(fetchComment);
-  };
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="공지사항" />
@@ -101,11 +93,9 @@ function NoticeWritten(props) {
           <div className="filetitle">첨부파일</div>
           <div className="fileitem">
             {noticeContent?.attach.map((attach, i) => (
-              <>
-                <a href={attach.download} key={i}>
-                  {attach.name}
-                </a>
-              </>
+              <a href={attach.download} key={i}>
+                {attach.name}
+              </a>
             ))}
           </div>
         </div>
@@ -127,21 +117,16 @@ function NoticeWritten(props) {
               value={comment}
             />
             <S.CommentItemWrapper>
-              {noticeContent?.comment.map((comment) => (
-                <>
-                  <S.CommentItem
-                    id={comment.id}
-                    onClick={reComment(comment.id)}
-                  >
-                    <div className="profileimage">
-                      <Profile />
-                    </div>
-                    <div className="commentItemInner">
-                      <div className="title">{comment.user.name}</div>
-                      <div className="content">{comment.body}</div>
-                    </div>
-                  </S.CommentItem>
-                </>
+              {noticeContent?.comment.map((comment, i) => (
+                <S.CommentItem id={comment.id} key={i}>
+                  <div className="profileimage">
+                    <Profile />
+                  </div>
+                  <div className="commentItemInner">
+                    <div className="title">{comment.user.name}</div>
+                    <div className="content">{comment.body}</div>
+                  </div>
+                </S.CommentItem>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
