@@ -3,16 +3,11 @@ import * as S from "./style/style";
 import Header from "../Header/Header";
 import Category from "./Category";
 import MainPageFooter from "../footer/MainPageFooter";
-import {
-  MainBackground,
-  MainBackground2,
-  MainBackground3,
-} from "../../assets/index";
+import { MainBackground, MainBackground3 } from "../../assets/index";
 import Typist from "react-typist";
 
 function MainPage() {
-  const TOTAL_SLIDES = 1;
-  const [currentSlider, setCurrentSlider] = useState(0);
+  const currentSlider = 0;
   const sliderRef = useRef(null);
   const [val, setVal] = useState(0);
 
