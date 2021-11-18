@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FetchMeal } from "../../../utils/api/user";
 import * as S from "../style/mealStyle";
 
@@ -19,10 +19,6 @@ const Meals = () => {
   };
 
   const fetchMeal = FetchMeal(TodayDate);
-
-  useEffect(() => {
-    console.log(TodayDate);
-  }, [TodayDate]);
 
   return (
     <S.TodayMeals>
