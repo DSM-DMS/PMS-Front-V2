@@ -139,7 +139,7 @@ function NoticeWritten({ match, props }) {
         <S.Item>
           {fetchNotice?.notices.map((notice, index) => (
             <Link
-              to={{ pathname: `/noticeWritten`, state: { id: notice.id } }}
+              to={`/noticeWritten/${notice.id}`}
               style={{ textDecoration: "none", color: "black" }}
               key={index}
             >

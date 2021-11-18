@@ -9,6 +9,7 @@ import { Link, useHistory } from "react-router-dom";
 
 function FamilyLetterWritten({ match, props }) {
   const history = useHistory();
+
   useEffect(() => {
     const token = localStorage.getItem("access-token") || "";
     if (token === "") {
@@ -135,10 +136,7 @@ function FamilyLetterWritten({ match, props }) {
         <S.Item>
           {fetchNotice?.notices.map((notice, index) => (
             <Link
-              to={{
-                pathname: `/FamilyLetterWritten`,
-                state: { id: notice.id },
-              }}
+              to={`/FamilyLetterWritten/${notice.id}`}
               style={{ textDecoration: "none", color: "black" }}
               key={index}
             >
