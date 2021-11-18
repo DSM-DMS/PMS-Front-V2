@@ -4,9 +4,9 @@ import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
 import { NoticeContent, FetchFamilyLetter } from "../../../utils/api/user";
-import { requestJW } from "../../../utils/axios/axios";
+import { requestJW, JwURL, token } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
-
+import axios from "axios";
 function FamilyLetterWritten({ match, props }) {
   const history = useHistory();
   useEffect(() => {
@@ -48,26 +48,57 @@ function FamilyLetterWritten({ match, props }) {
   useEffect(() => {
     resizing("textarea");
   });
+  //댓글 입력하기
   const [comment, setComment] = useState("");
+  const [writingRecomment, setWritingRecomment] = useState(0);
+  const [placehorder, setPlacehorder] = useState("댓글을 입력하세요");
+  useEffect(() => {
+    if (writingRecomment === 0) {
+      setPlacehorder("댓글을 입력하세요.");
+    } else {
+      setPlacehorder("답글을 입력하세요.");
+    }
+  }, [writingRecomment]);
   const onChange = (e) => {
     setComment(e.target.value);
   };
-
   const typedEnter = (e) => {
     if (e.key === "Enter") {
       const typedComment = (notice_id) => {
+        const checkNull = writingRecomment === 0 ? null : writingRecomment;
         requestJW(
           "post",
           `notice/${notice_id}/comment`,
           {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
-          { body: comment, comment_id: null }
+          { body: comment, comment_id: checkNull }
         );
       };
-      typedComment(contentId);
+      setWritingRecomment(0);
+      typedComment(match.params.id);
       setComment("");
     }
+  };
+  //대댓글 받아오기
+  const [recomment, setRecomment] = useState();
+  const [recommentAimId, setRecommentAimId] = useState();
+  const getRecomment = (comment_id) => {
+    axios
+      .get(`${JwURL}notice/${comment_id}/comment`, {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then((res) => {
+        if (res.data.length === 0) {
+          return;
+        }
+        setRecomment(res.data);
+        console.log(res.data);
+        setRecommentAimId(comment_id);
+      })
+      .catch((e) => {
+        throw e;
+      });
   };
   return (
     <S.MainWrittenWrapper>
@@ -105,22 +136,42 @@ function FamilyLetterWritten({ match, props }) {
           </div>
           <S.CommentContent>
             <input
-              placeholder="댓글을 입력하세요."
+              placeholder={placehorder}
               onChange={onChange}
               onKeyPress={typedEnter}
               value={comment}
             />
             <S.CommentItemWrapper>
               {noticeContent?.comment.map((comment, i) => (
-                <S.CommentItem id={comment.id} key={i}>
-                  <div className="profileimage">
-                    <Profile />
-                  </div>
-                  <div className="commentItemInner">
-                    <div className="title">{comment.user.name}</div>
-                    <div className="content">{comment.body}</div>
-                  </div>
-                </S.CommentItem>
+                <div key={i}>
+                  <S.CommentItem
+                    id={comment.id}
+                    onClick={() => setWritingRecomment(comment.id)}
+                  >
+                    <div className="profileimage">
+                      <Profile />
+                    </div>
+                    <div className="commentItemInner">
+                      <div className="title">{comment.user.name}</div>
+                      <div className="content">{comment.body}</div>
+                    </div>
+                    <span onClick={() => getRecomment(comment.id)}>
+                      답글보기
+                    </span>
+                  </S.CommentItem>
+                  {recommentAimId === comment.id &&
+                    recomment.map((comment, i) => (
+                      <S.ReCommentItem key={i}>
+                        <div className="profileimage">
+                          <Profile />
+                        </div>
+                        <div className="commentItemInner">
+                          <div className="title">{comment.user?.name}</div>
+                          <div className="content">{comment.body}</div>
+                        </div>
+                      </S.ReCommentItem>
+                    ))}
+                </div>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
