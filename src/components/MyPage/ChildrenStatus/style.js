@@ -58,8 +58,8 @@ export const ItemInnerWrapper = styled.div`
 export const Point = styled.div`
   color: white;
   text-align: center;
-  width: 36%;
-  height: 70%;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   box-sizing: border-box;
   padding-top: 5%;

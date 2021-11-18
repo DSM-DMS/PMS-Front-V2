@@ -174,9 +174,7 @@ function ChildrenStatus() {
             <div className="itemTitle">동아리</div>
             <S.ItemInnerWrapper>
               <div className="checkStatus">
-                <ul>
-                  <li>DMS</li>
-                </ul>
+                <h3>이 기능은 아직 사용할 수 없습니다.</h3>
               </div>
               <div className="img-wrapper"></div>
             </S.ItemInnerWrapper>
