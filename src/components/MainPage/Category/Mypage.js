@@ -90,7 +90,7 @@ const Mypage = (props) => {
                               <>
                                 <div
                                   className="student-name-wrapper"
-                                  key={user?.students[i]?.[`${studentNumber}`]}
+                                  key={i}
                                   onClick={() => {
                                     setStdSelect(i);
                                   }}

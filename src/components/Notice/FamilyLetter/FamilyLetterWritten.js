@@ -3,11 +3,7 @@ import * as S from "../style";
 import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
-import {
-  NoticeContent,
-  FetchFamilyLetter,
-  FetchComment,
-} from "../../../utils/api/user";
+import { NoticeContent, FetchFamilyLetter } from "../../../utils/api/user";
 import { requestJW } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
 
@@ -19,11 +15,6 @@ function FamilyLetterWritten({ match, props }) {
       alert("로그인 후 이용해주세요");
       history.push("/login");
     }
-
-    /* if (typeof match.params.id != "number") {
-      alert("잘못된 접근 방식입니다.");
-      history.push("/Notice");
-    } */
   });
 
   const resizing = (id) => {

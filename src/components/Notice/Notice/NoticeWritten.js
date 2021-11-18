@@ -10,6 +10,14 @@ import { Link, useHistory } from "react-router-dom";
 function NoticeWritten({ match, props }) {
   const history = useHistory();
 
+  useEffect(() => {
+    const token = localStorage.getItem("access-token") || "";
+    if (token === "") {
+      alert("로그인 후 이용해주세요");
+      history.push("/login");
+    }
+  });
+
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
@@ -66,15 +74,15 @@ function NoticeWritten({ match, props }) {
     }
   };
 
-  const reComment = (id) => {
-    try {
-      const fetchComment = FetchComment(id);
-      console.log(fetchComment);
-      return fetchComment;
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const reComment = (id) => {
+  //   //  try {
+  //   const fetchComment = FetchComment(id);
+  //   console.log(fetchComment);
+  //   return fetchComment;
+  //   //} catch (e) {
+  //   //console.log(e);
+  //   //}
+  // };
 
   return (
     <S.MainWrittenWrapper>
