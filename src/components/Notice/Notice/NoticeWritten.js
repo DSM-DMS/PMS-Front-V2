@@ -4,8 +4,9 @@ import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
 import { FetcherNotice, NoticeContent } from "../../../utils/api/user";
-import { requestJW } from "../../../utils/axios/axios";
+import { requestJW, JwURL, token } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 function NoticeWritten({ match, props }) {
   const history = useHistory();
   useEffect(() => {
@@ -15,7 +16,6 @@ function NoticeWritten({ match, props }) {
       history.push("/login");
     }
   });
-
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
@@ -71,6 +71,26 @@ function NoticeWritten({ match, props }) {
       setComment("");
     }
   };
+  //대댓글 받아오기
+  const [recomment, setRecomment] = useState();
+  const [recommentAimId, setRecommentAimId] = useState();
+  const getRecomment = (comment_id) => {
+    axios
+      .get(`${JwURL}notice/${comment_id}/comment`, {
+        headers: { Authorization: "Bearer " + token },
+      })
+      .then((res) => {
+        if (res.data.length === 0) {
+          return;
+        }
+        setRecomment(res.data);
+        console.log(res.data);
+        setRecommentAimId(comment_id);
+      })
+      .catch((e) => {
+        throw e;
+      });
+  };
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="공지사항" />
@@ -114,8 +134,8 @@ function NoticeWritten({ match, props }) {
             />
             <S.CommentItemWrapper>
               {noticeContent?.comment.map((comment, i) => (
-                <>
-                  <S.CommentItem id={comment.id} key={i}>
+                <div key={i}>
+                  <S.CommentItem id={comment.id}>
                     <div className="profileimage">
                       <Profile />
                     </div>
@@ -123,8 +143,23 @@ function NoticeWritten({ match, props }) {
                       <div className="title">{comment.user.name}</div>
                       <div className="content">{comment.body}</div>
                     </div>
+                    <span onClick={() => getRecomment(comment.id)}>
+                      답글보기
+                    </span>
                   </S.CommentItem>
-                </>
+                  {recommentAimId === comment.id &&
+                    recomment.map((comment, i) => (
+                      <S.ReCommentItem key={i}>
+                        <div className="profileimage">
+                          <Profile />
+                        </div>
+                        <div className="commentItemInner">
+                          <div className="title">{comment.user?.name}</div>
+                          <div className="content">{comment.body}</div>
+                        </div>
+                      </S.ReCommentItem>
+                    ))}
+                </div>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
