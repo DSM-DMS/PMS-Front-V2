@@ -25,24 +25,26 @@ const Header = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 100px;
-    height: 130px;
-    background-color: white;
+    background: rgb(46, 52, 81);
+    border-radius: 3px;
+    box-shadow: 0 2px 4px gray;
     z-index: 2;
     position: absolute;
     top: 60px;
     right: 443px;
     box-shadow: 0px 5px 5px #00000029;
     transition: all 0.5s;
+    overflow: hidden;
 
     & li {
       list-style: none;
       color: black;
+      overflow: hidden;
     }
 
     a {
       text-decoration: none;
-      color: black;
-      display: flex;
+      color: white;
     }
   }
 

@@ -1,20 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 import { logoutUser } from "../../actions/userAction";
 import { PMS } from "../../assets";
 import * as S from "./style";
 
 const Header = () => {
   const [display, setDisplay] = useState();
-  const [hover, setHover] = useState("black");
   const token = localStorage.getItem("access-token");
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const hoverEvent = () => {
-    setHover("#350871 ");
-  };
 
   //로그아웃
   const logout = () => {
@@ -24,7 +19,7 @@ const Header = () => {
   };
 
   return (
-    <S.Header>
+    <S.Header display={display}>
       <Link to="/" className="logo">
         <img src={PMS} alt="PMS로고이미지"></img>
       </Link>
@@ -54,40 +49,21 @@ const Header = () => {
         onMouseOver={() => setDisplay(!display)}
         onMouseOut={() => setDisplay(!display)}
         style={{
-          height: display ? 200 : 0,
-          display: display ? "flex" : "none",
+          height: display ? 150 : 0,
         }}
       >
         <li className="link">
-          <Link
-            to="/company-info"
-            style={{ color: hover }}
-            onMouseMove={hoverEvent}
-          >
-            취업처 소개
-          </Link>
+          <Link to="/company-info">취업처 소개</Link>
         </li>
         <li className="link">
-          <Link
-            to="/club-info"
-            style={{ color: hover }}
-            onMouseMove={hoverEvent}
-          >
-            동아리 소개
-          </Link>
+          <Link to="/club-info">동아리 소개</Link>
         </li>
         <li className="link">
-          <Link
-            to="/creators-info"
-            style={{ color: hover }}
-            onMouseMove={hoverEvent}
-          >
-            개발자 소개
-          </Link>
+          <Link to="/creators-info">개발자 소개</Link>
         </li>
       </ul>
     </S.Header>
   );
 };
 
-export default Header;
+export default withRouter(Header);
