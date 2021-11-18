@@ -7,9 +7,19 @@ import MonthCalendar from "./MonthCalendar";
 import TodayMeals from "./TodayMeals";
 import { requestJW } from "../../utils/axios/axios";
 import moment from "moment";
+import { useHistory } from "react-router";
 
 const Calendar = () => {
+  const history = useHistory();
   const [eventData, setEventData] = useState([]);
+
+  useEffect(() => {
+    const token = localStorage.getItem("access-token") || "";
+    if (token === "") {
+      alert("로그인 후 이용해주세요");
+      history.push("/login");
+    }
+  });
 
   const date = new Date();
   const year = date.getFullYear();
@@ -18,7 +28,6 @@ const Calendar = () => {
   const weekday = date.getDay();
 
   const [monthDate, setMonthDate] = useState(moment().format("M"));
-  console.log(monthDate);
 
   let TodayDate = year + "" + month + "" + day;
   let today = year + "-" + month + "-" + day;
