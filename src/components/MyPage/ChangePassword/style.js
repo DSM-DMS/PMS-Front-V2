@@ -3,7 +3,7 @@ import { MYPAGE_COLOR } from "../style";
 
 export const ChangePassword = styled.div`
   width: 100%;
-  height: 60%;
+  height: 400px;
 `;
 export const ChangePasswordInput = styled.input`
   width: 95%;
@@ -22,6 +22,7 @@ export const ChangePasswordItemBox = styled.div`
   align-items: flex-end;
 `;
 export const ChangePasswordTitle = styled.div`
+  width: 635px;
   display: flex;
   font-size: 13px;
   color: ${MYPAGE_COLOR.MAIN_FONT_COLOR};
@@ -29,6 +30,7 @@ export const ChangePasswordTitle = styled.div`
     font-size: 18px;
     color: black;
     margin-right: 2%;
+    font-weight: 600;
   }
 `;
 export const ErrorMessage = styled.div`
@@ -49,7 +51,11 @@ export const ChangePasswordBtn = styled.button`
   border-radius: 2px;
   margin-top: 20px;
   font-size: 16px;
+  outline: 1;
 `;
 export const ChangePasswordNotEmptyBtn = styled(ChangePasswordBtn)`
   background-color: #56ad77;
+  :hover {
+    cursor: pointer;
+  }
 `;

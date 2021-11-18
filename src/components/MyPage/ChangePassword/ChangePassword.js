@@ -34,7 +34,6 @@ function ChangePassword() {
         <h4>비밀번호 변경</h4>개인정보 보호를 위해 비밀번호는 주기적으로
         변경해주세요.
       </S.ChangePasswordTitle>
-      <br />
       <S.ChangePasswordWrapper>
         <S.ChangePasswordItemBox>
           <S.ChangePasswordInput

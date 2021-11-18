@@ -27,15 +27,17 @@ function UserInformation() {
       <h4>개인 정보</h4>
       <S.UserInformationItem>
         <S.ItemTitle>이메일</S.ItemTitle>
-        <S.ItemContent></S.ItemContent>
+        <S.ItemContent>legojoa1214@gmail.com</S.ItemContent>
       </S.UserInformationItem>
       <S.UserInformationItemBot>
         <S.ItemTitle>닉네임</S.ItemTitle>
-        <S.NickNameInput
-          onChange={onChange}
-          value={nickname}
-          onKeyPress={onKeyPress}
-        />
+        <S.ItemContent>
+          <S.NickNameInput
+            onChange={onChange}
+            value={nickname}
+            onKeyPress={onKeyPress}
+          />
+        </S.ItemContent>
       </S.UserInformationItemBot>
     </S.UserInformation>
   );

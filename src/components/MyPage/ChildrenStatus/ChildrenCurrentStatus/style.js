@@ -33,9 +33,9 @@ export const PointWrapper = styled.div`
   border: 1px solid ${(props) => props.borderColor};
   display: ${(props) => props.display};
   width: 98%;
-  margin-top: 5%;
   box-sizing: border-box;
-  padding: 2% 0%;
+  margin: auto;
+  margin-top: 5%;
   overflow-y: scroll;
   .pointTitle {
     width: 75%;
