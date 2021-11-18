@@ -42,7 +42,7 @@ const Header = styled.div`
     a {
       text-decoration: none;
       color: black;
-      display: ${({ display }) => (display ? "flex" : "none")};
+      display: flex;
     }
   }
 

@@ -6,7 +6,7 @@ import { PMS } from "../../assets";
 import * as S from "./style";
 
 const Header = () => {
-  const [display, setDisplay] = useState("");
+  const [display, setDisplay] = useState();
   const [hover, setHover] = useState("black");
   const token = localStorage.getItem("access-token");
   const dispatch = useDispatch();
@@ -35,6 +35,7 @@ const Header = () => {
           to="/club-info"
           style={{ padding: "30px 0" }}
           onMouseOver={() => setDisplay(!display)}
+          onMouseOut={() => setDisplay(!display)}
         >
           소개
         </Link>
@@ -50,15 +51,18 @@ const Header = () => {
       <ul
         id="headModal"
         className="nav-link"
-        //onMouseOver={() => setDisplay(!display)}
-        style={{ height: display ? 200 : 0 }}
+        onMouseOver={() => setDisplay(!display)}
+        onMouseOut={() => setDisplay(!display)}
+        style={{
+          height: display ? 200 : 0,
+          display: display ? "flex" : "none",
+        }}
       >
         <li className="link">
           <Link
             to="/company-info"
             style={{ color: hover }}
             onMouseMove={hoverEvent}
-            display={display}
           >
             취업처 소개
           </Link>
@@ -74,7 +78,7 @@ const Header = () => {
         </li>
         <li className="link">
           <Link
-            to="/company-info"
+            to="/creators-info"
             style={{ color: hover }}
             onMouseMove={hoverEvent}
           >
