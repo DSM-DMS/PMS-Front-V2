@@ -74,6 +74,8 @@ export const AttachFile = styled.div`
   border-top: 1px solid #c8c8c8;
 
   & span {
+    border-right: 1px solid;
+    padding-right: 10px;
     margin-right: 10px;
     color: #9e9e9e;
     font-weight: 500;
@@ -83,5 +85,8 @@ export const AttachFile = styled.div`
   & a {
     cursor: pointer;
     margin-right: 10px;
+    font-size: 15px;
+    text-decoration: none;
+    color: #ab9e9e;
   }
 `;

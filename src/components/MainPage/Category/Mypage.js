@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import useSWR from "swr";
-import { authFetcher, MainURL } from "../../../utils/axios/axios";
 import * as S from "../style/myPageStyle";
 import {
   MyPage,
@@ -24,6 +22,7 @@ import {
   StudentGrade,
   StudentNumber,
 } from "../../../utils/hook/studentInfoHook";
+import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
 
 const Mypage = (props) => {
   const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
@@ -35,37 +34,37 @@ const Mypage = (props) => {
   const [stdNum, setStdNum] = useState(); // 자녀 학번
   const [stdNumber, setStdNumber] = useState(); // 자녀 번호
 
-  const isAccessToken = localStorage.getItem("access-token");
-
   //userData API
-  const userData = useSWR(`${MainURL}/user`, authFetcher);
+  const userData = StudentUser();
 
   useEffect(() => {
-    setUser(userData.data);
-    setStdNum(userData?.data?.students[`${stdSelect}`]?.[`${studentNumber}`]);
-  }, [userData.data, stdSelect]);
+    setUser(userData);
+    setStdNum(userData?.students[`${stdSelect}`]?.[`${studentNumber}`]);
+  }, [userData, stdSelect]);
 
   //학생 정보 api
-  const studentData = useSWR(`${MainURL}/user/student/${stdNum}`, authFetcher);
+  const studentData = StudentUserInfo(stdNum);
 
   useEffect(() => {
-    setUserInfo(studentData.data);
-    if (userData.data !== undefined) {
+    setUserInfo(studentData);
+    if (userData !== undefined) {
       setStdGrade(StudentGrade(userData, stdSelect));
       setStdCls(StudentClass(userData, stdSelect));
       setStdNumber(StudentNumber(userData, stdSelect));
     }
-  }, [studentData.data, stdSelect, userData]);
+  }, [studentData, stdSelect, userData]);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
 
+  const token = localStorage.getItem("access-token");
+
   return (
     <S.StudentInfo>
       <div className="container club">
         <S.Title>마이페이지</S.Title>
-        {isAccessToken ? (
+        {token ? (
           <>
             <S.StudentContainer>
               <span className="student-title">{user?.name} 학부모님</span>
@@ -81,47 +80,55 @@ const Mypage = (props) => {
                     arrowSelect={arrowSelect}
                   />
                   {arrowSelect ? (
-                    <S.StudentMore>
-                      {user?.students?.map((students, i) => {
-                        return (
-                          <>
-                            <div
-                              className="student-name-wrapper"
-                              key={user?.students[i]?.[`${studentNumber}`]}
-                              onClick={() => {
-                                setStdSelect(i);
-                              }}
-                            >
-                              <div className="student-name-info-wrapper">
-                                <img
-                                  className="profile-img"
-                                  src={Profile}
-                                  alt="프로필 사진"
-                                />
-                                <div className="student-name">
-                                  {!stdGrade ? (
-                                    <>정보가 없습니다.</>
-                                  ) : (
-                                    <>
-                                      <span>
-                                        {StudentGrade(userData, i)}학년{" "}
-                                        {StudentClass(userData, i)}반{" "}
-                                        {StudentNumber(userData, i)}번
-                                      </span>
-                                      <span>
-                                        {`소프트웨어개발과 ${
-                                          user?.students[i]?.[`${studentName}`]
-                                        }`}
-                                      </span>
-                                    </>
-                                  )}
+                    <>
+                      {user?.students.length === 0 ? (
+                        ""
+                      ) : (
+                        <S.StudentMore>
+                          {user?.students?.map((students, i) => {
+                            return (
+                              <>
+                                <div
+                                  className="student-name-wrapper"
+                                  key={i}
+                                  onClick={() => {
+                                    setStdSelect(i);
+                                  }}
+                                >
+                                  <div className="student-name-info-wrapper">
+                                    <img
+                                      className="profile-img"
+                                      src={Profile}
+                                      alt="프로필 사진"
+                                    />
+                                    <div className="student-name">
+                                      {!stdGrade ? (
+                                        <>정보가 없습니다.</>
+                                      ) : (
+                                        <>
+                                          <span>
+                                            {StudentGrade(userData, i)}학년{" "}
+                                            {StudentClass(userData, i)}반{" "}
+                                            {StudentNumber(userData, i)}번
+                                          </span>
+                                          <span>
+                                            {`소프트웨어개발과 ${
+                                              user?.students[i]?.[
+                                                `${studentName}`
+                                              ]
+                                            }`}
+                                          </span>
+                                        </>
+                                      )}
+                                    </div>
+                                  </div>
                                 </div>
-                              </div>
-                            </div>
-                          </>
-                        );
-                      })}
-                    </S.StudentMore>
+                              </>
+                            );
+                          })}
+                        </S.StudentMore>
+                      )}
+                    </>
                   ) : (
                     <></>
                   )}

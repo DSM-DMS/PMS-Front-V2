@@ -38,6 +38,7 @@ const Title = styled.div`
     font-size: 35px;
   }
   a {
+    margin-top: 10px;
     font-size: 15px;
     color: #4c75b2;
     text-decoration: none;
@@ -62,6 +63,7 @@ const InputWrapper = styled.div`
   border-right: 1.5px solid #9e9e9e;
 
   input {
+    font-size: 16px;
     padding-left: 5px;
     margin: 0 20px 15px 0;
     border: 0;
@@ -69,11 +71,10 @@ const InputWrapper = styled.div`
     outline: none;
     width: 280px;
     height: 30px;
-    font-size: 18px;
   }
 
   button {
-    margin: 0 auto;
+    margin: 20px auto;
     width: 200px;
     height: 40px;
     background: #4c75b2 0% 0% no-repeat padding-box;
@@ -96,7 +97,6 @@ const InputWrapper = styled.div`
     color: #9e9e9e;
     font-weight: 600;
     margin-top: 5px;
-    margin-bottom: 50px;
   }
   .auto-login input {
     margin: 5px;

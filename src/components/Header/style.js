@@ -32,22 +32,23 @@ const Header = styled.div`
     top: 60px;
     right: 443px;
     box-shadow: 0px 5px 5px #00000029;
+    transition: all 0.5s;
 
-    > li {
+    & li {
       list-style: none;
+      color: black;
     }
-  }
-  a {
-    text-decoration: none;
-    color: black;
+
+    a {
+      text-decoration: none;
+      color: black;
+      display: ${({ display }) => (display ? "flex" : "none")};
+    }
   }
 
   .link {
     text-decoration: none;
     color: white;
-  }
-  a :hover {
-    color: red;
   }
 `;
 

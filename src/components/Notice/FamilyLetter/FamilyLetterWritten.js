@@ -4,15 +4,19 @@ import BackgroundTitle from "../../BackgroundTitle";
 import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
 import { NoticeContent, FetchFamilyLetter } from "../../../utils/api/user";
-import { Link } from "react-router-dom";
+import { requestJW } from "../../../utils/axios/axios";
+import { Link, useHistory } from "react-router-dom";
 
-function FamilyLetterWritten(props) {
+function FamilyLetterWritten({ match, props }) {
+  const history = useHistory();
   useEffect(() => {
-    const { location, history } = props;
-    if (location.state.id === undefined) {
-      history.push("/FamilyLetter");
+    const token = localStorage.getItem("access-token") || "";
+    if (token === "") {
+      alert("로그인 후 이용해주세요");
+      history.push("/login");
     }
-  }, []);
+  });
+
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
@@ -20,8 +24,7 @@ function FamilyLetterWritten(props) {
   };
 
   //notice_id
-  const { location } = props;
-  const contentId = location.state.id;
+  const contentId = match.params.id;
   const noticeContent = NoticeContent(contentId);
   const [contentBody, setContentBody] = useState();
   useEffect(() => {
@@ -35,30 +38,37 @@ function FamilyLetterWritten(props) {
   const arr = Array.from({ length: totalPage }, (v, i) => i + 1);
   //new Content
   const newDate = (date) => {
-    const nowDate = new Date();
-    if (nowDate.getMonth !== date.getMonth) {
-      return date.getDay + 30 - nowDate.getDay <= 7;
+    const today = new Date();
+    const dateArray = date.split("-");
+    if (parseInt(today.getMonth() + 1) !== parseInt(dateArray[1])) {
+      return parseInt(dateArray[2]) + 30 - parseInt(today.getDate()) <= 7;
     }
-    return nowDate.getDay - date.getDay <= 7;
-  };
-  //page 이동
-  const backPage = () => {
-    if (presentPage === 1) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage - 1);
-  };
-  const nextPage = () => {
-    if (presentPage === totalPage) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage + 1);
+    return parseInt(dateArray[2]) - parseInt(today.getDate()) <= 7;
   };
   useEffect(() => {
     resizing("textarea");
   });
+  const [comment, setComment] = useState("");
+  const onChange = (e) => {
+    setComment(e.target.value);
+  };
+
+  const typedEnter = (e) => {
+    if (e.key === "Enter") {
+      const typedComment = (notice_id) => {
+        requestJW(
+          "post",
+          `notice/${notice_id}/comment`,
+          {
+            Authorization: `Bearer ${localStorage.getItem("access-token")}`,
+          },
+          { body: comment, comment_id: null }
+        );
+      };
+      typedComment(contentId);
+      setComment("");
+    }
+  };
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="가정통신문" />
@@ -78,27 +88,42 @@ function FamilyLetterWritten(props) {
         </S.WrittenItem>
         <div className="addFile">
           <div className="filetitle">첨부파일</div>
-          <div className="fileitem"></div>
+          <div className="fileitem">
+            {noticeContent?.attach.map((attach, i) => (
+              <>
+                <a href={attach.download} key={i}>
+                  {attach.name}
+                </a>
+              </>
+            ))}
+          </div>
         </div>
         <S.CommentWrapper>
           <div className="commentTitle">
-            <h3>댓글</h3>&nbsp;<div className="commentAmount">2개</div>
+            <h3>댓글</h3>
+            <div className="commentAmount">
+              {noticeContent?.comment.length}개
+            </div>
           </div>
           <S.CommentContent>
-            <input placeholder="댓글을 입력하려면 로그인하세요." />
+            <input
+              placeholder="댓글을 입력하세요."
+              onChange={onChange}
+              onKeyPress={typedEnter}
+              value={comment}
+            />
             <S.CommentItemWrapper>
-              <S.CommentItem>
-                <div className="profileimage">
-                  <Profile />
-                </div>
-                <div className="commentItemInner">
-                  <div className="title">이명호</div>
-                  <div className="content">
-                    <h4>@서인석 선생님</h4>&nbsp;거친 내려온 불어 뛰노는 무엇을
-                    어디 때문이다.
+              {noticeContent?.comment.map((comment) => (
+                <S.CommentItem id={comment.id}>
+                  <div className="profileimage">
+                    <Profile />
                   </div>
-                </div>
-              </S.CommentItem>
+                  <div className="commentItemInner">
+                    <div className="title">{comment.user.name}</div>
+                    <div className="content">{comment.body}</div>
+                  </div>
+                </S.CommentItem>
+              ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
         </S.CommentWrapper>
@@ -139,7 +164,14 @@ function FamilyLetterWritten(props) {
           ))}
         </S.Item>
         <S.Page>
-          <S.PageItem onClick={() => backPage()}>{"<"}</S.PageItem>
+          <S.BackPage
+            onClick={() => {
+              setPresentPage(presentPage - 1);
+            }}
+            props={presentPage}
+          >
+            {"<"}
+          </S.BackPage>
           <>
             {arr.map((id) => (
               <S.PageItem
@@ -153,21 +185,20 @@ function FamilyLetterWritten(props) {
                       }
                     : {}
                 }
+                key={id}
               >
                 {id}
               </S.PageItem>
             ))}
           </>
-          <S.PageItem
-            onClick={() => nextPage()}
-            style={
-              presentPage === totalPage
-                ? { display: "none" }
-                : { display: "block" }
-            }
+          <S.NextPage
+            onClick={() => {
+              setPresentPage(presentPage + 1);
+            }}
+            props={presentPage === totalPage}
           >
             {">"}
-          </S.PageItem>
+          </S.NextPage>
         </S.Page>
       </S.BottomItemWrapper>
       <Footer />

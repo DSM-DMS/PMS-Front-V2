@@ -6,19 +6,10 @@ import { PMS } from "../../assets";
 import * as S from "./style";
 
 const Header = () => {
-  const [display, setDisplay] = useState("none");
+  const [display, setDisplay] = useState("");
   const [hover, setHover] = useState("black");
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const isAccessToken = localStorage.getItem("access-token");
-
-  const mouseEvent = () => {
-    setDisplay("flex");
-  };
-  const mouseOutEvent = () => {
-    setDisplay("none");
-  };
 
   const hoverEvent = () => {
     setHover("#350871 ");
@@ -31,6 +22,8 @@ const Header = () => {
     history.push("/");
   };
 
+  const token = localStorage.getItem("access-token");
+
   return (
     <S.Header>
       <Link to="/" className="logo">
@@ -41,14 +34,12 @@ const Header = () => {
         <Link to="/Notice">학교소식</Link>
         <Link
           style={{ padding: "30px 0" }}
-          to="/club-info"
-          onMouseMove={mouseEvent}
-          onMouseLeave={mouseOutEvent}
+          onMouseOver={() => setDisplay(!display)}
         >
           소개
         </Link>
         <Link to="/MyPage">마이페이지</Link>
-        {isAccessToken ? (
+        {token ? (
           <Link to="/" onClick={logout}>
             로그아웃
           </Link>
@@ -59,15 +50,15 @@ const Header = () => {
       <ul
         id="headModal"
         className="nav-link"
-        onMouseMove={mouseEvent}
-        onMouseLeave={() => mouseOutEvent()}
-        style={{ display: display }}
+        //onMouseOver={() => setDisplay(!display)}
+        style={{ height: display ? 200 : 0 }}
       >
         <li className="link">
           <Link
             to="/company-info"
             style={{ color: hover }}
             onMouseMove={hoverEvent}
+            display={display}
           >
             취업처 소개
           </Link>

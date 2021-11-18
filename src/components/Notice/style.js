@@ -6,7 +6,7 @@ export const MainWrapper = styled.div`
 `;
 export const MainItemWrapper = styled.div`
   position: relative;
-  top: -5%;
+  top: -90px;
   margin: 0 auto;
   width: 78%;
   height: 680px;
@@ -21,26 +21,16 @@ export const Search = styled.div`
   margin: 0.5% 0%;
   display: flex;
   justify-content: flex-end;
-  select {
-    color: #9e9e9e;
-    font-size: 17px;
-    background-color: white;
-    width: 10%;
-    height: 100%;
-    outline: none;
-    border: 1px solid #c8c8c8;
-    option {
-      color: #c8c8c8;
-      font-size: 16px;
-    }
-  }
+  color: #9e9e9e;
+  font-size: 17px;
+  background-color: white;
 `;
 export const SearchInput = styled.input`
   border: 1px solid #c8c8c8;
   background-color: #f6f6f6;
   font-size: 17px;
   color: #9e9e9e;
-  width: 23%;
+  width: 25%;
   height: 100%;
   outline: none;
   box-sizing: border-box;
@@ -60,31 +50,27 @@ export const Item = styled.div`
 export const ArticleListHeader = styled.div`
   border-bottom: 1px solid #c8c8c8;
   width: 100%;
-  height: 10%;
-  font-weight: 1000;
   font-size: 18px;
+  font-weight: 800;
   display: flex;
+  align-items: center;
+  padding: 11px 0;
+
   .title {
     text-align: left;
     width: 70%;
-    height: 100%;
     box-sizing: border-box;
-    padding-top: 0.8%;
     display: flex;
   }
   .writer {
     width: 10%;
-    height: 100%;
     text-align: center;
     box-sizing: border-box;
-    padding-top: 0.8%;
   }
   .day {
     width: 20%;
-    height: 100%;
     text-align: center;
     box-sizing: border-box;
-    padding-top: 0.8%;
   }
 `;
 export const ArticleListItem = styled(ArticleListHeader)`
@@ -101,6 +87,7 @@ export const NewItem = styled.div`
   top: 1.5px;
 `;
 export const Page = styled.div`
+  cursor: pointer;
   width: 15%;
   height: 7%;
   margin-top: 2%;
@@ -111,6 +98,7 @@ export const Page = styled.div`
   align-items: center;
 `;
 export const PageItem = styled.div`
+  cursor: pointer;
   width: 20%;
   height: 80%;
   text-align: center;
@@ -120,77 +108,104 @@ export const PageItem = styled.div`
     text-decoration: underline;
   }
 `;
+export const BackPage = styled(PageItem)`
+  display: ${(props) => (props.props === 1 ? "none" : "block")};
+`;
+export const NextPage = styled(PageItem)`
+  display: ${(props) => (props.props ? "none" : "block")};
+`;
 
 //글 내용, 목록 확인 부분
 export const MainWrittenWrapper = styled(MainWrapper)`
-  /*   height: 2000px; */
+  height: auto;
 `;
 export const MainWrittenItemWrapper = styled(MainItemWrapper)`
   height: auto;
+
   h3 {
     font-weight: 600;
     font-size: 24px;
-    margin-bottom: 2%;
   }
+
   .addFile {
     border: 1px solid #c8c8c8;
     width: 100%;
-    height: 35px;
+    height: auto;
     display: flex;
     align-items: center;
     border-left: none;
     border-right: none;
     color: #9e9e9e;
     font-size: 20px;
+    padding: 15px 0;
+    margin: 20px 0;
+
     .filetitle {
       font-weight: 600;
-      width: 6%;
+      font-size: 16px;
+      color: gray;
       border-right: 2px solid #c8c8c8;
       margin-right: 1%;
       padding-right: 1%;
     }
+
     .fileitem {
       width: 90%;
+      & a {
+        font-size: 16px;
+        display: block;
+        color: #9e9e9e;
+        text-decoration: none;
+      }
     }
   }
 `;
 export const WrittenInfo = styled.div`
+  margin-top: 40px;
   color: #9e9e9e;
   font-size: 20px;
   width: 100%;
   border-bottom: 1px solid #c8c8c8;
-  height: 5%;
-  display: flex;
+  height: 40px;
   box-sizing: border-box;
-  padding: 5px 0;
+  padding: 5px 0 10px 0;
+  display: flex;
   justify-content: space-between;
+  align-items: center;
+
   .infotitleWrapper {
+    font-weight: 600;
+    font-size: 18px;
+    width: 25%;
     display: flex;
-    width: 30%;
+    flex-direction: row;
+    justify-content: space-between;
   }
+
   .infotitle {
     font-weight: 600;
-    width: 70px;
+    font-size: 18px;
     border-right: 1px solid #c8c8c8;
-    margin-left: 12%;
+    padding-right: 15px;
   }
 `;
 export const WrittenItem = styled.div`
-  font-weight: 550;
-  margin-top: 1%;
   width: 100%;
   line-height: 180%;
+
   textarea {
     top: 12%;
+    font-size: 16px;
     width: 100%;
     resize: none;
     border: none;
-    font-size: 20px;
-    margin: 5px 0;
+    margin: 20px 0;
   }
+
   textarea:focus {
     outline: none;
   }
+
   textarea::placeholder {
     color: black;
   }
@@ -199,34 +214,45 @@ export const CommentWrapper = styled.div`
   width: 100%;
   height: 33%;
   margin-top: 1%;
+
   .commentTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     width: 100%;
     height: 40px;
     display: flex;
+
     h3 {
+      font-size: 18px;
       font-weight: 600;
     }
+
     .commentAmount {
       margin-left: 1%;
       color: #9e9e9e;
       font-size: 16px;
       box-sizing: border-box;
-      padding-top: 0.4%;
     }
   }
 `;
 export const CommentContent = styled.div`
   input {
-    width: 100%;
-    border-radius: 3%;
+    margin-top: 20px;
     height: 50px;
+    width: 100%;
+    font-size: 16px;
+    border: none;
+    border-radius: 20px;
     outline: none;
     background-color: #f6f6f6;
-    border: none;
-    font-size: 17px;
-    color: #9e9e9e;
+    color: black;
     box-sizing: border-box;
-    padding-left: 2%;
+    padding: 0 2%;
+  }
+
+  input::placeholder {
+    color: #9e9e9e;
   }
   width: 100%;
   height: 85%;
