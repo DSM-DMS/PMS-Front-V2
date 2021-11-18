@@ -51,22 +51,32 @@ function NoticeWritten({ match, props }) {
 
   //댓글 입력
   const [comment, setComment] = useState("");
+  const [writingRecomment, setWritingRecomment] = useState(0);
+  const [placehorder, setPlacehorder] = useState("댓글을 입력하세요");
+  useEffect(() => {
+    if (writingRecomment === 0) {
+      setPlacehorder("댓글을 입력하세요.");
+    } else {
+      setPlacehorder("답글을 입력하세요.");
+    }
+  }, [writingRecomment]);
   const onChange = (e) => {
     setComment(e.target.value);
   };
-
   const typedEnter = (e) => {
     if (e.key === "Enter") {
       const typedComment = (notice_id) => {
+        const checkNull = writingRecomment === 0 ? null : writingRecomment;
         requestJW(
           "post",
           `notice/${notice_id}/comment`,
           {
             Authorization: `Bearer ${localStorage.getItem("access-token")}`,
           },
-          { body: comment, comment_id: null }
+          { body: comment, comment_id: checkNull }
         );
       };
+      setWritingRecomment(0);
       typedComment(match.params.id);
       setComment("");
     }
@@ -127,7 +137,7 @@ function NoticeWritten({ match, props }) {
           </div>
           <S.CommentContent>
             <input
-              placeholder="댓글을 입력하세요."
+              placeholder={placehorder}
               onChange={onChange}
               onKeyPress={typedEnter}
               value={comment}
@@ -135,7 +145,10 @@ function NoticeWritten({ match, props }) {
             <S.CommentItemWrapper>
               {noticeContent?.comment.map((comment, i) => (
                 <div key={i}>
-                  <S.CommentItem id={comment.id}>
+                  <S.CommentItem
+                    id={comment.id}
+                    onClick={() => setWritingRecomment(comment.id)}
+                  >
                     <div className="profileimage">
                       <Profile />
                     </div>

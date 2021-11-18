@@ -294,6 +294,9 @@ export const CommentItem = styled.div`
       display: flex;
       line-height: 130%;
     }
+    .content:hover {
+      cursor: pointer;
+    }
   }
   & span {
     color: gray;
@@ -307,6 +310,9 @@ export const CommentItem = styled.div`
 `;
 export const ReCommentItem = styled(CommentItem)`
   margin-left: 5%;
+  .content:hover {
+    cursor: initial;
+  }
 `;
 export const BottomItemWrapper = styled(MainItemWrapper)`
   height: 600px;
