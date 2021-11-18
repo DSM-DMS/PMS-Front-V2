@@ -47,15 +47,19 @@ export function requestJW(method, url, header, data) {
     });
 }
 
-export const nicknameFetch = (url, name) => {
-  Axios.put(url, {
-    name: name
-  })
-  .then((res)=>{
-    console.log(res);
-    return res;
-  })
-  .catch((e) => {
+export const passwordFetch = (oldpw, newpw) => {
+  Axios.put(
+    MainURL + "/auth/password",
+    { pre_password: oldpw, password: newpw },
+    {
+      headers: { Authorization: "Bearer " + token },
+    }
+  )
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((e) => {
       console.log(e);
     });
-}
+};

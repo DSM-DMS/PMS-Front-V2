@@ -5,28 +5,30 @@ import Footer from "../../footer/Footer";
 import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
 import { FetcherNotice, NoticeContent } from "../../../utils/api/user";
 import { requestJW } from "../../../utils/axios/axios";
-import { Link } from "react-router-dom";
-
-function NoticeWritten(props) {
+import { Link, useHistory } from "react-router-dom";
+function NoticeWritten({ match, props }) {
+  const history = useHistory();
   useEffect(() => {
-    const { location, history } = props;
-    if (location.state.id === undefined) {
-      history.push("/");
+    const accessToken = localStorage.getItem("access-token") || "";
+    if (accessToken === "") {
+      alert("로그인 후 이용해주세요");
+      history.push("/login");
     }
-  }, []);
+  });
+
   const resizing = (id) => {
     const textarea = document.getElementById(id);
     textarea.style.height = "0px";
     textarea.style.height = textarea.scrollHeight.toString() + "px";
   };
   //notice_id
-  const { location } = props;
-  const contentId = location.state.id;
-  const noticeContent = NoticeContent(contentId);
+  const noticeContent = NoticeContent(match.params.id);
   const [contentBody, setContentBody] = useState();
+
   useEffect(() => {
     setContentBody(noticeContent?.body);
   }, [noticeContent]);
+
   //현재 페이지
   const [presentPage, setPresentPage] = useState(1);
   let fetchNotice = FetcherNotice(presentPage - 1);
@@ -35,35 +37,24 @@ function NoticeWritten(props) {
   const arr = Array.from({ length: totalPage }, (v, i) => i + 1);
   //new Content
   const newDate = (date) => {
-    const nowDate = new Date();
-    if (nowDate.getMonth !== date.getMonth) {
-      return date.getDay + 30 - nowDate.getDay <= 7;
+    const today = new Date();
+    const dateArray = date.split("-");
+    if (parseInt(today.getMonth() + 1) !== parseInt(dateArray[1])) {
+      return parseInt(dateArray[2]) + 30 - parseInt(today.getDate()) <= 7;
     }
-    return nowDate.getDay - date.getDay <= 7;
+    return parseInt(dateArray[2]) - parseInt(today.getDate()) <= 7;
   };
-  //page 이동
-  const backPage = () => {
-    if (presentPage === 1) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage - 1);
-  };
-  const nextPage = () => {
-    if (presentPage === totalPage) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage + 1);
-  };
+
   useEffect(() => {
     resizing("textarea");
   });
+
   //댓글 입력
   const [comment, setComment] = useState("");
   const onChange = (e) => {
     setComment(e.target.value);
   };
+
   const typedEnter = (e) => {
     if (e.key === "Enter") {
       const typedComment = (notice_id) => {
@@ -76,7 +67,7 @@ function NoticeWritten(props) {
           { body: comment, comment_id: null }
         );
       };
-      typedComment(contentId);
+      typedComment(match.params.id);
       setComment("");
     }
   };
@@ -86,12 +77,12 @@ function NoticeWritten(props) {
       <S.MainWrittenItemWrapper>
         <h3>{noticeContent?.title}</h3>
         <S.WrittenInfo>
-          <div className="infotype">공지사항</div>
+          <div className="infotitle">공지사항</div>
           <div className="infotitleWrapper">
             <div className="infotitle">작성자</div>
-            {noticeContent?.writer}
+            <span>{noticeContent?.writer}</span>
             <div className="infotitle">작성일</div>
-            {noticeContent?.[`upload-date`]}
+            <span>{noticeContent?.[`upload-date`]}</span>
           </div>
         </S.WrittenInfo>
         <S.WrittenItem>
@@ -99,17 +90,20 @@ function NoticeWritten(props) {
         </S.WrittenItem>
         <div className="addFile">
           <div className="filetitle">첨부파일</div>
-          <div className="fileitem"></div>
+          <div className="fileitem">
+            {noticeContent?.attach.map((attach, i) => (
+              <a href={attach.download} key={i}>
+                {attach.name}
+              </a>
+            ))}
+          </div>
         </div>
         <S.CommentWrapper>
           <div className="commentTitle">
             <h3>댓글</h3>
-            <div className="commentAmount">
-              {noticeContent?.comment.length
-                ? noticeContent?.comment.length
-                : "0"}
-              개
-            </div>
+            <span className="commentAmount">
+              {noticeContent?.comment.length}개
+            </span>
           </div>
           <S.CommentContent>
             <input
@@ -119,16 +113,18 @@ function NoticeWritten(props) {
               value={comment}
             />
             <S.CommentItemWrapper>
-              {noticeContent?.comment.map((comment) => (
-                <S.CommentItem id={comment.id}>
-                  <div className="profileimage">
-                    <Profile />
-                  </div>
-                  <div className="commentItemInner">
-                    <div className="title">{comment.user.name}</div>
-                    <div className="content">{comment.body}</div>
-                  </div>
-                </S.CommentItem>
+              {noticeContent?.comment.map((comment, i) => (
+                <>
+                  <S.CommentItem id={comment.id} key={i}>
+                    <div className="profileimage">
+                      <Profile />
+                    </div>
+                    <div className="commentItemInner">
+                      <div className="title">{comment.user.name}</div>
+                      <div className="content">{comment.body}</div>
+                    </div>
+                  </S.CommentItem>
+                </>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>
@@ -143,7 +139,7 @@ function NoticeWritten(props) {
         <S.Item>
           {fetchNotice?.notices.map((notice, index) => (
             <Link
-              to={{ pathname: `/noticeWritten`, state: { id: notice.id } }}
+              to={`/noticeWritten/${notice.id}`}
               style={{ textDecoration: "none", color: "black" }}
               key={index}
             >
@@ -167,7 +163,14 @@ function NoticeWritten(props) {
           ))}
         </S.Item>
         <S.Page>
-          <S.PageItem onClick={() => backPage()}>{"<"}</S.PageItem>
+          <S.BackPage
+            onClick={() => {
+              setPresentPage(presentPage - 1);
+            }}
+            props={presentPage}
+          >
+            {"<"}
+          </S.BackPage>
           <>
             {arr.map((id) => (
               <S.PageItem
@@ -181,12 +184,20 @@ function NoticeWritten(props) {
                       }
                     : {}
                 }
+                key={id}
               >
                 {id}
               </S.PageItem>
             ))}
           </>
-          <S.PageItem onClick={() => nextPage()}>{">"}</S.PageItem>
+          <S.NextPage
+            onClick={() => {
+              setPresentPage(presentPage + 1);
+            }}
+            props={presentPage === totalPage}
+          >
+            {">"}
+          </S.NextPage>
         </S.Page>
       </S.BottomItemWrapper>
       <Footer />

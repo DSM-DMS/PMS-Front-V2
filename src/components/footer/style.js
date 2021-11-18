@@ -1,13 +1,14 @@
 import styled from "styled-components";
 
-const FooterWarpper = styled.div`
+export const FooterWarpper = styled.div`
   width: 100%;
-  height: 150px;
   background: #f6f6f6 0% 0% no-repeat padding-box;
-  
+
+  span {
+    margin-bottom: 5px;
+  }
 `;
 
-const MainFooterWarpper = styled(FooterWarpper)`
-  background-color : white;
+export const MainFooterWarpper = styled(FooterWarpper)`
+  background-color: white;
 `;
-export { FooterWarpper, MainFooterWarpper };

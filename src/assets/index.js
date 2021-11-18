@@ -19,7 +19,7 @@ export { default as Triangle } from "./Triangle.svg";
 export { default as Earth } from "./Earth.jpg";
 export { default as 고은 } from "./고은.jpg";
 export { default as 은별 } from "./은별.jpg";
-export { default as 은빈 } from "./은빈.png";
+export { default as 은빈 } from "./은빈.jpg";
 export { default as 재원 } from "./재원.jpg";
 export { default as 정빈 } from "./정빈.jpg";
 export { default as 지우 } from "./지우.jpg";

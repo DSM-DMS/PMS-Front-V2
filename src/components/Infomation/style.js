@@ -48,6 +48,7 @@ const InfoItem = styled.div`
     width: 160px;
     height: 160px;
     border-radius: 100px;
+    object-fit: cover;
   }
   :hover {
     width: 270px;
@@ -156,7 +157,7 @@ const ItemContainer = styled.div`
       overflow: hidden;
       object-fit: cover;
       border: 1px solid rgba(0, 0, 0, 0.1);
-      transition: opacity 0.3s ease 0s, transform 0.3s ease 0s;
+      transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
     }
   }
 

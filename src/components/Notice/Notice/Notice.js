@@ -16,43 +16,25 @@ function Notice() {
 
   //new Content
   const newDate = (date) => {
-    const nowDate = new Date();
-    if (nowDate.getMonth !== date.getMonth) {
-      return date.getDate + 30 - nowDate.getDate <= 7;
+    const today = new Date();
+    const dateArray = date.split("-");
+    if (parseInt(today.getMonth() + 1) !== parseInt(dateArray[1])) {
+      return parseInt(dateArray[2]) + 30 - parseInt(today.getDate()) <= 7;
     }
-    console.log(nowDate.getDate - date.getDate <= 7);
+    return parseInt(dateArray[2]) - parseInt(today.getDate()) <= 7;
   };
 
-  //page 이동
-  const backPage = () => {
-    if (presentPage === 1) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage - 1);
-  };
-  const nextPage = () => {
-    if (presentPage === totalPage) {
-      alert("error");
-      return;
-    }
-    setPresentPage(presentPage + 1);
-  };
   //input
   const [inputText, setInputText] = useState("");
   const onChange = (e) => {
     setInputText(e.target.value);
   };
+
   return (
     <S.MainWrapper>
       <BackgroundTitle title="공지사항" />
       <S.MainItemWrapper>
         <S.Search>
-          <select>
-            <option>제목</option>
-            <option>제목+내용</option>
-            <option>내용</option>
-          </select>
           <S.SearchInput placeholder="검색" onChange={onChange} />
         </S.Search>
         <S.ArticleListWrapper>
@@ -76,7 +58,9 @@ function Notice() {
               })
               .map((notice, index) => (
                 <Link
-                  to={{ pathname: `/noticeWritten`, state: { id: notice.id } }}
+                  to={{
+                    pathname: `/noticeWritten/${notice.id}`,
+                  }}
                   style={{ textDecoration: "none", color: "black" }}
                   key={index}
                 >
@@ -100,7 +84,14 @@ function Notice() {
               ))}
           </S.Item>
           <S.Page props={totalPage}>
-            <S.PageItem onClick={() => backPage()}>{"<"}</S.PageItem>
+            <S.BackPage
+              onClick={() => {
+                setPresentPage(presentPage - 1);
+              }}
+              props={presentPage}
+            >
+              {"<"}
+            </S.BackPage>
             <>
               {arr.map((id) => (
                 <S.PageItem
@@ -114,12 +105,20 @@ function Notice() {
                         }
                       : {}
                   }
+                  key={id}
                 >
                   {id}
                 </S.PageItem>
               ))}
             </>
-            <S.PageItem onClick={() => nextPage()}>{">"}</S.PageItem>
+            <S.NextPage
+              onClick={() => {
+                setPresentPage(presentPage + 1);
+              }}
+              props={presentPage === totalPage}
+            >
+              {">"}
+            </S.NextPage>
           </S.Page>
         </S.ArticleListWrapper>
       </S.MainItemWrapper>
