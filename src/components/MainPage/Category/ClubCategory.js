@@ -1,21 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import * as S from "../style/schoolInfoStyle";
-import { FetchClub } from "../../../utils/api/user";
 import { Link } from "react-router-dom";
 
 const ClubCategory = () => {
-  const logo = "picture-uri";
-  const [val, setVal] = useState(0);
+  //const logo = "picture-uri";
+  //const [val, setVal] = useState(0);
   //슬라이드
 
-  useEffect(() => {
+  /*useEffect(() => {
     let i = 0;
     setInterval(() => {
       i++;
       setVal(i);
       if (i === 24) i = 0;
     }, 2000);
-  }, []);
+  }, []);*/
 
   //api
   //const fetchClub = FetchClub();

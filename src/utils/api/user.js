@@ -23,10 +23,6 @@ export function FetchFamilyLetter(num) {
   const { data } = useSWR(`${JwURL}notice/news?page=${num}&size=10`, fetcher);
   return data;
 }
-export function FetchComment(comment_id) {
-  const { data } = useSWR(`${JwURL}notice/${comment_id}/comment`, fetcher);
-  return data;
-}
 //동이리 목록
 export function FetchClub() {
   const { data } = useSWR(`${JwURL}introduce/clubs`, fetcher);
