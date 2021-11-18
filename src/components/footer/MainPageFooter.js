@@ -18,6 +18,7 @@ function MainPageFooter() {
           Copyrightⓒ 대덕소프트웨어마이스터고등학교. All rights reserved.
         </span>
       </div>
+      <div className="footer-info"></div>
     </S.FooterWarpper>
   );
 }

@@ -48,6 +48,7 @@ const InfoItem = styled.div`
     width: 160px;
     height: 160px;
     border-radius: 100px;
+    object-fit: cover;
   }
   :hover {
     width: 270px;
