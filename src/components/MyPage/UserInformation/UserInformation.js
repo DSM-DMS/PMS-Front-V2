@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as S from "./style";
 import Axios from "axios";
-import { MainURL } from "../../../utils/axios/axios";
+import { MainURL, token } from "../../../utils/axios/axios";
+import { StudentUser } from "../../../utils/api/myPage";
 function UserInformation() {
-  const [nickname, setNickname] = useState("이재원");
+  const studentUser = StudentUser();
+  const [nickname, setNickname] = useState("");
+  useEffect(() => {
+    setNickname(studentUser?.name);
+  }, [studentUser?.name]);
   const onChange = (e) => {
     setNickname(e.target.value);
   };
   const onKeyPress = (e) => {
     if (e.key === "Enter") {
-      Axios.put(`${MainURL}/user/name`, {
-        name: nickname,
-      })
+      Axios.put(
+        `${MainURL}/user/name`,
+        {
+          name: nickname,
+        },
+        {
+          headers: { Authorization: "Bearer " + token },
+        }
+      )
         .then((res) => {
           console.log(res);
           return res;
@@ -25,10 +36,6 @@ function UserInformation() {
   return (
     <S.UserInformation>
       <h4>개인 정보</h4>
-      <S.UserInformationItem>
-        <S.ItemTitle>이메일</S.ItemTitle>
-        <S.ItemContent>legojoa1214@gmail.com</S.ItemContent>
-      </S.UserInformationItem>
       <S.UserInformationItemBot>
         <S.ItemTitle>닉네임</S.ItemTitle>
         <S.ItemContent>

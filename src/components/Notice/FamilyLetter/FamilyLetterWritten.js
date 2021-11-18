@@ -90,11 +90,9 @@ function FamilyLetterWritten({ match, props }) {
           <div className="filetitle">첨부파일</div>
           <div className="fileitem">
             {noticeContent?.attach.map((attach, i) => (
-              <>
-                <a href={attach.download} key={i}>
-                  {attach.name}
-                </a>
-              </>
+              <a href={attach.download} key={i}>
+                {attach.name}
+              </a>
             ))}
           </div>
         </div>
@@ -113,8 +111,8 @@ function FamilyLetterWritten({ match, props }) {
               value={comment}
             />
             <S.CommentItemWrapper>
-              {noticeContent?.comment.map((comment) => (
-                <S.CommentItem id={comment.id}>
+              {noticeContent?.comment.map((comment, i) => (
+                <S.CommentItem id={comment.id} key={i}>
                   <div className="profileimage">
                     <Profile />
                   </div>
