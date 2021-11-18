@@ -248,7 +248,7 @@ export const CommentContent = styled.div`
     background-color: #f6f6f6;
     color: black;
     box-sizing: border-box;
-    padding: 0 2%;
+    padding-left: 2%;
   }
 
   input::placeholder {
@@ -261,6 +261,7 @@ export const CommentItemWrapper = styled.div`
   width: 100%;
   height: 75%;
   overflow-y: scroll;
+  overflow-x: hidden;
   margin-top: 1%;
 `;
 export const CommentItem = styled.div`
@@ -268,11 +269,11 @@ export const CommentItem = styled.div`
   height: auto;
   display: ${(props) => props.display || "flex"};
   margin-top: 1%;
-  align-items: center;
+  align-items: flex-end;
   .profileimage {
-    width: 4.4%;
+    width: 50px;
     height: 50px;
-    margin-left: 1%;
+    margin-right: 10px;
   }
   .commentItemInner {
     width: auto;
@@ -293,6 +294,24 @@ export const CommentItem = styled.div`
       display: flex;
       line-height: 130%;
     }
+    .content:hover {
+      cursor: pointer;
+    }
+  }
+  & span {
+    color: gray;
+    font-size: 12px;
+    margin-left: 10px;
+    width: 85px;
+  }
+  & span:hover {
+    cursor: pointer;
+  }
+`;
+export const ReCommentItem = styled(CommentItem)`
+  margin-left: 5%;
+  .content:hover {
+    cursor: initial;
   }
 `;
 export const BottomItemWrapper = styled(MainItemWrapper)`
