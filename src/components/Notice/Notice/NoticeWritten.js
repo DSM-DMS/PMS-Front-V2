@@ -6,13 +6,11 @@ import { ReactComponent as Profile } from "../../../assets/Prifile.svg";
 import { FetcherNotice, NoticeContent } from "../../../utils/api/user";
 import { requestJW } from "../../../utils/axios/axios";
 import { Link, useHistory } from "react-router-dom";
-
 function NoticeWritten({ match, props }) {
   const history = useHistory();
-
   useEffect(() => {
-    const token = localStorage.getItem("access-token") || "";
-    if (token === "") {
+    const accessToken = localStorage.getItem("access-token") || "";
+    if (accessToken === "") {
       alert("로그인 후 이용해주세요");
       history.push("/login");
     }
@@ -73,17 +71,6 @@ function NoticeWritten({ match, props }) {
       setComment("");
     }
   };
-
-  // const reComment = (id) => {
-  //   //  try {
-  //   const fetchComment = FetchComment(id);
-  //   console.log(fetchComment);
-  //   return fetchComment;
-  //   //} catch (e) {
-  //   //console.log(e);
-  //   //}
-  // };
-
   return (
     <S.MainWrittenWrapper>
       <BackgroundTitle title="공지사항" />
@@ -127,15 +114,17 @@ function NoticeWritten({ match, props }) {
             />
             <S.CommentItemWrapper>
               {noticeContent?.comment.map((comment, i) => (
-                <S.CommentItem id={comment.id} key={i}>
-                  <div className="profileimage">
-                    <Profile />
-                  </div>
-                  <div className="commentItemInner">
-                    <div className="title">{comment.user.name}</div>
-                    <div className="content">{comment.body}</div>
-                  </div>
-                </S.CommentItem>
+                <>
+                  <S.CommentItem id={comment.id} key={i}>
+                    <div className="profileimage">
+                      <Profile />
+                    </div>
+                    <div className="commentItemInner">
+                      <div className="title">{comment.user.name}</div>
+                      <div className="content">{comment.body}</div>
+                    </div>
+                  </S.CommentItem>
+                </>
               ))}
             </S.CommentItemWrapper>
           </S.CommentContent>

@@ -266,7 +266,7 @@ export const CommentItemWrapper = styled.div`
 export const CommentItem = styled.div`
   width: 99%;
   height: auto;
-  display: flex;
+  display: ${(props) => props.display || "flex"};
   margin-top: 1%;
   align-items: center;
   .profileimage {
