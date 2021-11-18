@@ -25,17 +25,18 @@ import {
 import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
 
 const Mypage = (props) => {
+  const userData = StudentUser();
+
   const [stdSelect, setStdSelect] = useState(0); // 자녀 선택
   const [arrowSelect, setArrowSelect] = useState(false);
   const [user, setUser] = useState({});
   const [userInfo, setUserInfo] = useState(); // 자녀 정보
   const [stdGrade, setStdGrade] = useState(""); // 자녀 학년
   const [stdCls, setStdCls] = useState(); // 자녀 반
-  const [stdNum, setStdNum] = useState(); // 자녀 학번
+  const [stdNum, setStdNum] = useState(
+    userData?.students[0]?.[`${studentNumber}`]
+  ); // 자녀 학번
   const [stdNumber, setStdNumber] = useState(); // 자녀 번호
-
-  //userData API
-  const userData = StudentUser();
 
   useEffect(() => {
     setUser(userData);
@@ -81,49 +82,42 @@ const Mypage = (props) => {
                   />
                   {arrowSelect ? (
                     <>
-                      {user?.students.length === 0 ? (
-                        ""
+                      {user?.students?.length === 0 ? (
+                        <></>
                       ) : (
                         <S.StudentMore>
-                          {user?.students?.map((students, i) => {
+                          {user?.students?.map((students, index) => {
                             return (
-                              <>
-                                <div
-                                  className="student-name-wrapper"
-                                  key={i}
-                                  onClick={() => {
-                                    setStdSelect(i);
-                                  }}
-                                >
-                                  <div className="student-name-info-wrapper">
-                                    <img
-                                      className="profile-img"
-                                      src={Profile}
-                                      alt="프로필 사진"
-                                    />
-                                    <div className="student-name">
-                                      {!stdGrade ? (
-                                        <>정보가 없습니다.</>
-                                      ) : (
-                                        <>
-                                          <span>
-                                            {StudentGrade(userData, i)}학년{" "}
-                                            {StudentClass(userData, i)}반{" "}
-                                            {StudentNumber(userData, i)}번
-                                          </span>
-                                          <span>
-                                            {`소프트웨어개발과 ${
-                                              user?.students[i]?.[
-                                                `${studentName}`
-                                              ]
-                                            }`}
-                                          </span>
-                                        </>
-                                      )}
-                                    </div>
+                              <div
+                                className="student-name-wrapper"
+                                key={index}
+                                onClick={() => {
+                                  setStdSelect(index);
+                                  setArrowSelect(!arrowSelect);
+                                }}
+                              >
+                                <div className="student-name-info-wrapper">
+                                  <img
+                                    className="profile-img"
+                                    src={Profile}
+                                    alt="프로필 사진"
+                                  />
+                                  <div className="student-name">
+                                    <span>
+                                      {StudentGrade(userData, index)}학년{" "}
+                                      {StudentClass(userData, index)}반{" "}
+                                      {StudentNumber(userData, index)}번
+                                    </span>
+                                    <span>
+                                      {`소프트웨어개발과 ${
+                                        user?.students[index]?.[
+                                          `${studentName}`
+                                        ]
+                                      }`}
+                                    </span>
                                   </div>
                                 </div>
-                              </>
+                              </div>
                             );
                           })}
                         </S.StudentMore>

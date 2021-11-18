@@ -8,6 +8,7 @@ import * as S from "./style";
 const Header = () => {
   const [display, setDisplay] = useState("");
   const [hover, setHover] = useState("black");
+  const token = localStorage.getItem("access-token");
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -22,8 +23,6 @@ const Header = () => {
     history.push("/");
   };
 
-  const token = localStorage.getItem("access-token");
-
   return (
     <S.Header>
       <Link to="/" className="logo">
@@ -33,6 +32,7 @@ const Header = () => {
         <Link to="/calendar">행사일정</Link>
         <Link to="/Notice">학교소식</Link>
         <Link
+          to="/club-info"
           style={{ padding: "30px 0" }}
           onMouseOver={() => setDisplay(!display)}
         >
