@@ -21,7 +21,7 @@ import {
 function UserRouter() {
   return (
     <Switch>
-      <Route path="/PMS-Front-V2" component={MainPage} exact />
+      <Route path="/PMS-Front-V2/" component={MainPage} exact />
       <Route path="/notice" component={Notice} exact />
       <Route path="/mypage" component={MyPage} exact />
       <Route
