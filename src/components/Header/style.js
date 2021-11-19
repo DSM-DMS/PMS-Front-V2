@@ -25,7 +25,7 @@ const Header = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 100px;
-    background: rgb(46, 52, 81);
+    background: rgb(4 3 4);
     border-radius: 3px;
     box-shadow: 0 2px 4px gray;
     z-index: 2;
