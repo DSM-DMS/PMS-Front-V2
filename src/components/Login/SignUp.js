@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import * as S from "./style";
 import { BackgroundTitle, SocialButton, Footer } from "../index";
 import { useDispatch } from "react-redux";
@@ -7,6 +7,7 @@ import { registerUser } from "../../actions/userAction";
 
 function SignUp() {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [inputs, setInputs] = useState({
     name: "",
@@ -31,7 +32,7 @@ function SignUp() {
     e.preventDefault();
 
     dispatch(registerUser(inputs))
-      .then((res) => console.log(res))
+      .then(() => history.push("/PMS-Front-V2/"))
       .catch((e) => console.log(e));
 
     setInputs({
