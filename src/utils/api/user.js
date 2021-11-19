@@ -25,7 +25,7 @@ export function FetchFamilyLetter(num) {
 }
 //동이리 목록
 export function FetchClub() {
-  const { data } = useSWR(`${JwURL}introduce/clubs`, fetcher);
+  const { data } = useSWR(`${JwURL}introduce/clubs`, authFetcher);
   return data;
 }
 
