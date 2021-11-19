@@ -21,8 +21,6 @@ export const MealMenu = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    margin: 20px;
     font-size: 18px;
   }
 

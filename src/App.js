@@ -5,9 +5,11 @@ import UserRouter from "./router/UserRouter";
 function App() {
   const history = useHistory();
   setInterval(() => {
-    localStorage.removeItem("access-token");
-    history.puch("login");
-    alert("로그아웃 되었습니다.");
+    if (localStorage.getItem("acess-token") !== null) {
+      localStorage.removeItem("access-token");
+      history.push("/login");
+      alert("로그아웃 되었습니다.");
+    }
   }, 7000000);
 
   return (
