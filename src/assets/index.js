@@ -24,6 +24,7 @@ export { default as 재원 } from "./재원.jpg";
 export { default as 정빈 } from "./정빈.jpg";
 export { default as 지우 } from "./지우.jpg";
 export { default as 진우 } from "./진우.jpg";
+export { default as 이재원 } from "./이재원.jpg";
 export { default as FaceBook } from "./FaceBook.png";
 export { default as Google } from "./Google.svg";
 export { default as kakao } from "./kakao.svg";

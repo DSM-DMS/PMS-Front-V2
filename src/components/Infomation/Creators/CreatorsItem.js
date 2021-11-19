@@ -8,6 +8,7 @@ import {
   재원,
   진우,
   은별,
+  이재원,
 } from "../../../assets/index";
 
 const creatorsList = [
@@ -52,6 +53,12 @@ const creatorsList = [
     img: 은별,
     name: "이은별",
     field: "Android",
+  },
+  {
+    id: 8,
+    img: 이재원,
+    name: "이재원",
+    field: "Design",
   },
 ];
 
