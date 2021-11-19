@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Close, Earth } from "../../assets/index";
+import { Earth } from "../../assets/index";
 
 const MainWrapper = styled.div`
   width: 100%;
