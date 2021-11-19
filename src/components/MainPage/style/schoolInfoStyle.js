@@ -73,6 +73,7 @@ export const ClubInfo = styled(SchoolInfo)`
   & a {
     text-decoration: none;
     color: white;
+    height: 100%;
   }
 `;
 
@@ -192,6 +193,7 @@ export const ClubAnimation = styled.div`
 
 export const InfoList = styled.ul`
   list-style: none;
+  overflow: auto;
 
   > li {
     cursor: pointer;

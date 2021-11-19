@@ -104,12 +104,12 @@ function Login() {
               <button type="submit">로그인</button>
             </S.InputWrapper>
             {/* 소셜 로그인 */}
-            <S.SocialWrapper>
+            {/* <S.SocialWrapper>
               <SocialButton LoginName="FaceBook 로그인" />
               <SocialButton LoginName="Google 로그인" />
-              <SocialButton LoginName="KaKaotalk 로그인" />
+              <SocialButton LoginName="KaKao 로그인" />
               <SocialButton LoginName="Naver 로그인" />
-            </S.SocialWrapper>
+            </S.SocialWrapper> */}
           </S.LoginInput>
         </S.MainItem>
       </S.LoginWrapper>

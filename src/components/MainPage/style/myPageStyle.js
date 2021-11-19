@@ -41,9 +41,9 @@ export const StudentInfo = styled(SchoolInfo)`
   }
 
   > img {
-    position: relative;
-    bottom: 117px;
-    margin-left: 15px;
+    position: absolute;
+    left: 17px;
+    bottom: 0;
   }
 `;
 
@@ -55,9 +55,9 @@ export const StudentNameScore = styled.div`
   .student-name-wrapper {
     display: flex;
     flex-direction: row;
-    width: 335px;
+    width: 100%;
     height: 60px;
-    background: #ffffff 0% 0% no-repeat padding-box;
+    background: #ffffff;
     border-radius: 10px;
     color: black;
     margin-top: 12px;
@@ -68,6 +68,7 @@ export const StudentNameScore = styled.div`
       display: flex;
       flex-direction: column;
     }
+
     .profile-img {
       margin: 6px 0 0 7px;
     }
