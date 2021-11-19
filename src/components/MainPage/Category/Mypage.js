@@ -22,7 +22,9 @@ import {
   StudentGrade,
   StudentNumber,
 } from "../../../utils/hook/studentInfoHook";
-import { StudentUser, StudentUserInfo } from "../../../utils/api/myPage";
+import { StudentUser } from "../../../utils/api/myPage";
+import axios from "axios";
+import { MainURL } from "../../../utils/axios/axios";
 
 const Mypage = (props) => {
   const userData = StudentUser();
@@ -33,18 +35,11 @@ const Mypage = (props) => {
   const [userInfo, setUserInfo] = useState(); // 자녀 정보
   const [stdGrade, setStdGrade] = useState(""); // 자녀 학년
   const [stdCls, setStdCls] = useState(); // 자녀 반
-  const [stdNum, setStdNum] = useState(
-    userData?.students[0]?.[`${studentNumber}`]
-  ); // 자녀 학번
   const [stdNumber, setStdNumber] = useState(); // 자녀 번호
-
-  useEffect(() => {
-    setUser(userData);
-    setStdNum(userData?.students[`${stdSelect}`]?.[`${studentNumber}`]);
-  }, [userData, stdSelect]);
+  const [studentData, setStudentData] = useState(); //학생 정보
+  const token = localStorage.getItem("access-token");
 
   //학생 정보 api
-  const studentData = StudentUserInfo(stdNum);
 
   useEffect(() => {
     setUserInfo(studentData);
@@ -52,14 +47,37 @@ const Mypage = (props) => {
       setStdGrade(StudentGrade(userData, stdSelect));
       setStdCls(StudentClass(userData, stdSelect));
       setStdNumber(StudentNumber(userData, stdSelect));
+      setUser(userData);
+      if (
+        userData?.students[`${stdSelect}`]?.[`${studentNumber}`] ===
+          undefined ||
+        userData?.students[`${stdSelect}`]?.[`${studentNumber}`] === "" ||
+        stdGrade === ""
+      ) {
+        return;
+      }
+      let studentNum;
+      if (stdNumber < 10) {
+        studentNum = "0" + String(stdNumber);
+      } else {
+        studentNum = String(stdNumber);
+      }
+      axios
+        .get(`${MainURL}/user/student/${stdGrade}${stdCls}${studentNum}`, {
+          headers: { Authorization: "Bearer " + token },
+        })
+        .then((res) => {
+          setStudentData(res.data);
+        })
+        .catch((e) => {
+          throw e;
+        });
     }
-  }, [studentData, stdSelect, userData]);
+  }, [studentData, userData, stdSelect, stdGrade, stdNumber, stdCls, token]);
 
   const LoginBtnClick = () => {
     props.history.push("/login");
   };
-
-  const token = localStorage.getItem("access-token");
 
   return (
     <S.StudentInfo>
@@ -144,11 +162,13 @@ const Mypage = (props) => {
                   <div className="student-score">
                     <img
                       style={{ marginRight: "10px" }}
-                      src={userInfo?.[`${mealApplied}`] ? MealGreen : MealRed}
+                      src={
+                        userInfo?.[`${mealApplied}`] === 2 ? MealGreen : MealRed
+                      }
                       alt="급식신청여부"
                     ></img>
                     <img
-                      src={userInfo?.[`${stayStatus}`] ? Home : Remain}
+                      src={userInfo?.[`${stayStatus}`] !== 4 ? Home : Remain}
                       alt="잔류신청여부"
                     ></img>
                   </div>

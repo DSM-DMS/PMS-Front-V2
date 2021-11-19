@@ -158,12 +158,16 @@ function ChildrenStatus() {
               </div>
               <div className="img-wrapper">
                 <img
-                  src={userInformation?.data?.["stay-status"] ? Remain : Home}
+                  src={
+                    userInformation?.data?.["stay-status"] === 4 ? Remain : Home
+                  }
                   alt="잔류여부"
                 ></img>
                 <img
                   src={
-                    userInformation?.data?.["meal-apply"] ? MealGreen : MealRed
+                    userInformation?.data?.["meal-apply"] === 2
+                      ? MealGreen
+                      : MealRed
                   }
                   alt="급식신청여부"
                 ></img>
