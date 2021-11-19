@@ -18,19 +18,11 @@ function ClubInfo() {
   const logo = "picture-uri";
   const clubName = "club-name";
 
-  const ModalClose = () => {
-    setModalBool(false);
-  };
-
   // 동아리 리스트 api
   const fetchClub = FetchClub();
 
   // 동아리 상세 api
   const fetchClubDetail = FetchClubDetail(clubTitle);
-
-  const ModalControl = () => {
-    setModalBool(!modalBool);
-  };
 
   useEffect(() => {
     setDataList(
@@ -45,8 +37,9 @@ function ClubInfo() {
       {modalBool && (
         <ClubDetailModal
           titleName="동아리 소개"
-          modal={"flex"}
-          ModalClose={ModalClose}
+          modal={modalBool}
+          setModalBool={setModalBool}
+          member={fetchClubDetail?.member}
           clubName={fetchClubDetail?.title}
           explanation={fetchClubDetail?.explanation}
           img={fetchClubDetail?.url}
@@ -71,7 +64,8 @@ function ClubInfo() {
                   <>
                     <InfoItemBox
                       key={index}
-                      setModalBool={ModalControl}
+                      modalBool={modalBool}
+                      setModalBool={setModalBool}
                       setClubTitle={setClubTitle}
                       clubImg={club[`${logo}`]}
                       clubName={club[`${clubName}`]}

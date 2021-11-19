@@ -24,7 +24,6 @@ const CreatorsWrapper = styled.div`
   height: 800px;
   display: flex;
   flex-direction: row;
-  //차례대로 정렬하기
   flex-wrap: wrap;
   align-content: stretch;
 `;
@@ -49,10 +48,6 @@ const InfoItem = styled.div`
     height: 160px;
     border-radius: 100px;
     object-fit: cover;
-  }
-  :hover {
-    width: 270px;
-    height: 320px;
   }
 `;
 
@@ -184,7 +179,7 @@ const ModalWrapper = styled.div`
   top: 0;
   overflow: hidden;
   z-index: 2;
-  display: ${({ modal }) => modal};
+  display: ${({ modal }) => (modal ? "flex" : "none")};
   justify-content: center;
   align-items: center;
 `;
@@ -218,6 +213,7 @@ const ModalHeader = styled.div`
   justify-content: center;
 
   .background-cover {
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -251,14 +247,12 @@ const ModalHeader = styled.div`
     margin: 10px;
   }
 
-  .close-img {
+  .close {
     cursor: pointer;
     margin: 10px;
-    width: 30px;
-    height: 30px;
-    background-image: url(${Close});
+    width: 20px;
     position: relative;
-    top: -16px;
+    top: 0;
     right: -231px;
     z-index: 2;
   }
@@ -277,8 +271,27 @@ const InfoWrapper = styled.div`
     font-weight: 600;
   }
 
-  & span {
-    margin: 0 auto;
+  .member-wrap {
+    display: flex;
+    flex-direction: row;
+    padding: 25px;
+    box-sizing: border-box;
+    width: 100%;
+
+    p {
+      font-weight: 600;
+    }
+
+    .member-container {
+      width: 80%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+
+      span {
+        margin-left: 10px;
+      }
+    }
   }
 
   .club-img {
