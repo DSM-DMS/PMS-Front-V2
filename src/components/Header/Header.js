@@ -15,12 +15,12 @@ const Header = () => {
   const logout = () => {
     dispatch(logoutUser());
     alert("로그아웃 되었습니다.");
-    history.push("/");
+    history.push("/PMS-Front-V2/");
   };
 
   return (
     <S.Header display={display}>
-      <Link to="/" className="logo">
+      <Link to="/PMS-Front-V2/" className="logo">
         <img src={PMS} alt="PMS로고이미지"></img>
       </Link>
       <S.Nav className="nav">
@@ -36,7 +36,7 @@ const Header = () => {
         </Link>
         <Link to="/MyPage">마이페이지</Link>
         {token ? (
-          <Link to="/" onClick={logout}>
+          <Link to="/PMS-Front-V2/" onClick={logout}>
             로그아웃
           </Link>
         ) : (

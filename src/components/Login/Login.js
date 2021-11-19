@@ -42,7 +42,7 @@ function Login() {
           loginUser(inputs);
         }, 7200000 - 60000);
 
-        history.push("/");
+        history.push("/PMS-Front-V2/");
       })
       .catch((err) => {
         console.log(err);
@@ -101,10 +101,6 @@ function Login() {
               >
                 이메일 혹은 비밀번호를 다시 입력해주세요.
               </span>
-              <div className="auto-login">
-                <input type="checkbox"></input>
-                <span>자동 로그인</span>
-              </div>
               <button type="submit">로그인</button>
             </S.InputWrapper>
             {/* 소셜 로그인 */}
