@@ -12,9 +12,6 @@ function MainPage() {
   const [val, setVal] = useState(0);
 
   useEffect(() => {
-    sliderRef.current.style.transition = "all 1.5s ease-in-out";
-    sliderRef.current.style.transform = `translateX(-${currentSlider}00%)`;
-
     let i = 0;
     setInterval(() => {
       i++;
@@ -28,7 +25,7 @@ function MainPage() {
     <>
       <S.MainWrapper>
         <Header />
-        <S.CodingImg>
+        <S.CodingImg val={val}>
           <div
             className="School-img"
             ref={sliderRef}

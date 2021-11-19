@@ -8,13 +8,15 @@ export const MainWrapper = styled.div`
 export const CodingImg = styled.div`
   width: 100%;
   height: 100%;
+  overflow: hidden;
 
   .School-img {
     position: absolute;
     top: -155px;
     display: flex;
     flex-direction: row;
-    width: 300vw;
+    width: 400%;
+    transition: all 1s ease-in-out;
 
     > img {
       width: 100vw;
