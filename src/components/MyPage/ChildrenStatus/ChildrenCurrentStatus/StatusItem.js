@@ -55,6 +55,14 @@ function StatusItem(props) {
         setRemainPhrase("잔류");
         setRemainComment("기숙사에 잔류합니다.");
         break;
+      case 3:
+        setRemainPhrase("토요귀사");
+        setRemainComment("금요일에 귀가, 토요일에 귀사");
+        break;
+      case 2:
+        setRemainPhrase("토요 귀가");
+        setRemainComment("토요일에 귀가, 일요일 귀사");
+        break;
       default:
         setRemainPhrase("금요 귀가");
         setRemainComment("일요일 6시 30분 이후 귀가");
@@ -110,7 +118,7 @@ function StatusItem(props) {
       return (
         <S.RemainWrapper borderColor="#56AD9E">
           <img
-            src={userInformation?.data?.["stay-status"] ? Remain : Home}
+            src={userInformation?.data?.["stay-status"] !== 1 ? Remain : Home}
             alt="잔류여부"
           ></img>
           <h2>{remainPhrase}</h2>
@@ -121,16 +129,20 @@ function StatusItem(props) {
       return (
         <S.RemainWrapper
           borderColor={
-            userInformation?.data?.["meal-applied"] ? "#56AD9E" : "#D37C7C"
+            userInformation?.data?.["meal-apply"] === 2 ? "#56AD9E" : "#D37C7C"
           }
         >
           <img
-            src={userInformation?.data?.["meal-applied"] ? MealGreen : MealRed}
+            src={
+              userInformation?.data?.["meal-apply"] === 2 ? MealGreen : MealRed
+            }
             alt="급식신청여부"
           ></img>
           <h2>
-            {userInformation?.data?.["meal-applied"]
+            {userInformation?.data?.["meal-apply"] === 2
               ? "주말 급식 신청"
+              : userInformation?.data?.["meal-apply"] === 1
+              ? "대기"
               : "주말 급식 미신청"}
           </h2>
         </S.RemainWrapper>
