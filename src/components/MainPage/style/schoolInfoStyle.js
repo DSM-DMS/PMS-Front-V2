@@ -86,6 +86,11 @@ export const CompanyInfo = styled(ClubInfo)`
     display: flex;
     flex-direction: column;
   }
+
+  img {
+    width: 90%;
+    margin: 0 auto;
+  }
 `;
 
 export const DMSInfo = styled.a`
@@ -137,8 +142,8 @@ export const PMSInfo = styled(DeveloperInfo)`
 
   .pms-img {
     margin: 6%;
-    width: 16.8%;
-    height: 63%;
+    width: 100px;
+    height: 100px;
     background-image: url(${PMS});
     background-size: auto;
   }
