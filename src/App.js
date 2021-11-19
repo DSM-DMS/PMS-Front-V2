@@ -12,7 +12,7 @@ function App() {
 
   return (
     <>
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter base="/PMS-Front-V2/">
         <Route path="/" component={UserRouter}></Route>
       </BrowserRouter>
     </>
