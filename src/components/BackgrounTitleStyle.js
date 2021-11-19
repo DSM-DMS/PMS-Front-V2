@@ -2,11 +2,9 @@ import styled from "styled-components";
 import { MainBackground } from "../assets/index";
 
 const BackgroundWrapper = styled.div`
-  width: 100%;
+  width: 100vw;
   height: 300px;
   background-image: url(${MainBackground});
-  background-size: auto;
-  overflow:auto;
 `;
 
 const TitleWrapper = styled.div`
@@ -26,7 +24,7 @@ const TopLine = styled.div`
 `;
 
 const Title = styled.p`
-display: ${({ title }) => title};
+  display: ${({ title }) => title};
   margin: 20px 0;
   font-size: 35px;
   font-weight: 700;
