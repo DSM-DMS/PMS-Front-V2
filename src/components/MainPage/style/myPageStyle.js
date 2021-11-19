@@ -47,30 +47,35 @@ export const StudentInfo = styled(SchoolInfo)`
   }
 `;
 
+export const StudenSelect = styled.div`
+  width: 74%;
+  display: flex;
+  flex-direction: column;
+`;
+
 export const StudentNameScore = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 
   .student-name-wrapper {
+    z-index: 3;
+    width: 94%;
+    height: 60px;
+    padding: 5px;
+    margin-top: 12px;
+    margin-right: 10px;
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 60px;
+    justify-content: space-between;
+    align-items: center;
     background: #ffffff;
     border-radius: 10px;
     color: black;
-    margin-top: 12px;
-    align-items: center;
-    justify-content: space-between;
 
     .student-name {
       display: flex;
       flex-direction: column;
-    }
-
-    .profile-img {
-      margin: 6px 0 0 7px;
     }
 
     .student-name-info-wrapper {
@@ -86,8 +91,8 @@ export const StudentNameScore = styled.div`
 
   .student-score-wrppaer {
     z-index: 1;
-    width: 179px;
-    height: 214px;
+    width: 33%;
+    height: 210px;
     background: #ffffff 0% 0% no-repeat padding-box;
     border-radius: 10px;
     display: flex;
@@ -132,14 +137,8 @@ export const StudentMore = styled(StudentNameScore)`
   cursor: pointer;
 `;
 
-export const StudenSelect = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
 export const ArrowImg = styled.img`
   width: 20px;
-  margin-right: 10px;
   cursor: pointer;
   transition: all 0.5s;
 `;
