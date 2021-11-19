@@ -7,6 +7,7 @@ import * as S from "./style";
 
 const Header = () => {
   const [display, setDisplay] = useState();
+  const [notice, setNotice] = useState(false);
   const token = localStorage.getItem("access-token");
   const dispatch = useDispatch();
   const history = useHistory();
@@ -25,7 +26,13 @@ const Header = () => {
       </Link>
       <S.Nav className="nav">
         <Link to="/calendar">행사일정</Link>
-        <Link to="/Notice">학교소식</Link>
+        <Link
+          to="/Notice"
+          onMouseOver={() => setNotice(!notice)}
+          onMouseOut={() => setNotice(!notice)}
+        >
+          학교소식
+        </Link>
         <Link
           to="/club-info"
           style={{ padding: "30px 0" }}
@@ -42,26 +49,45 @@ const Header = () => {
         ) : (
           <Link to="/login">로그인</Link>
         )}
+        <ul
+          id="headModal"
+          className="nav-link"
+          onMouseOver={() => setDisplay(!display)}
+          onMouseOut={() => setDisplay(!display)}
+          style={{
+            height: display ? 150 : 0,
+          }}
+        >
+          <li className="link">
+            <Link to="/company-info">취업처 소개</Link>
+          </li>
+          <li className="link">
+            <Link to="/club-info">동아리 소개</Link>
+          </li>
+          <li className="link">
+            <Link to="/creators-info">개발자 소개</Link>
+          </li>
+        </ul>
+        <ul
+          id="headModal"
+          className="nav-link-notice"
+          onMouseOver={() => setNotice(!notice)}
+          onMouseOut={() => setNotice(!notice)}
+          style={{
+            height: notice ? 150 : 0,
+          }}
+        >
+          <li className="link">
+            <Link to="/notice">공지사항</Link>
+          </li>
+          <li className="link">
+            <Link to="/familyLetter">가정통신문</Link>
+          </li>
+          <li className="link">
+            <Link to="/photo-album/page=0">포토앨범</Link>
+          </li>
+        </ul>
       </S.Nav>
-      <ul
-        id="headModal"
-        className="nav-link"
-        onMouseOver={() => setDisplay(!display)}
-        onMouseOut={() => setDisplay(!display)}
-        style={{
-          height: display ? 150 : 0,
-        }}
-      >
-        <li className="link">
-          <Link to="/company-info">취업처 소개</Link>
-        </li>
-        <li className="link">
-          <Link to="/club-info">동아리 소개</Link>
-        </li>
-        <li className="link">
-          <Link to="/creators-info">개발자 소개</Link>
-        </li>
-      </ul>
     </S.Header>
   );
 };
