@@ -1,4 +1,3 @@
-/* eslint-disable no-array-constructor */
 import React, { useState } from "react";
 import * as S from "./style";
 import { FetchMeal, FetchMealImg } from "../../utils/api/user";
@@ -9,6 +8,7 @@ function TodayMeals(props) {
   const [imgDisplay, setImgDisplay] = useState("none");
 
   function getTodayLabel(date) {
+    // eslint-disable-next-line no-array-constructor
     var week = new Array(
       "일요일",
       "월요일",
@@ -57,12 +57,6 @@ function TodayMeals(props) {
     setSelected(row.id);
   };
 
-  console.log(fetchMeal);
-
-  if (fetchMeal?.breakfast && fetchMeal?.lunch && fetchMeal?.dinner === "") {
-    console.log("오늘은 급식이 없습니다.");
-  }
-
   return (
     <S.SideWrapper>
       <S.Title>오늘의 급식</S.Title>
@@ -70,47 +64,61 @@ function TodayMeals(props) {
         {props.month}월 {props.day}일 {getTodayLabel(props.date)}
       </S.SelectData>
       <S.MealsList onClick={mealImgClickHandler}>
-        {fetchMeal?.breakfast === "" ? (
-          <>급식이 없습니다.</>
-        ) : (
+        {selected === 1 ? (
           <>
-            {selected === 1
-              ? fetchMeal?.breakfast.map((i, index) => (
-                  <span style={{ display: listDisplay }} key={index}>
-                    {i}
-                  </span>
-                ))
-              : selected === 2
-              ? fetchMeal?.lunch.map((i, index) => (
-                  <span style={{ display: listDisplay }} key={index}>
-                    {i}
-                  </span>
-                ))
-              : fetchMeal?.dinner.map((i, index) => (
-                  <span style={{ display: listDisplay }} key={index}>
-                    {i}
-                  </span>
-                ))}
-            {fetchMealImg?.breakfast ||
-            fetchMealImg?.lunch ||
-            fetchMealImg?.dinner === "" ? (
-              <div style={{ display: imgDisplay, color: "gray" }}>
-                오늘의 급식 사진이 없습니다.
-              </div>
+            {fetchMeal?.breakfast === "" ? (
+              <>급식이 없습니다.</>
             ) : (
-              <img
-                style={{ display: imgDisplay }}
-                src={
-                  selected === 1
-                    ? fetchMealImg?.breakfast
-                    : selected === 2
-                    ? fetchMealImg?.lunch
-                    : fetchMealImg?.dinner
-                }
-                alt="급식사진"
-              />
+              fetchMeal?.breakfast?.map((i, index) => (
+                <li key={index} style={{ display: listDisplay }}>
+                  {i}
+                </li>
+              ))
             )}
           </>
+        ) : selected === 2 ? (
+          <>
+            {fetchMeal?.lunch === "" ? (
+              <>급식이 없습니다.</>
+            ) : (
+              fetchMeal?.lunch?.map((i, index) => (
+                <li key={index} style={{ display: listDisplay }}>
+                  {i}
+                </li>
+              ))
+            )}
+          </>
+        ) : (
+          <>
+            {fetchMeal?.dinner === "" ? (
+              <>급식이 없습니다.</>
+            ) : (
+              fetchMeal?.dinner?.map((i, index) => (
+                <li key={index} style={{ display: listDisplay }}>
+                  {i}
+                </li>
+              ))
+            )}
+          </>
+        )}
+        {fetchMealImg?.breakfast ||
+        fetchMealImg?.lunch ||
+        fetchMealImg?.dinner === "" ? (
+          <div style={{ display: imgDisplay, color: "gray" }}>
+            오늘의 급식 사진이 없습니다.
+          </div>
+        ) : (
+          <img
+            style={{ display: imgDisplay }}
+            src={
+              selected === 1
+                ? fetchMealImg?.breakfast
+                : selected === 2
+                ? fetchMealImg?.lunch
+                : fetchMealImg?.dinner
+            }
+            alt="급식사진"
+          />
         )}
       </S.MealsList>
       <S.Nav>
