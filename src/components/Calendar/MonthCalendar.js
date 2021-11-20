@@ -1,5 +1,5 @@
 import moment from "moment";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import * as S from "./style";
 
 function MonthCalendar(props) {
@@ -116,9 +116,7 @@ function MonthCalendar(props) {
 
     return result;
   };
-  useEffect(() => {
-    console.log(props.eventDate);
-  }, [props]);
+
   return (
     <S.MiddleWrapper>
       <S.CalenderMain>
