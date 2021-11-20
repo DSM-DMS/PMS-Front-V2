@@ -33,12 +33,14 @@ const Meals = () => {
             ) : (
               <>
                 {select === 1
-                  ? fetchMeal?.breakfast.map((i, index) => (
+                  ? fetchMeal?.breakfast?.map((i, index) => (
                       <li key={index}>{i}</li>
                     ))
                   : select === 2
-                  ? fetchMeal?.lunch.map((i, index) => <li key={index}>{i}</li>)
-                  : fetchMeal?.dinner.map((i, index) => (
+                  ? fetchMeal?.lunch?.map((i, index) => (
+                      <li key={index}>{i}</li>
+                    ))
+                  : fetchMeal?.dinner?.map((i, index) => (
                       <li key={index}>{i}</li>
                     ))}
               </>
