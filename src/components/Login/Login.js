@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import * as S from "./style";
-import { BackgroundTitle, SocialButton, Footer } from "../index";
+import { BackgroundTitle, Footer } from "../index";
 import { LoginError } from "../../assets";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../actions/userAction";

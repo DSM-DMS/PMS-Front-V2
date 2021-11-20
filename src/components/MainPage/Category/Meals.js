@@ -28,21 +28,31 @@ const Meals = () => {
         <S.Title>오늘의 급식</S.Title>
         <S.MealMenu onClick={() => history.push("/calendar")}>
           <ul>
-            {fetchMeal?.breakfast[0] === "" ? (
-              <>급식이 없습니다.</>
+            {select === 1 ? (
+              <>
+                {fetchMeal?.breakfast === "" ? (
+                  <>급식이 없습니다.</>
+                ) : (
+                  fetchMeal?.breakfast?.map((i, index) => (
+                    <li key={index}>{i}</li>
+                  ))
+                )}
+              </>
+            ) : select === 2 ? (
+              <>
+                {fetchMeal?.lunch === "" ? (
+                  <>급식이 없습니다.</>
+                ) : (
+                  fetchMeal?.lunch?.map((i, index) => <li key={index}>{i}</li>)
+                )}
+              </>
             ) : (
               <>
-                {select === 1
-                  ? fetchMeal?.breakfast?.map((i, index) => (
-                      <li key={index}>{i}</li>
-                    ))
-                  : select === 2
-                  ? fetchMeal?.lunch?.map((i, index) => (
-                      <li key={index}>{i}</li>
-                    ))
-                  : fetchMeal?.dinner?.map((i, index) => (
-                      <li key={index}>{i}</li>
-                    ))}
+                {fetchMeal?.dinner === "" ? (
+                  <>급식이 없습니다.</>
+                ) : (
+                  fetchMeal?.dinner?.map((i, index) => <li key={index}>{i}</li>)
+                )}
               </>
             )}
           </ul>

@@ -118,24 +118,20 @@ const ItemListWrapper = styled.div`
 `;
 
 const ItemBox = styled.div`
-  cursor: pointer;
   margin: 1%;
+  padding: 1%;
+  box-sizing: border-box;
+  cursor: pointer;
   width: 21.7%;
-  height: 200px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 0px 5px 5px #00000029;
   border: 2px solid #c8c8c861;
   border-radius: 5px;
   transition: 0.5s all;
+
   :hover {
     border: 2px solid #5d51ce;
   }
-`;
-
-const ItemContainer = styled.div`
-  width: 93%;
-  height: 180px;
-  margin: 4%;
 
   :hover img {
     transform: scale(1.1);
@@ -155,7 +151,6 @@ const ItemContainer = styled.div`
       transition: opacity 0.5s ease 0s, transform 0.5s ease 0s;
     }
   }
-
   h3 {
     margin: 9px 0;
     font-size: 16px;
@@ -348,7 +343,6 @@ export {
   ItemBoxWrapper,
   ItemListWrapper,
   ItemBox,
-  ItemContainer,
   ModalWrapper,
   ModalItem,
   ModalHeader,
