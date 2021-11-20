@@ -60,7 +60,7 @@ const InputWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  border-right: 1.5px solid #9e9e9e;
+  // border-right: 1.5px solid #9e9e9e;
 
   input {
     font-size: 16px;
