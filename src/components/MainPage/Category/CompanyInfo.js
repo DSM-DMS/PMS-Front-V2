@@ -14,7 +14,7 @@ const CompanyInfo = () => {
   return (
     <>
       <S.CompanyInfo onClick={CompanyClickHandler}>
-        <Link to="/company-info">
+        <Link to="/PMS-Front-V2/company-info">
           <div className="container club">
             <S.Title>취업처 소개</S.Title>
             <div className="club-info">

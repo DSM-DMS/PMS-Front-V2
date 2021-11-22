@@ -22,7 +22,7 @@ const ClubCategory = () => {
 
   return (
     <S.ClubInfo style={{ overflow: "hidden" }}>
-      <Link to="/club-info">
+      <Link to="/PMS-Front-V2/club-info">
         <div className="container club">
           <S.Title>동아리 소개</S.Title>
           <div className="club-info">

@@ -55,7 +55,9 @@ const SchoolInfo = () => {
                 <li
                   key={notice.id}
                   onClick={() =>
-                    history.push(`familyLetterWritten/${notice.id}`)
+                    history.push(
+                      `/PMS-Front-V2/familyLetterWritten/${notice.id}`
+                    )
                   }
                 >
                   <span>{textSlice(notice.title, 25)}</span>
@@ -68,7 +70,9 @@ const SchoolInfo = () => {
               {fetchNotice?.notices.map((notice) => (
                 <li
                   key={notice.id}
-                  onClick={() => history.push(`noticeWritten/${notice.id}`)}
+                  onClick={() =>
+                    history.push(`/PMS-Front-V2/noticeWritten/${notice.id}`)
+                  }
                 >
                   <span>{textSlice(notice.title, 30)}</span>
                   <span>{notice[`${uploadDate}`]}</span>

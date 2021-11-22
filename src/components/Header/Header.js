@@ -25,29 +25,29 @@ const Header = () => {
         <img src={PMS} alt="PMS로고이미지"></img>
       </Link>
       <S.Nav className="nav">
-        <Link to="/calendar">행사일정</Link>
+        <Link to="/PMS-Front-V2/calendar">행사일정</Link>
         <Link
-          to="/Notice"
+          to="/PMS-Front-V2/notice"
           onMouseOver={() => setNotice(!notice)}
           onMouseOut={() => setNotice(!notice)}
         >
           학교소식
         </Link>
         <Link
-          to="/club-info"
+          to="/PMS-Front-V2/club-info"
           style={{ padding: "30px 0" }}
           onMouseOver={() => setDisplay(!display)}
           onMouseOut={() => setDisplay(!display)}
         >
           소개
         </Link>
-        <Link to="/MyPage">마이페이지</Link>
+        <Link to="/PMS-Front-V2/MyPage">마이페이지</Link>
         {token ? (
           <Link to="/PMS-Front-V2/" onClick={logout}>
             로그아웃
           </Link>
         ) : (
-          <Link to="/login">로그인</Link>
+          <Link to="/PMS-Front-V2/login">로그인</Link>
         )}
         <ul
           id="headModal"
@@ -59,13 +59,13 @@ const Header = () => {
           }}
         >
           <li className="link">
-            <Link to="/company-info">취업처 소개</Link>
+            <Link to="/PMS-Front-V2/company-info">취업처 소개</Link>
           </li>
           <li className="link">
-            <Link to="/club-info">동아리 소개</Link>
+            <Link to="/PMS-Front-V2/club-info">동아리 소개</Link>
           </li>
           <li className="link">
-            <Link to="/creators-info">개발자 소개</Link>
+            <Link to="/PMS-Front-V2/creators-info">개발자 소개</Link>
           </li>
         </ul>
         <ul
@@ -78,13 +78,13 @@ const Header = () => {
           }}
         >
           <li className="link">
-            <Link to="/notice">공지사항</Link>
+            <Link to="/PMS-Front-V2/notice">공지사항</Link>
           </li>
           <li className="link">
-            <Link to="/familyLetter">가정통신문</Link>
+            <Link to="/PMS-Front-V2/familyLetter">가정통신문</Link>
           </li>
           <li className="link">
-            <Link to="/photo-album/page=0">포토앨범</Link>
+            <Link to="/PMS-Front-V2/photo-album/page=0">포토앨범</Link>
           </li>
         </ul>
       </S.Nav>

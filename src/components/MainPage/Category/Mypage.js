@@ -76,7 +76,7 @@ const Mypage = (props) => {
   }, [studentData, userData, stdSelect, stdGrade, stdNumber, stdCls, token]);
 
   const LoginBtnClick = () => {
-    props.history.push("/login");
+    props.history.push("/PMS-Front-V2/login");
   };
 
   return (

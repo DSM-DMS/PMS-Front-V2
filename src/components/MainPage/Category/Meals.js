@@ -26,7 +26,7 @@ const Meals = () => {
     <S.TodayMeals>
       <div className="container meal">
         <S.Title>오늘의 급식</S.Title>
-        <S.MealMenu onClick={() => history.push("/calendar")}>
+        <S.MealMenu onClick={() => history.push("/PMS-Front-V2/calendar")}>
           <ul>
             {select === 1 ? (
               <>
