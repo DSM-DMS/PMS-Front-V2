@@ -1,5 +1,5 @@
 import React from "react";
-import { Switch, Route, BrowserRouter } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
 import {
   FamilyLetter,
@@ -22,40 +22,24 @@ function UserRouter() {
   return (
     // <BrowserRouter>
     <Switch>
-      <Route path="/PMS-Front-V2/" component={MainPage} exact />
-      <Route path="/PMS-Front-V2/notice" component={Notice} exact />
-      <Route path="/PMS-Front-V2/mypage" component={MyPage} exact />
+      <Route path="/" component={MainPage} exact />
+      <Route path="/notice" component={Notice} exact />
+      <Route path="/mypage" component={MyPage} exact />
       <Route
-        path="/PMS-Front-V2/familyLetterWritten/:id"
+        path="/familyLetterWritten/:id"
         component={FamilyLetterWritten}
         exact
       />
-      <Route path="/PMS-Front-V2/login" component={Login} exact />
-      <Route path="/PMS-Front-V2/sign-up" component={SignUp} exact />
-      <Route path="/PMS-Front-V2/calendar" component={Calendar} exact />
-      <Route
-        path="/PMS-Front-V2/creators-info"
-        component={CreatorsInfo}
-        exact
-      />
-      <Route path="/PMS-Front-V2/club-info" component={ClubInfo} exact />
-      <Route path="/PMS-Front-V2/company-info" component={CompanyInfo} exact />
-      <Route path="/PMS-Front-V2/familyLetter" component={FamilyLetter} exact />
-      <Route
-        path="/PMS-Front-V2/noticeWritten/:id"
-        component={NoticeWritten}
-        exact
-      />
-      <Route
-        path="/PMS-Front-V2/photo-album/page=:page"
-        component={PhotoAlbum}
-        exact
-      />
-      <Route
-        path="/PMS-Front-V2/photo-album/:id"
-        component={PhotoDetail}
-        exact
-      />
+      <Route path="/login" component={Login} exact />
+      <Route path="/sign-up" component={SignUp} exact />
+      <Route path="/calendar" component={Calendar} exact />
+      <Route path="/creators-info" component={CreatorsInfo} exact />
+      <Route path="/club-info" component={ClubInfo} exact />
+      <Route path="/company-info" component={CompanyInfo} exact />
+      <Route path="/familyLetter" component={FamilyLetter} exact />
+      <Route path="/noticeWritten/:id" component={NoticeWritten} exact />
+      <Route path="/photo-album/page=:page" component={PhotoAlbum} exact />
+      <Route path="/photo-album/:id" component={PhotoDetail} exact />
     </Switch>
     //</BrowserRouter>
   );
