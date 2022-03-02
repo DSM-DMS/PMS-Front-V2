@@ -16,38 +16,38 @@ const Header = () => {
   const logout = () => {
     dispatch(logoutUser());
     alert("로그아웃 되었습니다.");
-    history.push("/PMS-Front-V2/");
+    history.push("/");
   };
 
   return (
     <S.Header display={display}>
-      <Link to="/PMS-Front-V2/" className="logo">
+      <Link to="/" className="logo">
         <img src={PMS} alt="PMS로고이미지"></img>
       </Link>
       <S.Nav className="nav">
-        <Link to="/PMS-Front-V2/calendar">행사일정</Link>
+        <Link to="/calendar">행사일정</Link>
         <Link
-          to="/PMS-Front-V2/notice"
+          to="/notice"
           onMouseOver={() => setNotice(!notice)}
           onMouseOut={() => setNotice(!notice)}
         >
           학교소식
         </Link>
         <Link
-          to="/PMS-Front-V2/club-info"
+          to="/club-info"
           style={{ padding: "30px 0" }}
           onMouseOver={() => setDisplay(!display)}
           onMouseOut={() => setDisplay(!display)}
         >
           소개
         </Link>
-        <Link to="/PMS-Front-V2/MyPage">마이페이지</Link>
+        <Link to="/MyPage">마이페이지</Link>
         {token ? (
-          <Link to="/PMS-Front-V2/" onClick={logout}>
+          <Link to="/" onClick={logout}>
             로그아웃
           </Link>
         ) : (
-          <Link to="/PMS-Front-V2/login">로그인</Link>
+          <Link to="/login">로그인</Link>
         )}
         <ul
           id="headModal"
@@ -59,13 +59,13 @@ const Header = () => {
           }}
         >
           <li className="link">
-            <Link to="/PMS-Front-V2/company-info">취업처 소개</Link>
+            <Link to="/company-info">취업처 소개</Link>
           </li>
           <li className="link">
-            <Link to="/PMS-Front-V2/club-info">동아리 소개</Link>
+            <Link to="/club-info">동아리 소개</Link>
           </li>
           <li className="link">
-            <Link to="/PMS-Front-V2/creators-info">개발자 소개</Link>
+            <Link to="/creators-info">개발자 소개</Link>
           </li>
         </ul>
         <ul
@@ -78,13 +78,13 @@ const Header = () => {
           }}
         >
           <li className="link">
-            <Link to="/PMS-Front-V2/notice">공지사항</Link>
+            <Link to="/notice">공지사항</Link>
           </li>
           <li className="link">
-            <Link to="/PMS-Front-V2/familyLetter">가정통신문</Link>
+            <Link to="/familyLetter">가정통신문</Link>
           </li>
           <li className="link">
-            <Link to="/PMS-Front-V2/photo-album/page=0">포토앨범</Link>
+            <Link to="/photo-album/page=0">포토앨범</Link>
           </li>
         </ul>
       </S.Nav>
